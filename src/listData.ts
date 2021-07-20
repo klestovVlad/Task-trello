@@ -3,21 +3,21 @@ interface IComment{
   author: string;
 }
 
-interface ICard {
-    name?: string;
-    author?: string;
-    text?: string;
+export interface ICard {
+    name: string;
+    author: string;
+    text: string;
     comment: IComment[]
 }
 
-interface dataStructure {
+export interface IdataStructure {
   id: number;
   listName: string;
   isCardAdding: boolean;
   cards: ICard[];
 }
 
-const DeafultData:dataStructure[] = [
+const DeafultData:IdataStructure[] = [
   {
     id: 0,
     listName: 'TODO',
@@ -25,7 +25,7 @@ const DeafultData:dataStructure[] = [
     cards: [{
       name: "check the trainee's practical assignment",
       author: 'Klestov Vlad',
-      text: 'Again an ignorant trainee tried to do something worthwhile, and now you need to understand this shitty code...',
+      text: '',
       comment: [
         {
           text: 'hello! :-)',
