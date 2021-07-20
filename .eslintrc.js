@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'airbnb',
+    //'airbnb',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,5 +21,6 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 };
