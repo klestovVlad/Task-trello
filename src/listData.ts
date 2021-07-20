@@ -23,12 +23,12 @@ const DeafultData:IdataStructure[] = [
     listName: 'TODO',
     isCardAdding: false,
     cards: [{
-      name: "check the trainee's practical assignment",
+      name: "demo card",
       author: 'Klestov Vlad',
-      text: '',
+      text: 'card have added for demonstration',
       comment: [
         {
-          text: 'hello! :-)',
+          text: 'my comment',
           author: 'Klestov Vladislav',
         },
       ],

@@ -22,7 +22,7 @@ export const PopUpCard = styled.div`
   transform: translate(-50%,-50%);
   color: #172b4d;
   min-width:700px;
-  max-height: 700px;
+  max-height: 800px;
   overflow-x: auto;
 `;
 
