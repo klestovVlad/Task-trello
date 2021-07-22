@@ -17,13 +17,18 @@ export interface IdataStructure {
   cards: ICard[];
 }
 
+export interface Idata {
+  deafult: IdataStructure[];
+  localStorage: IdataStructure[];
+}
+
 const DeafultData:IdataStructure[] = [
   {
     id: 0,
     listName: 'TODO',
     isCardAdding: false,
     cards: [{
-      name: "demo card",
+      name: 'demo card',
       author: 'Klestov Vlad',
       text: 'card have added for demonstration',
       comment: [

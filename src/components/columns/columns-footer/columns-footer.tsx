@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   AddNewCard, CardInput, AddCardButtn, CancelCardButtn,
-} from '../styles/columnStyles';
+} from '../styles';
 
 interface ColumnsFooterProps {
   columnId: number;
@@ -12,18 +12,22 @@ interface ColumnsFooterProps {
 
 
 
-const ColumnsFooter:React.FC<ColumnsFooterProps> = (props) => {
+const ColumnsFooter:React.FC<ColumnsFooterProps> = ({columnId,
+  isCardAdding,
+  toggleVisibilityAddCardField,
+  pushNewCard,
+}) => {
   const [cardName, setCardName] = useState('');
 
   function addNewCard(columnId:number, cardName:string) {
-    props.pushNewCard(columnId, cardName);
+    pushNewCard(columnId, cardName);
     setCardName('')
   }
 
-  if (!props.isCardAdding) {
+  if (!isCardAdding) {
     return (
       <AddNewCard
-        onClick={() => props.toggleVisibilityAddCardField(props.columnId)}
+        onClick={() => toggleVisibilityAddCardField(columnId)}
       >
         + Add new card
       </AddNewCard>
@@ -38,18 +42,18 @@ const ColumnsFooter:React.FC<ColumnsFooterProps> = (props) => {
         onChange={(e) => setCardName(e.target.value)}
         onKeyDown={(ev) => {
           if (ev.key === 'Enter') {
-            addNewCard(props.columnId, cardName);
+            addNewCard(columnId, cardName);
           }
         }}
       />
       <AddCardButtn
-        onClick={() => addNewCard(props.columnId, cardName)}
+        onClick={() => addNewCard(columnId, cardName)}
       >
         add card
       </AddCardButtn>
       <CancelCardButtn
         className="fas fa-times"
-        onClick={() => props.toggleVisibilityAddCardField(-1)}
+        onClick={() => toggleVisibilityAddCardField(-1)}
       />
     </>
   );

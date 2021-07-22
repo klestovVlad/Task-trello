@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { ICard } from '../listData';
-import Card from '../styles/CardStyles';
+import { ICard } from '../../listData';
+import Card from './styles';
 
 interface CardsProps {
   cardNum: number;
@@ -9,12 +8,12 @@ interface CardsProps {
   showCardPopup(columnId:number, cardNum:number):void;
 }
 
-const Cards:React.FC<CardsProps> = (props) => {
-  const currentCard:ICard = props.cardsData[props.cardNum];
+const Cards:React.FC<CardsProps> = ({ cardNum, columnId, cardsData, showCardPopup }) => {
+  const currentCard:ICard = cardsData[cardNum];
   return (
     <>
       <Card
-        onClick={() => props.showCardPopup(props.columnId,props.cardNum)}
+        onClick={() => showCardPopup(columnId,cardNum)}
       >
         <p>{currentCard.name}</p>
         <p className="far fa-comment">

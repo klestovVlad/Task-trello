@@ -5,19 +5,19 @@ import {
   Question,
   Input,
   ButtonApply,
-} from '../styles/newUserPopupStyle';
+} from './styles';
 
 interface NewUserPopupProps {
   isPopupShow: boolean;
   newUserName(userName:string):void;
 }
 
-const NewUserPopup:React.FC<NewUserPopupProps> = (props) => {
+const NewUserPopup:React.FC<NewUserPopupProps> = ({isPopupShow, newUserName}) => {
   const [userName, setuserName] = useState('');
   const nameAply = () => {
-    props.newUserName(userName);
+    newUserName(userName);
   };
-  if (props.isPopupShow) {
+  if (isPopupShow) {
     return (
       <Shadow>
         <Popup>

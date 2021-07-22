@@ -48,12 +48,6 @@ export const CardHeader = styled.input`
   
 `;
 
-export const CardCommentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow:1;
-`;
-
 export const H3 = styled.h3`
   display:inline-block;
   margin: 35px 0 0 0;
@@ -75,7 +69,6 @@ export const CommentRowContainer = styled.div`
   position: relative;
   display: flex;
   margin: 35px 0 10px 0;
-
 `;
 
 export const AutorLogo = styled.div`
@@ -115,11 +108,7 @@ export const NewCommentInput = styled.textarea<NewCommentInputProps>`
   font-size: 14px
 `;
 
-export const Сaption = styled.span`
-  margin:0;
-  text-decoration: underline;
-  cursor:pointer;
-`;
+
 export const DeleteButton = styled.button`
   border: none;
   background: none;
