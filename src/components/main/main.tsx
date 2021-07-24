@@ -3,7 +3,8 @@ import { Columns } from '../columns/index';
 import listData, { IdataStructure } from '../../listData';
 import { CardPopup } from '../card-popup/index';
 import { NewUserPopup } from '../new-user-popup/index';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import dataContext from '../../context/data'
 
 const Main:React.FC = () => {
   const [toggleStateProps,setToggleStateProps] = useState(false)
@@ -13,6 +14,7 @@ const Main:React.FC = () => {
   const [isPopupNewUserShow, setIsPopupNewUserShow]= useState(localStorage.userName === undefined)
   const [textAreaFocus, setTextAreaFocus] = useState(-2)
   const [commentCode,setCommentCode] = useState('//')
+  const data = useContext(dataContext)
 
   const dataChange = () => {
     setToggleStateProps(!toggleStateProps);
@@ -44,8 +46,9 @@ const Main:React.FC = () => {
   const cardNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     columnId:number, cardNum:number) => {
-    listData[columnId].cards[cardNum].name = event.target.value;
-    dataChange();
+    data.data[columnId].cards[cardNum].name = event.target.value;
+    data.setData(data.data)
+    console.log(data)
   };
 
   const cardDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -57,6 +60,8 @@ const Main:React.FC = () => {
 
   const columnNameChange = (event: React.ChangeEvent<HTMLInputElement>, id:number) => {
     listData[id].listName = event.target.value;
+    data.data[id].listName = event.target.value;
+    data.setData(data.data)
     dataChange();
   };
 

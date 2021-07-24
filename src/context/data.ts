@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext } from 'react';
 
 interface IComment{
   text: string;
@@ -19,13 +19,7 @@ export interface IdataStructure {
   cards: ICard[];
 }
 
-export interface Idata {
-  deafult: IdataStructure[];
-  localStorage: IdataStructure[];
-}
-
-export const data:Idata = {
-  deafult: [
+export const data:IdataStructure[] = [
     {
       id: 0,
       listName: 'TODO',
@@ -64,10 +58,13 @@ export const data:Idata = {
       cards: [
       ],
     },
-  ],
-  localStorage: JSON.parse(localStorage.listData),
-};
+  ];
 
-const dataContext = React.createContext(data.deafult);
+
+
+const dataContext = createContext({
+  data: data,
+  setData: (value: IdataStructure[]) => {}
+})
 
 export default dataContext;
