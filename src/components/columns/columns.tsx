@@ -2,8 +2,7 @@ import { useState, useContext } from 'react';
 import { Column, ColumnName } from './styles';
 import { Cards } from '../cards/index';
 import { ColumnsFooter } from './columns-footer/index';
-import { IdataStructure } from '../../listData';
-import dataContext from '../../context/data'
+import { IdataStructure } from '../../context/data';
 
 interface ColumnProps {
   data:IdataStructure;
@@ -20,16 +19,17 @@ const Columns:React.FC<ColumnProps> = ({
   pushNewCard,
   showCardPopup
 }) => {
-  const dataset = useContext(dataContext)
+  const [title, setTitle] = useState<string>(data.listName);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
     columnNameChange(event, data.id);
   };
 
   return (
     <Column>
       <ColumnName
-        value={dataset.data[data.id].listName}
+        value={title}
         onChange={changeHandler}
       />
       {

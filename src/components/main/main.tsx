@@ -1,10 +1,9 @@
 import Board from './styles';
 import { Columns } from '../columns/index';
-import listData, { IdataStructure } from '../../listData';
 import { CardPopup } from '../card-popup/index';
 import { NewUserPopup } from '../new-user-popup/index';
 import { useContext, useState } from 'react';
-import dataContext from '../../context/data'
+import dataContext, { IdataStructure } from '../../context/data'
 
 const Main:React.FC = () => {
   const [toggleStateProps,setToggleStateProps] = useState(false)
@@ -18,12 +17,13 @@ const Main:React.FC = () => {
 
   const dataChange = () => {
     setToggleStateProps(!toggleStateProps);
-    localStorage.listData = JSON.stringify(listData);
+    localStorage.listData = JSON.stringify(data.data);
+    data.setData(data.data)
   }
 
   const pushNewCard = (columnId:number, cardName:string) => {
     if (cardName.length > 0) {
-      listData[columnId].cards.push({
+      data.data[columnId].cards.push({
         name: cardName,
         author: localStorage.userName,
         text: '',
@@ -47,19 +47,17 @@ const Main:React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     columnId:number, cardNum:number) => {
     data.data[columnId].cards[cardNum].name = event.target.value;
-    data.setData(data.data)
-    console.log(data)
+    dataChange();
   };
 
   const cardDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>,
     columnId:number,
     cardNum:number) => {
-    listData[columnId].cards[cardNum].text = event.target.value;
+    data.data[columnId].cards[cardNum].text = event.target.value;
     dataChange();
   };
 
   const columnNameChange = (event: React.ChangeEvent<HTMLInputElement>, id:number) => {
-    listData[id].listName = event.target.value;
     data.data[id].listName = event.target.value;
     data.setData(data.data)
     dataChange();
@@ -70,7 +68,7 @@ const Main:React.FC = () => {
   }
 
   const addNewComment = (columnId:number, cardNum:number, newComment:string) => {
-    listData[columnId].cards[cardNum].comment.push({
+    data.data[columnId].cards[cardNum].comment.push({
       text: newComment,
       author: localStorage.userName,
     });
@@ -82,17 +80,17 @@ const Main:React.FC = () => {
   }
 
   const commentEditSave = (columnId:number, cardNum:number, conmentNum:number, newComment:string) => {
-    listData[columnId].cards[cardNum].comment[conmentNum].text = newComment;
+    data.data[columnId].cards[cardNum].comment[conmentNum].text = newComment;
     dataChange();
   }
 
   const commentDelite = (columnId:number, cardNum:number, conmentNum:number) => {
-    listData[columnId].cards[cardNum].comment.splice(conmentNum, 1);
+    data.data[columnId].cards[cardNum].comment.splice(conmentNum, 1);
     dataChange();
   }
 
   const deleteCard = (columnId:number, cardNum:number) => {
-    listData[columnId].cards.splice(cardNum, 1);
+    data.data[columnId].cards.splice(cardNum, 1);
     dataChange();
   }
 
@@ -104,7 +102,7 @@ const Main:React.FC = () => {
   }
 
   const toggleVisibilityAddCardField = (id:number) => {
-    listData.map((item:IdataStructure) => (
+    data.data.map((item:IdataStructure) => (
       item.isCardAdding = item.id == id ? !item.isCardAdding : false
     ));
     dataChange();
@@ -113,7 +111,7 @@ const Main:React.FC = () => {
   return (
     <>
       <Board>
-        {listData.map((item:IdataStructure) => (
+        {data.data.map((item:IdataStructure) => (
           <Columns
             key={item.id}
             data={item}

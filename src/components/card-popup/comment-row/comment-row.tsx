@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { ICard } from '../../../listData';
+import { ICard } from '../../../context/data';
 import { CardCommentContainer, Сaption } from './styles';
 import { returnTwoLetterFromName } from '../card-popup';
 

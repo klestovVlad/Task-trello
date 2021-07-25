@@ -1,4 +1,4 @@
-import { ICard } from '../../listData';
+import { ICard } from '../../context/data';
 import Card from './styles';
 
 interface CardsProps {

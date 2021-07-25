@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import listData, { ICard } from '../../listData';
+import { useContext, useState } from 'react';
 import { CommentRow } from './comment-row/index';
+import dataContext, { ICard } from '../../context/data'
 
 import {
   ShadowCard,
@@ -19,6 +19,8 @@ import {
 export function returnTwoLetterFromName(name:string) {
   return name.split(' ').map((i) => i[0]).slice(0, 2).join('');
 }
+
+
 
 interface CardPopupProps {
   columnId: number;
@@ -61,9 +63,10 @@ const CardPopup:React.FC<CardPopupProps> = ({
   deleteCard,
 }) => {
   let thisCard:ICard;
-
-  if (listData[columnId].cards.length > 0) {
-    thisCard = listData[columnId].cards[cardNum];
+  const data = useContext(dataContext)
+  
+  if (data.data[columnId].cards.length > 0) {
+    thisCard = data.data[columnId].cards[cardNum];
   } else {
     thisCard = {
       name: '',
@@ -117,7 +120,7 @@ const CardPopup:React.FC<CardPopupProps> = ({
 
           <p>
             in column
-            {listData[columnId].listName}
+            {data.data[columnId].listName}
           </p>
 
           <i className="fa fa-list" aria-hidden="true"> </i>
