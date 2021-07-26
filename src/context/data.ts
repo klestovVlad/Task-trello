@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext } from "react";
 
 interface IComment {
   text: string;
@@ -20,8 +20,10 @@ export interface IdataStructure {
   cards: ICard[];
 }
 
-export const data: IdataStructure[] = [
-  {
+export const data: {
+  [key: string]: IdataStructure;
+} = {
+  0: {
     id: 0,
     listName: "TODO",
     isCardAdding: false,
@@ -39,37 +41,41 @@ export const data: IdataStructure[] = [
       },
     ],
   },
-  {
+  1: {
     id: 1,
     listName: "In Progress",
     isCardAdding: false,
     cards: [],
   },
-  {
+  2: {
     id: 2,
     listName: "Testing",
     isCardAdding: false,
     cards: [],
   },
-  {
+  3: {
     id: 3,
     listName: "Done",
     isCardAdding: false,
     cards: [],
   },
-];
+};
 
-const localData = localStorage.data !== undefined;
+const islocalDataExist = localStorage.data !== undefined;
 
-if (localData) {
-  data.length = 0;
-  data.push(...JSON.parse(localStorage.data));
-  console.log(data);
+if (islocalDataExist) {
+  const localData = JSON.parse(localStorage.data);
+  for (const key in data) {
+    delete data[key];
+  }
+  for (const key in localData) {
+    data[key] = localData[key];
+  }
 }
 
 interface DataContextValue {
-  data: IdataStructure[];
-  setData: Dispatch<SetStateAction<IdataStructure[]>>;
+  data: { [key: string]: IdataStructure };
+  setData: any;
 }
 
 const DataContext = createContext<DataContextValue>({

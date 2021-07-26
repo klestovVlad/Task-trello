@@ -16,7 +16,7 @@ const Columns: FC<ColumnProps> = ({ data, setData, showCardPopup }) => {
 
   const columnNameChange = (event: ChangeEvent<HTMLInputElement>, id: number) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[id].listName = event.target.value;
       return copyState;
     });
@@ -28,26 +28,26 @@ const Columns: FC<ColumnProps> = ({ data, setData, showCardPopup }) => {
   };
 
   const toggleVisibilityAddCardField = (id: number) => {
-    setData((data) => {
-      const copyData = [...data];
-      copyData.map((item: IdataStructure) => {
-        item.isCardAdding = item.id == id ? true : false;
-      });
-      return copyData;
+    setData((state) => {
+      const copyState = { ...state };
+      for (const key in copyState) {
+        copyState[key].isCardAdding = +key === id ? true : false;
+      }
+      copyState[id].isCardAdding = true;
+      return copyState;
     });
   };
 
   const pushNewCard = (columnId: number, cardName: string) => {
     if (cardName.length > 0) {
       setData((state) => {
-        const copyState = [...state];
-        const columnIdIndex = state.findIndex(({ id }) => id === columnId);
-        if (columnIdIndex === -1) {
+        const copyState = { ...state };
+        if (columnId === -1) {
           return state;
         }
-        copyState[columnIdIndex] = {
-          ...copyState[columnIdIndex],
-          cards: copyState[columnIdIndex].cards.concat({
+        copyState[columnId] = {
+          ...copyState[columnId],
+          cards: copyState[columnId].cards.concat({
             name: cardName,
             author: localStorage.userName,
             text: "",

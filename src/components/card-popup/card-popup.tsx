@@ -67,7 +67,7 @@ const CardPopup: FC<CardPopupProps> = ({
     cardNum: number,
   ) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[columnId].cards[cardNum].name = event.target.value;
       return copyState;
     });
@@ -84,7 +84,7 @@ const CardPopup: FC<CardPopupProps> = ({
     cardNum: number,
   ) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[columnId].cards[cardNum].text = event.target.value;
       return copyState;
     });
@@ -101,7 +101,7 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const addNewComment = (columnId: number, cardNum: number, newComment: string) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[columnId].cards[cardNum].comment.push({
         text: newComment,
         author: localStorage.userName,
@@ -126,7 +126,7 @@ const CardPopup: FC<CardPopupProps> = ({
     newComment: string,
   ) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[columnId].cards[cardNum].comment[conmentNum].text = newComment;
       return copyState;
     });
@@ -134,7 +134,7 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const commentDelite = (columnId: number, cardNum: number, conmentNum: number) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[columnId].cards[cardNum].comment.splice(conmentNum, 1);
       return copyState;
     });
@@ -142,7 +142,7 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const deleteCard = (columnId: number, cardNum: number) => {
     setData((state) => {
-      const copyState = [...state];
+      const copyState = { ...state };
       copyState[columnId].cards.splice(cardNum, 1);
       return copyState;
     });

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { FC, useContext, useState } from "react";
 
-import dataContext, { IdataStructure } from "../../context/data";
+import dataContext from "../../context/data";
 import { CardPopup } from "../card-popup/index";
 import { Columns } from "../columns/index";
 import { NewUserPopup } from "../new-user-popup/index";
@@ -48,16 +48,15 @@ const Main: FC = () => {
 
   useEffect(() => {
     localStorage.data = JSON.stringify(data);
-    console.log(JSON.parse(localStorage.data));
   });
 
   return (
     <>
       <Board>
-        {data.map((item: IdataStructure) => (
+        {Object.keys(data).map((item) => (
           <Columns
-            key={item.id}
-            data={item}
+            key={data[item].id}
+            data={data[item]}
             setData={setData}
             showCardPopup={showCardPopup}
           />
