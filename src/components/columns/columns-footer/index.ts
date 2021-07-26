@@ -1,1 +1,1 @@
-export { default as ColumnsFooter } from './columns-footer';
+export { default as ColumnsFooter } from "./columns-footer";

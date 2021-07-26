@@ -1,1 +1,1 @@
-export { default as CardPopup } from './card-popup';
+export { default as CardPopup } from "./card-popup";
