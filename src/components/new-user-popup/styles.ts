@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Shadow = styled.div`
   position: absolute;
@@ -16,35 +16,36 @@ export const Popup = styled.div`
   padding: 25px;
   background-color: white;
   border-radius: 10px;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%)
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 export const Question = styled.h2`
-  background: linear-gradient(96.5deg, #E9AEE7 0%, #F8848B 100%);
+  background: linear-gradient(96.5deg, #e9aee7 0%, #f8848b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  max-width:400px;
+  max-width: 400px;
   text-align: center;
   font-size: 36px;
   padding: 15px;
   margin-top: 0;
 `;
 export const Input = styled.input`
-  background: #EFEFEF;
+  background: #efefef;
   width: 100%;
   height: 50px;
   border-radius: 5px;
   font-size: 18px;
-  color: #172B4D;
+  color: #172b4d;
 `;
 
-interface ButtonApplyProps{
-  startInput: boolean
+interface ButtonApplyProps {
+  startInput: boolean;
 }
 
 export const ButtonApply = styled.button<ButtonApplyProps>`
-  background: ${(props) => (props.startInput ? 'linear-gradient(96.5deg, #E9AEE7 0%, #F8848B 100%)' : 'grey')}; 
+  background: ${(props) =>
+    props.startInput ? "linear-gradient(96.5deg, #E9AEE7 0%, #F8848B 100%)" : "grey"};
   padding: 10px;
   font-family: inherit;
   font-size: 16px;
@@ -56,5 +57,5 @@ export const ButtonApply = styled.button<ButtonApplyProps>`
   cursor: pointer;
   color: white;
   border: none;
-  display: block;  
+  display: block;
 `;

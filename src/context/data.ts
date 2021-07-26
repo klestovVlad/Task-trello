@@ -1,15 +1,15 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from "react";
 
-interface IComment{
+interface IComment {
   text: string;
   author: string;
 }
 
 export interface ICard {
-    name: string;
-    author: string;
-    text: string;
-    comment: IComment[]
+  name: string;
+  author: string;
+  text: string;
+  comment: IComment[];
 }
 
 export interface IdataStructure {
@@ -19,52 +19,54 @@ export interface IdataStructure {
   cards: ICard[];
 }
 
-export const data:IdataStructure[] = [
-    {
-      id: 0,
-      listName: 'TODO',
-      isCardAdding: false,
-      cards: [{
-        name: 'demo card',
-        author: 'Klestov Vlad',
-        text: 'card have added for demonstration',
+export const data: IdataStructure[] = [
+  {
+    id: 0,
+    listName: "TODO",
+    isCardAdding: false,
+    cards: [
+      {
+        name: "demo card",
+        author: "Klestov Vlad",
+        text: "card have added for demonstration",
         comment: [
           {
-            text: 'my comment',
-            author: 'Klestov Vladislav',
+            text: "my comment",
+            author: "Klestov Vladislav",
           },
         ],
       },
-      ],
-    },
-    {
-      id: 1,
-      listName: 'In Progress',
-      isCardAdding: false,
-      cards: [
-      ],
-    },
-    {
-      id: 2,
-      listName: 'Testing',
-      isCardAdding: false,
-      cards: [
-      ],
-    },
-    {
-      id: 3,
-      listName: 'Done',
-      isCardAdding: false,
-      cards: [
-      ],
-    },
-  ];
+    ],
+  },
+  {
+    id: 1,
+    listName: "In Progress",
+    isCardAdding: false,
+    cards: [],
+  },
+  {
+    id: 2,
+    listName: "Testing",
+    isCardAdding: false,
+    cards: [],
+  },
+  {
+    id: 3,
+    listName: "Done",
+    isCardAdding: false,
+    cards: [],
+  },
+];
 
+interface DataContextValue {
+  data: IdataStructure[];
+  setData: Dispatch<SetStateAction<IdataStructure[]>>;
+}
 
-
-const dataContext = createContext({
+const dataContext = createContext<DataContextValue>({
   data: data,
-  setData: (value: IdataStructure[]) => {}
-})
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setData: () => {},
+});
 
 export default dataContext;

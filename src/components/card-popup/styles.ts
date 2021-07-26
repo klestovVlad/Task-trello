@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ShadowCard = styled.div`
   position: absolute;
@@ -31,7 +31,7 @@ export const PopUpCard = styled.div`
 export const CloseIcon = styled.i`
   position: absolute;
   top: 25px;
-  right:25px;
+  right: 25px;
   cursor: pointer;
 `;
 
@@ -44,14 +44,13 @@ export const CardHeader = styled.input`
   line-height: 24px;
   min-height: 32px;
   padding: 4px 0;
-  color:#172b4d;
-  width:calc(100% - 35px);
+  color: #172b4d;
+  width: calc(100% - 35px);
   resize: none;
-  
 `;
 
 export const H3 = styled.h3`
-  display:inline-block;
+  display: inline-block;
   margin: 35px 0 0 0;
 `;
 
@@ -60,10 +59,10 @@ export const CardDescription = styled.textarea`
   font-family: inherit;
   font-size: 16px;
   font-weight: 400;
-  padding:5px 0;
-  width:100%;
+  padding: 5px 0;
+  width: 100%;
   resize: none;
-  background: #F4F5F7;
+  background: #f4f5f7;
   border: none;
 `;
 
@@ -83,58 +82,56 @@ export const AutorLogo = styled.div`
   text-align: center;
   width: 32px;
   border-radius: 50%;
-  background-color:rgba(94, 108, 132, 0.3);
+  background-color: rgba(94, 108, 132, 0.3);
   text-transform: uppercase;
   margin-right: 5px;
 `;
 
-interface NewCommentInputProps{
-  textAreaFocus:boolean;
+interface NewCommentInputProps {
+  textAreaFocus: boolean;
 }
 
 export const NewCommentInput = styled.textarea<NewCommentInputProps>`
   background-color: white;
-  border: 1px solid #D2D4DC;
+  border: 1px solid #d2d4dc;
   border-radius: 3px;
   padding: 8px 10px;
   widht: 100%;
   margin: 5px 0;
   flex-grow: 1;
   font-family: inherit;
-  margin:0;
+  margin: 0;
   resize: none;
-  transition: all .6s;
-  height: ${(props) => (props.textAreaFocus ? '100' : '40')}px;
+  transition: all 0.6s;
+  height: ${(props) => (props.textAreaFocus ? "100" : "40")}px;
   font-family: inherit;
   color: #172b4d;
-  font-size: 14px
+  font-size: 14px;
 `;
-
 
 export const DeleteButton = styled.button`
   border: none;
   background: none;
   color: #d63031;
   cursor: pointer;
-
 `;
 
-interface SaveCommentButtonProps{
-  textAreaFocus:boolean;
-  newComment:string;
+interface SaveCommentButtonProps {
+  textAreaFocus: boolean;
+  newComment: string;
 }
 
 export const SaveCommentButton = styled.button<SaveCommentButtonProps>`
-  display: ${(props) => (props.textAreaFocus ? 'block' : 'none')};
+  display: ${(props) => (props.textAreaFocus ? "block" : "none")};
   position: absolute;
   bottom: 10px;
-  left:47px;
+  left: 47px;
   padding: 8px 30px;
   font-family: inherit;
-  transition: all .1s;
-  cursor: ${(props) => (props.newComment.length > 0 ? 'pointer' : 'not-allowed')};
+  transition: all 0.1s;
+  cursor: ${(props) => (props.newComment.length > 0 ? "pointer" : "not-allowed")};
   border: none;
-  color: ${(props) => (props.newComment.length > 0 ? 'white' : 'grey')};
-  border-radius :3px;
-  background: ${(props) => (props.newComment.length > 0 ? '#0079BF' : '#F5F6F8')};
+  color: ${(props) => (props.newComment.length > 0 ? "white" : "grey")};
+  border-radius: 3px;
+  background: ${(props) => (props.newComment.length > 0 ? "#0079BF" : "#F5F6F8")};
 `;

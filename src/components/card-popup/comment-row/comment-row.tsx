@@ -1,29 +1,34 @@
-import { useState, useRef } from 'react';
-import { ICard } from '../../../context/data';
-import { CardCommentContainer, Сaption } from './styles';
-import { returnTwoLetterFromName } from '../card-popup';
+import { useRef, useState } from "react";
 
+import { ICard } from "../../../context/data";
+import { returnTwoLetterFromName } from "../card-popup";
 import {
-  CommentRowContainer,
   AutorLogo,
+  CommentRowContainer,
   NewCommentInput,
   SaveCommentButton,
-} from '../styles';
+} from "../styles";
+import { CardCommentContainer, Сaption } from "./styles";
 
 interface CommentRowProps {
-  columnId:number;
-  cardNum:number;
-  textAreaFocus:number;
+  columnId: number;
+  cardNum: number;
+  textAreaFocus: number;
   lineNum: number;
-  thisCard:ICard;
-  commentCode:string;
-  focusOnTextarea(num:number):void;
-  commentEdit(columnId:number, cardNum:number, conmentNum:number):void;
-  commentEditSave(columnId:number, cardNum:number, conmentNum:number, newComment:string):void;
-  commentDelite(columnId:number, cardNum:number, conmentNum:number):void;
+  thisCard: ICard;
+  commentCode: string;
+  focusOnTextarea(num: number): void;
+  commentEdit(columnId: number, cardNum: number, conmentNum: number): void;
+  commentEditSave(
+    columnId: number,
+    cardNum: number,
+    conmentNum: number,
+    newComment: string,
+  ): void;
+  commentDelite(columnId: number, cardNum: number, conmentNum: number): void;
 }
 
-const CommentRow:React.FC<CommentRowProps> = ({
+const CommentRow: React.FC<CommentRowProps> = ({
   columnId,
   cardNum,
   textAreaFocus,
@@ -68,28 +73,19 @@ const CommentRow:React.FC<CommentRowProps> = ({
           value={newComment}
         />
         <SaveCommentButton
-          style={{ bottom: '35px' }}
+          style={{ bottom: "35px" }}
           textAreaFocus={textAreaFocus == lineNum}
           newComment={newComment}
           onClick={() => {
-            commentEditSave(columnId,
-              cardNum,
-              lineNum,
-              newComment);
+            commentEditSave(columnId, cardNum, lineNum, newComment);
           }}
         >
           save
         </SaveCommentButton>
         <p>
-          <Сaption
-            onClick={() => onButtonEditClick()}
-          >
-            Edit
-          </Сaption>
-                &nbsp;
-          <Сaption
-            onClick={() => commentDelite(columnId, cardNum, lineNum)}
-          >
+          <Сaption onClick={() => onButtonEditClick()}>Edit</Сaption>
+          &nbsp;
+          <Сaption onClick={() => commentDelite(columnId, cardNum, lineNum)}>
             Delete
           </Сaption>
         </p>

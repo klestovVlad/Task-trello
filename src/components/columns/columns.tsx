@@ -1,23 +1,24 @@
-import { useState, useContext } from 'react';
-import { Column, ColumnName } from './styles';
-import { Cards } from '../cards/index';
-import { ColumnsFooter } from './columns-footer/index';
-import { IdataStructure } from '../../context/data';
+import { useState } from "react";
+
+import { IdataStructure } from "../../context/data";
+import { Cards } from "../cards/index";
+import { ColumnsFooter } from "./columns-footer/index";
+import { Column, ColumnName } from "./styles";
 
 interface ColumnProps {
-  data:IdataStructure;
-  columnNameChange(event: React.ChangeEvent<HTMLInputElement>, id:number):void;
-  toggleVisibilityAddCardField(id:number):void;
-  pushNewCard(columnId:number, cardName:string):void;
-  showCardPopup(columnId:number, cardNum:number):void;
+  data: IdataStructure;
+  columnNameChange(event: React.ChangeEvent<HTMLInputElement>, id: number): void;
+  toggleVisibilityAddCardField(id: number): void;
+  pushNewCard(columnId: number, cardName: string): void;
+  showCardPopup(columnId: number, cardNum: number): void;
 }
 
-const Columns:React.FC<ColumnProps> = ({
+const Columns: React.FC<ColumnProps> = ({
   data,
   columnNameChange,
   toggleVisibilityAddCardField,
   pushNewCard,
-  showCardPopup
+  showCardPopup,
 }) => {
   const [title, setTitle] = useState<string>(data.listName);
 
@@ -28,21 +29,16 @@ const Columns:React.FC<ColumnProps> = ({
 
   return (
     <Column>
-      <ColumnName
-        value={title}
-        onChange={changeHandler}
-      />
-      {
-        data.cards.map((item, index) => (
-          <Cards
-            key={index}
-            columnId={data.id}
-            cardNum={index}
-            cardsData={data.cards}
-            showCardPopup={showCardPopup}
-          />
-        ))
-      }
+      <ColumnName value={title} onChange={changeHandler} />
+      {data.cards.map((item, index) => (
+        <Cards
+          key={index}
+          columnId={data.id}
+          cardNum={index}
+          cardsData={data.cards}
+          showCardPopup={showCardPopup}
+        />
+      ))}
       <ColumnsFooter
         columnId={data.id}
         toggleVisibilityAddCardField={toggleVisibilityAddCardField}
