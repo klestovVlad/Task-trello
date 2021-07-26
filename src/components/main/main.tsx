@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { ChangeEvent, FC, useContext, useState } from "react";
 
 import dataContext, { IdataStructure } from "../../context/data";
 import { CardPopup } from "../card-popup/index";
@@ -7,7 +7,6 @@ import { NewUserPopup } from "../new-user-popup/index";
 import Board from "./styles";
 
 const Main: FC = () => {
-  const [toggleStateProps, setToggleStateProps] = useState(false);
   const [columnId, setColumnId] = useState(0);
   const [cardNum, setCardNum] = useState(0);
   const [isPopupCardShow, setIsPopupCardShow] = useState(false);
@@ -16,25 +15,7 @@ const Main: FC = () => {
   );
   const [textAreaFocus, setTextAreaFocus] = useState(-2);
   const [commentCode, setCommentCode] = useState("//");
-  const data = useContext(dataContext);
-
-  const dataChange = () => {
-    setToggleStateProps(!toggleStateProps);
-    localStorage.listData = JSON.stringify(data.data);
-    data.setData(data.data);
-  };
-
-  const pushNewCard = (columnId: number, cardName: string) => {
-    if (cardName.length > 0) {
-      data.data[columnId].cards.push({
-        name: cardName,
-        author: localStorage.userName,
-        text: "",
-        comment: [],
-      });
-    }
-    dataChange();
-  };
+  const { data, setData } = useContext(dataContext);
 
   const showCardPopup = (Id: number, cNum: number) => {
     setIsPopupCardShow(true);
@@ -47,27 +28,27 @@ const Main: FC = () => {
   };
 
   const cardNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>,
     columnId: number,
     cardNum: number,
   ) => {
-    data.data[columnId].cards[cardNum].name = event.target.value;
-    dataChange();
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].name = event.target.value;
+      return copyState;
+    });
   };
 
   const cardDescriptionChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLTextAreaElement>,
     columnId: number,
     cardNum: number,
   ) => {
-    data.data[columnId].cards[cardNum].text = event.target.value;
-    dataChange();
-  };
-
-  const columnNameChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
-    data.data[id].listName = event.target.value;
-    data.setData(data.data);
-    dataChange();
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].text = event.target.value;
+      return copyState;
+    });
   };
 
   const focusOnTextarea = (num: number) => {
@@ -75,11 +56,14 @@ const Main: FC = () => {
   };
 
   const addNewComment = (columnId: number, cardNum: number, newComment: string) => {
-    data.data[columnId].cards[cardNum].comment.push({
-      text: newComment,
-      author: localStorage.userName,
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].comment.push({
+        text: newComment,
+        author: localStorage.userName,
+      });
+      return copyState;
     });
-    dataChange();
   };
 
   const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
@@ -92,18 +76,27 @@ const Main: FC = () => {
     conmentNum: number,
     newComment: string,
   ) => {
-    data.data[columnId].cards[cardNum].comment[conmentNum].text = newComment;
-    dataChange();
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].comment[conmentNum].text = newComment;
+      return copyState;
+    });
   };
 
   const commentDelite = (columnId: number, cardNum: number, conmentNum: number) => {
-    data.data[columnId].cards[cardNum].comment.splice(conmentNum, 1);
-    dataChange();
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].comment.splice(conmentNum, 1);
+      return copyState;
+    });
   };
 
   const deleteCard = (columnId: number, cardNum: number) => {
-    data.data[columnId].cards.splice(cardNum, 1);
-    dataChange();
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards.splice(cardNum, 1);
+      return copyState;
+    });
   };
 
   const newUserName = (userName: string) => {
@@ -113,24 +106,14 @@ const Main: FC = () => {
     }
   };
 
-  const toggleVisibilityAddCardField = (id: number) => {
-    data.data.map(
-      (item: IdataStructure) =>
-        (item.isCardAdding = item.id == id ? !item.isCardAdding : false),
-    );
-    dataChange();
-  };
-
   return (
     <>
       <Board>
-        {data.data.map((item: IdataStructure) => (
+        {data.map((item: IdataStructure) => (
           <Columns
             key={item.id}
             data={item}
-            columnNameChange={columnNameChange}
-            toggleVisibilityAddCardField={toggleVisibilityAddCardField}
-            pushNewCard={pushNewCard}
+            setData={setData}
             showCardPopup={showCardPopup}
           />
         ))}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, Dispatch, SetStateAction } from "react";
 
 interface IComment {
@@ -65,7 +66,6 @@ interface DataContextValue {
 
 const dataContext = createContext<DataContextValue>({
   data: data,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setData: () => {},
 });
 
