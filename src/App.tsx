@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
 
 import Main from "./components/main/main";
-import dataContext, { data } from "./context/data";
+import DataContext, { data } from "./context/data";
 
 const App: React.FC = () => {
   const [dataset, setDataSet] = useState(data);
 
   useEffect(() => {
-    function chekData() {
+    function checkData() {
       const isTherelocalData = localStorage.listData !== undefined;
       if (isTherelocalData) {
         setDataSet(JSON.parse(localStorage.listData));
       }
     }
-    chekData();
+    checkData();
   }, []);
 
   return (
-    <dataContext.Provider
+    <DataContext.Provider
       value={{
         data: dataset,
         setData: setDataSet,
       }}
     >
       <Main />
-    </dataContext.Provider>
+    </DataContext.Provider>
   );
 };
 

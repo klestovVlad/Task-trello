@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useContext, useState } from "react";
 
-import dataContext, { ICard } from "../../context/data";
+import dataContext, { ICard, IdataStructure } from "../../context/data";
 import { CommentRow } from "./comment-row/index";
 import {
   AutorLogo,
@@ -29,50 +29,17 @@ interface CardPopupProps {
   columnId: number;
   cardNum: number;
   isPopupCardShow: boolean;
-  textAreaFocus: number;
-  commentCode: string;
   closeCardPopup(): void;
 
-  cardNameChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-    columnId: number,
-    cardNum: number,
-  ): void;
-
-  cardDescriptionChange(
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-    columnId: number,
-    cardNum: number,
-  ): void;
-
-  focusOnTextarea(num: number): void;
-  addNewComment(columnId: number, cardNum: number, newComment: string): void;
-  commentEdit(columnId: number, cardNum: number, conmentNum: number): void;
-  commentEditSave(
-    columnId: number,
-    cardNum: number,
-    conmentNum: number,
-    newComment: string,
-  ): void;
-  commentDelite(columnId: number, cardNum: number, conmentNum: number): void;
-  deleteCard(columnId: number, cardNum: number): void;
+  setData: Dispatch<SetStateAction<IdataStructure[]>>;
 }
 
-const CardPopup: React.FC<CardPopupProps> = ({
+const CardPopup: FC<CardPopupProps> = ({
   columnId,
   cardNum,
   isPopupCardShow,
-  textAreaFocus,
-  commentCode,
   closeCardPopup,
-  cardNameChange,
-  cardDescriptionChange,
-  focusOnTextarea,
-  addNewComment,
-  commentEdit,
-  commentEditSave,
-  commentDelite,
-  deleteCard,
+  setData,
 }) => {
   let thisCard: ICard;
   const data = useContext(dataContext);
@@ -90,21 +57,95 @@ const CardPopup: React.FC<CardPopupProps> = ({
 
   const [, setcardName] = useState<string>(thisCard?.name);
   const [, setcardDesc] = useState<string>(thisCard?.text);
+  const [commentCode, setCommentCode] = useState("//");
+  const [textAreaFocus, setTextAreaFocus] = useState(-2);
   const [newComment, setNewComment] = useState<string>("");
 
-  const changeHeaderHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const cardNameChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    columnId: number,
+    cardNum: number,
+  ) => {
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].name = event.target.value;
+      return copyState;
+    });
+  };
+
+  const changeHeaderHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setcardName(event.target.value);
     cardNameChange(event, columnId, cardNum);
   };
 
-  const changeDescriptionHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const cardDescriptionChange = (
+    event: ChangeEvent<HTMLTextAreaElement>,
+    columnId: number,
+    cardNum: number,
+  ) => {
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].text = event.target.value;
+      return copyState;
+    });
+  };
+
+  const changeDescriptionHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setcardDesc(event.target.value);
     cardDescriptionChange(event, columnId, cardNum);
+  };
+
+  const focusOnTextarea = (num: number) => {
+    setTimeout(() => setTextAreaFocus(num), 100);
+  };
+
+  const addNewComment = (columnId: number, cardNum: number, newComment: string) => {
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].comment.push({
+        text: newComment,
+        author: localStorage.userName,
+      });
+      return copyState;
+    });
   };
 
   const addComment = (columnId: number, cardNum: number, newComment: string): void => {
     addNewComment(columnId, cardNum, newComment);
     setNewComment("");
+  };
+
+  const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
+    setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);
+  };
+
+  const commentEditSave = (
+    columnId: number,
+    cardNum: number,
+    conmentNum: number,
+    newComment: string,
+  ) => {
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].comment[conmentNum].text = newComment;
+      return copyState;
+    });
+  };
+
+  const commentDelite = (columnId: number, cardNum: number, conmentNum: number) => {
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards[cardNum].comment.splice(conmentNum, 1);
+      return copyState;
+    });
+  };
+
+  const deleteCard = (columnId: number, cardNum: number) => {
+    setData((state) => {
+      const copyState = [...state];
+      copyState[columnId].cards.splice(cardNum, 1);
+      return copyState;
+    });
   };
 
   const deleteThisCard = (columnId: number, cardNum: number) => {

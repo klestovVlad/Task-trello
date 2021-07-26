@@ -64,9 +64,9 @@ interface DataContextValue {
   setData: Dispatch<SetStateAction<IdataStructure[]>>;
 }
 
-const dataContext = createContext<DataContextValue>({
+const DataContext = createContext<DataContextValue>({
   data: data,
   setData: () => {},
 });
 
-export default dataContext;
+export default DataContext;

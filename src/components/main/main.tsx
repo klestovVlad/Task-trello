@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 
 import dataContext, { IdataStructure } from "../../context/data";
 import { CardPopup } from "../card-popup/index";
@@ -14,8 +14,7 @@ const Main: FC = () => {
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
     localStorage.userName === undefined,
   );
-  const [textAreaFocus, setTextAreaFocus] = useState(-2);
-  const [commentCode, setCommentCode] = useState("//");
+
   const { data, setData } = useContext(dataContext);
 
   const showCardPopup = (Id: number, cNum: number) => {
@@ -28,78 +27,6 @@ const Main: FC = () => {
     setIsPopupCardShow(false);
   };
 
-  const cardNameChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    columnId: number,
-    cardNum: number,
-  ) => {
-    setData((state) => {
-      const copyState = [...state];
-      copyState[columnId].cards[cardNum].name = event.target.value;
-      return copyState;
-    });
-  };
-
-  const cardDescriptionChange = (
-    event: ChangeEvent<HTMLTextAreaElement>,
-    columnId: number,
-    cardNum: number,
-  ) => {
-    setData((state) => {
-      const copyState = [...state];
-      copyState[columnId].cards[cardNum].text = event.target.value;
-      return copyState;
-    });
-  };
-
-  const focusOnTextarea = (num: number) => {
-    setTimeout(() => setTextAreaFocus(num), 100);
-  };
-
-  const addNewComment = (columnId: number, cardNum: number, newComment: string) => {
-    setData((state) => {
-      const copyState = [...state];
-      copyState[columnId].cards[cardNum].comment.push({
-        text: newComment,
-        author: localStorage.userName,
-      });
-      return copyState;
-    });
-  };
-
-  const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
-    setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);
-  };
-
-  const commentEditSave = (
-    columnId: number,
-    cardNum: number,
-    conmentNum: number,
-    newComment: string,
-  ) => {
-    setData((state) => {
-      const copyState = [...state];
-      copyState[columnId].cards[cardNum].comment[conmentNum].text = newComment;
-      return copyState;
-    });
-  };
-
-  const commentDelite = (columnId: number, cardNum: number, conmentNum: number) => {
-    setData((state) => {
-      const copyState = [...state];
-      copyState[columnId].cards[cardNum].comment.splice(conmentNum, 1);
-      return copyState;
-    });
-  };
-
-  const deleteCard = (columnId: number, cardNum: number) => {
-    setData((state) => {
-      const copyState = [...state];
-      copyState[columnId].cards.splice(cardNum, 1);
-      return copyState;
-    });
-  };
-
   const newUserName = (userName: string) => {
     if (userName.length > 0) {
       localStorage.userName = userName;
@@ -107,6 +34,7 @@ const Main: FC = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleKeywordKeyPress = (event: any): void => {
     if (event.key == "Escape") {
       closeCardPopup();
@@ -135,16 +63,7 @@ const Main: FC = () => {
         cardNum={cardNum}
         isPopupCardShow={isPopupCardShow}
         closeCardPopup={closeCardPopup}
-        cardNameChange={cardNameChange}
-        cardDescriptionChange={cardDescriptionChange}
-        focusOnTextarea={focusOnTextarea}
-        textAreaFocus={textAreaFocus}
-        addNewComment={addNewComment}
-        commentEdit={commentEdit}
-        commentCode={commentCode}
-        commentEditSave={commentEditSave}
-        commentDelite={commentDelite}
-        deleteCard={deleteCard}
+        setData={setData}
       />
       <NewUserPopup isPopupShow={isPopupNewUserShow} newUserName={newUserName} />
     </>
