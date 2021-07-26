@@ -46,6 +46,11 @@ const Main: FC = () => {
     return () => window.removeEventListener("keydown", handleKeywordKeyPress, false);
   }, []);
 
+  useEffect(() => {
+    localStorage.data = JSON.stringify(data);
+    console.log(JSON.parse(localStorage.data));
+  });
+
   return (
     <>
       <Board>

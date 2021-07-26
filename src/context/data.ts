@@ -59,6 +59,14 @@ export const data: IdataStructure[] = [
   },
 ];
 
+const localData = localStorage.data !== undefined;
+
+if (localData) {
+  data.length = 0;
+  data.push(...JSON.parse(localStorage.data));
+  console.log(data);
+}
+
 interface DataContextValue {
   data: IdataStructure[];
   setData: Dispatch<SetStateAction<IdataStructure[]>>;
