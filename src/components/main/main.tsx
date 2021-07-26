@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ChangeEvent, FC, useContext, useState } from "react";
 
 import dataContext, { IdataStructure } from "../../context/data";
@@ -105,6 +106,17 @@ const Main: FC = () => {
       setIsPopupNewUserShow(false);
     }
   };
+
+  const handleKeywordKeyPress = (event: any): void => {
+    if (event.key == "Escape") {
+      closeCardPopup();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeywordKeyPress, false);
+    return () => window.removeEventListener("keydown", handleKeywordKeyPress, false);
+  }, []);
 
   return (
     <>
