@@ -5,7 +5,6 @@ import dataContext, { data } from './context/data'
 const App:React.FC = () => {
   const [dataset, setDataSet] = useState(data)
 
-
   useEffect(() => {
     function chekData() {
       const isTherelocalData = localStorage.listData !== undefined
