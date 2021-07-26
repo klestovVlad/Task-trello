@@ -88,8 +88,8 @@ const CardPopup: React.FC<CardPopupProps> = ({
     };
   }
 
-  const [cardName, setcardName] = useState<string>(thisCard?.name);
-  const [cardDesc, setcardDesc] = useState<string>(thisCard?.text);
+  const [, setcardName] = useState<string>(thisCard?.name);
+  const [, setcardDesc] = useState<string>(thisCard?.text);
   const [newComment, setNewComment] = useState<string>("");
 
   const changeHeaderHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
