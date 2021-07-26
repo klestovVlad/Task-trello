@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 
 import { ICard } from "../../../context/data";
 import { returnTwoLetterFromName } from "../card-popup";
@@ -28,7 +28,7 @@ interface CommentRowProps {
   commentDelite(columnId: number, cardNum: number, conmentNum: number): void;
 }
 
-const CommentRow: React.FC<CommentRowProps> = ({
+const CommentRow: FC<CommentRowProps> = ({
   columnId,
   cardNum,
   textAreaFocus,

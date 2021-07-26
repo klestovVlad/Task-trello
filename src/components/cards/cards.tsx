@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 import { ICard } from "../../context/data";
 import Card from "./styles";
 
@@ -8,7 +10,7 @@ interface CardsProps {
   showCardPopup(columnId: number, cardNum: number): void;
 }
 
-const Cards: React.FC<CardsProps> = ({ cardNum, columnId, cardsData, showCardPopup }) => {
+const Cards: FC<CardsProps> = ({ cardNum, columnId, cardsData, showCardPopup }) => {
   const currentCard: ICard = cardsData[cardNum];
   return (
     <>

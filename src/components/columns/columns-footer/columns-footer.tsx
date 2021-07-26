@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
@@ -9,7 +9,7 @@ interface ColumnsFooterProps {
   pushNewCard(columnId: number, cardName: string): void;
 }
 
-const ColumnsFooter: React.FC<ColumnsFooterProps> = ({
+const ColumnsFooter: FC<ColumnsFooterProps> = ({
   columnId,
   isCardAdding,
   toggleVisibilityAddCardField,

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import Main from "./components/main/main";
 import DataContext, { data } from "./context/data";
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [dataset, setDataSet] = useState(data);
 
   useEffect(() => {

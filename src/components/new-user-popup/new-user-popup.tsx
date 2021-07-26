@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 
 import { ButtonApply, Input, Popup, Question, Shadow } from "./styles";
 
@@ -7,7 +7,7 @@ interface NewUserPopupProps {
   newUserName(userName: string): void;
 }
 
-const NewUserPopup: React.FC<NewUserPopupProps> = ({ isPopupShow, newUserName }) => {
+const NewUserPopup: FC<NewUserPopupProps> = ({ isPopupShow, newUserName }) => {
   const [userName, setuserName] = useState("");
   const nameAply = () => {
     newUserName(userName);
