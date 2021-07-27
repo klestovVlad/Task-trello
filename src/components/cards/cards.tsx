@@ -1,17 +1,17 @@
 import { FC } from "react";
 
-import { ICard } from "../../context/data";
+import { CardStructure } from "../../context/data";
 import Card from "./styles";
 
 interface CardsProps {
   cardNum: number;
   columnId: number;
-  cardsData: ICard[];
+  cardsData: CardStructure[];
   showCardPopup(columnId: number, cardNum: number): void;
 }
 
 const Cards: FC<CardsProps> = ({ cardNum, columnId, cardsData, showCardPopup }) => {
-  const currentCard: ICard = cardsData[cardNum];
+  const currentCard: CardStructure = cardsData[cardNum];
   return (
     <>
       <Card onClick={() => showCardPopup(columnId, cardNum)}>

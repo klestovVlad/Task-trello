@@ -15,7 +15,7 @@ const Main: FC = () => {
     localStorage.userName === undefined,
   );
 
-  const { data, dispathc } = useContext(dataContext);
+  const { data } = useContext(dataContext);
 
   const showCardPopup = (Id: number, cNum: number) => {
     setIsPopupCardShow(true);
@@ -46,18 +46,13 @@ const Main: FC = () => {
     return () => window.removeEventListener("keydown", handleKeywordKeyPress, false);
   }, []);
 
-  useEffect(() => {
-    localStorage.data = JSON.stringify(data);
-  });
-
   return (
     <>
       <Board>
         {Object.keys(data).map((item) => (
           <Columns
             key={data[item].id}
-            data={data[item]}
-            dispathc={dispathc}
+            dataColumn={data[item]}
             showCardPopup={showCardPopup}
           />
         ))}
@@ -67,7 +62,6 @@ const Main: FC = () => {
         cardNum={cardNum}
         isPopupCardShow={isPopupCardShow}
         closeCardPopup={closeCardPopup}
-        dispathc={dispathc}
       />
       <NewUserPopup isPopupShow={isPopupNewUserShow} newUserName={newUserName} />
     </>

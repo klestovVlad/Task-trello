@@ -1,6 +1,6 @@
-import { Dispatch, FC, ReducerAction, SetStateAction, useRef, useState } from "react";
+import { FC, useContext, useRef, useState } from "react";
 
-import { ICard } from "../../../context/data";
+import dataContext, { CardStructure } from "../../../context/data";
 import { returnTwoLetterFromName } from "../card-popup";
 import {
   AutorLogo,
@@ -15,9 +15,8 @@ interface CommentRowProps {
   cardNum: number;
   textAreaFocus: number;
   commentNum: number;
-  thisCard: ICard;
+  thisCard: CardStructure;
   focusOnTextarea(num: number): void;
-  dispathc: Dispatch<SetStateAction<ReducerAction<any>>>;
 }
 
 const CommentRow: FC<CommentRowProps> = ({
@@ -27,11 +26,11 @@ const CommentRow: FC<CommentRowProps> = ({
   commentNum,
   thisCard,
   focusOnTextarea,
-  dispathc,
 }) => {
   const [newComment, setNewComment] = useState(thisCard.comment[commentNum].text);
   const [commentCode, setCommentCode] = useState("//");
   const inputEl = useRef<HTMLTextAreaElement>(null);
+  const { dispatch } = useContext(dataContext);
 
   const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
     setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);
@@ -78,7 +77,7 @@ const CommentRow: FC<CommentRowProps> = ({
           textAreaFocus={textAreaFocus == commentNum}
           newComment={newComment}
           onClick={() => {
-            dispathc({
+            dispatch({
               type: "commentEditSave",
               payload: {
                 columnId: columnId,
@@ -96,7 +95,7 @@ const CommentRow: FC<CommentRowProps> = ({
           &nbsp;
           <Сaption
             onClick={() => {
-              dispathc({
+              dispatch({
                 type: "commentDelite",
                 payload: {
                   columnId: columnId,

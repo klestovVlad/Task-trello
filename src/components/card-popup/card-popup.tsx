@@ -1,6 +1,6 @@
-import { Dispatch, FC, ReducerAction, SetStateAction, useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 
-import dataContext, { ICard } from "../../context/data";
+import dataContext, { CardStructure } from "../../context/data";
 import { CommentRow } from "./comment-row/index";
 import {
   AutorLogo,
@@ -30,8 +30,6 @@ interface CardPopupProps {
   cardNum: number;
   isPopupCardShow: boolean;
   closeCardPopup(): void;
-
-  dispathc: Dispatch<SetStateAction<ReducerAction<any>>>;
 }
 
 const CardPopup: FC<CardPopupProps> = ({
@@ -39,13 +37,12 @@ const CardPopup: FC<CardPopupProps> = ({
   cardNum,
   isPopupCardShow,
   closeCardPopup,
-  dispathc,
 }) => {
-  let thisCard: ICard;
-  const data = useContext(dataContext);
+  let thisCard: CardStructure;
+  const { data, dispatch } = useContext(dataContext);
 
-  if (data.data[columnId].cards.length > 0) {
-    thisCard = data.data[columnId].cards[cardNum];
+  if (data[columnId].cards.length > 0) {
+    thisCard = data[columnId].cards[cardNum];
   } else {
     thisCard = {
       name: "",
@@ -63,7 +60,7 @@ const CardPopup: FC<CardPopupProps> = ({
   };
 
   const deleteCard = (columnId: number, cardNum: number) => {
-    dispathc({
+    dispatch({
       type: "deleteCard",
       payload: {
         columnId: columnId,
@@ -89,16 +86,20 @@ const CardPopup: FC<CardPopupProps> = ({
           <CardHeader
             value={thisCard.name}
             onChange={(event) => {
-              dispathc({
+              dispatch({
                 type: "cardNameChange",
-                payload: { event: event, columnId: columnId, cardNum: cardNum },
+                payload: {
+                  text: event.target.value,
+                  columnId: columnId,
+                  cardNum: cardNum,
+                },
               });
             }}
           />
           <br />
           <p>
             in column
-            {data.data[columnId].listName}
+            {data[columnId].listName}
           </p>
           <i className="fa fa-list" aria-hidden="true">
             {" "}
@@ -109,9 +110,13 @@ const CardPopup: FC<CardPopupProps> = ({
           <CardDescription
             value={thisCard.text}
             onChange={(event) => {
-              dispathc({
+              dispatch({
                 type: "cardDescriptionChange",
-                payload: { event: event, columnId: columnId, cardNum: cardNum },
+                payload: {
+                  text: event.target.value,
+                  columnId: columnId,
+                  cardNum: cardNum,
+                },
               });
             }}
             placeholder="Type your description..."
@@ -134,7 +139,7 @@ const CardPopup: FC<CardPopupProps> = ({
             <SaveCommentButton
               textAreaFocus={textAreaFocus === -1}
               onClick={() => {
-                dispathc({
+                dispatch({
                   type: "addNewComment",
                   payload: {
                     columnId: columnId,
@@ -157,7 +162,6 @@ const CardPopup: FC<CardPopupProps> = ({
               focusOnTextarea={focusOnTextarea}
               thisCard={thisCard}
               cardNum={cardNum}
-              dispathc={dispathc}
             />
           ))}
           <CommentRowContainer>

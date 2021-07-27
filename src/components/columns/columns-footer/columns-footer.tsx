@@ -1,18 +1,19 @@
-import { Dispatch, FC, ReducerAction, SetStateAction, useState } from "react";
+import { FC, useContext, useState } from "react";
 
+import dataContext from "../../../context/data";
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
 interface ColumnsFooterProps {
   columnId: number;
   isCardAdding: boolean;
-  dispathc: Dispatch<SetStateAction<ReducerAction<any>>>;
 }
 
-const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding, dispathc }) => {
+const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const [cardName, setCardName] = useState("");
+  const { dispatch } = useContext(dataContext);
 
   function addNewCard(columnId: number, cardName: string) {
-    dispathc({
+    dispatch({
       type: "pushNewCard",
       payload: { columnId: columnId, cardName: cardName },
     });
@@ -23,7 +24,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding, dispath
     return (
       <AddNewCard
         onClick={() => {
-          dispathc({
+          dispatch({
             type: "toggleVisibilityAddCardField",
             payload: { id: columnId },
           });
@@ -50,7 +51,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding, dispath
       <CancelCardButtn
         className="fas fa-times"
         onClick={() => {
-          dispathc({
+          dispatch({
             type: "toggleVisibilityAddCardField",
             payload: { id: -1 },
           });

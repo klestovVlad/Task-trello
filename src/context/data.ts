@@ -1,32 +1,26 @@
-import {
-  ChangeEvent,
-  createContext,
-  Dispatch,
-  ReducerAction,
-  SetStateAction,
-} from "react";
+import { createContext } from "react";
 
-interface IComment {
+interface CommentStructure {
   text: string;
   author: string;
 }
 
-export interface ICard {
+export interface CardStructure {
   name: string;
   author: string;
   text: string;
-  comment: IComment[];
+  comment: CommentStructure[];
 }
 
-export interface IdataStructure {
+export interface DataStructure {
   id: number;
   listName: string;
   isCardAdding: boolean;
-  cards: ICard[];
+  cards: CardStructure[];
 }
 
 export const data: {
-  [key: string]: IdataStructure;
+  [key: string]: DataStructure;
 } = {
   0: {
     id: 0,
@@ -66,28 +60,16 @@ export const data: {
   },
 };
 
-const islocalDataExist = localStorage.data !== undefined;
-
-if (islocalDataExist) {
-  const localData = JSON.parse(localStorage.data);
-  for (const key in data) {
-    delete data[key];
-  }
-  for (const key in localData) {
-    data[key] = localData[key];
-  }
-}
-
 interface DataContextValue {
-  data: { [key: string]: IdataStructure };
-  dispathc: any;
+  data: { [key: string]: DataStructure };
+  dispatch: any;
 }
 
 type Action = {
   type: string;
   payload: {
     id: number;
-    event: ChangeEvent<HTMLInputElement>;
+    text: string;
     cardName: string;
     columnId: number;
     cardNum: number;
@@ -97,17 +79,17 @@ type Action = {
 };
 
 interface State {
-  [key: string]: IdataStructure;
+  [key: string]: DataStructure;
 }
 
 export const reduser = (
   state: State,
   action: Action,
-): { [key: string]: IdataStructure } => {
+): { [key: string]: DataStructure } => {
   const copyState = { ...state };
   switch (action.type) {
     case "columnNameChange":
-      copyState[action.payload.id].listName = action.payload.event.target.value;
+      copyState[action.payload.id].listName = action.payload.text;
       return {
         ...copyState,
       };
@@ -132,13 +114,13 @@ export const reduser = (
       };
     case "cardNameChange":
       copyState[action.payload.columnId].cards[action.payload.cardNum].name =
-        action.payload.event.target.value;
+        action.payload.text;
       return {
         ...copyState,
       };
     case "cardDescriptionChange":
       copyState[action.payload.columnId].cards[action.payload.cardNum].text =
-        action.payload.event.target.value;
+        action.payload.text;
       return {
         ...copyState,
       };
@@ -178,7 +160,7 @@ export const reduser = (
 const DataContext = createContext<DataContextValue>({
   data: data,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  dispathc: () => {},
+  dispatch: () => {},
 });
 
 export default DataContext;

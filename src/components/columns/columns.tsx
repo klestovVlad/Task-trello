@@ -1,39 +1,40 @@
-import { Dispatch, FC, ReducerAction, SetStateAction } from "react";
+import { FC, useContext } from "react";
 
-import { IdataStructure } from "../../context/data";
+import dataContext from "../../context/data";
+import { DataStructure } from "../../context/data";
 import { Cards } from "../cards/index";
 import { ColumnsFooter } from "./columns-footer/index";
 import { Column, ColumnName } from "./styles";
 
 interface ColumnProps {
-  data: IdataStructure;
-  dispathc: Dispatch<SetStateAction<ReducerAction<any>>>;
+  dataColumn: DataStructure;
   showCardPopup(columnId: number, cardNum: number): void;
 }
 
-const Columns: FC<ColumnProps> = ({ data, dispathc, showCardPopup }) => {
+const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
+  const { dispatch } = useContext(dataContext);
+
   return (
     <Column>
       <ColumnName
-        value={data.listName}
+        value={dataColumn.listName}
         onChange={(event) => {
-          dispathc({ type: "columnNameChange", payload: { event: event, id: data.id } });
+          dispatch({
+            type: "columnNameChange",
+            payload: { text: event.target.value, id: dataColumn.id },
+          });
         }}
       />
-      {data.cards.map((item, index) => (
+      {dataColumn.cards.map((item, index) => (
         <Cards
           key={index}
-          columnId={data.id}
+          columnId={dataColumn.id}
           cardNum={index}
-          cardsData={data.cards}
+          cardsData={dataColumn.cards}
           showCardPopup={showCardPopup}
         />
       ))}
-      <ColumnsFooter
-        columnId={data.id}
-        isCardAdding={data.isCardAdding}
-        dispathc={dispathc}
-      />
+      <ColumnsFooter columnId={dataColumn.id} isCardAdding={dataColumn.isCardAdding} />
     </Column>
   );
 };
