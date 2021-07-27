@@ -1,16 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useReducer } from "react";
 
 import Main from "./components/main/main";
-import DataContext, { data } from "./context/data";
+import DataContext, { data, reduser } from "./context/data";
 
 const App: FC = () => {
-  const [dataset, setDataSet] = useState(data);
+  const [dataset, dispathc] = useReducer(reduser, data);
 
   return (
     <DataContext.Provider
       value={{
         data: dataset,
-        setData: setDataSet,
+        dispathc: dispathc,
       }}
     >
       <Main />

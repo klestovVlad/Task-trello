@@ -1,5 +1,10 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  Dispatch,
+  ReducerAction,
+  SetStateAction,
+} from "react";
 
 interface IComment {
   text: string;
@@ -30,7 +35,7 @@ export const data: {
     cards: [
       {
         name: "demo card",
-        author: "Klestov Vlad",
+        author: "Klestov Vladislav",
         text: "card have added for demonstration",
         comment: [
           {
@@ -75,12 +80,105 @@ if (islocalDataExist) {
 
 interface DataContextValue {
   data: { [key: string]: IdataStructure };
-  setData: any;
+  dispathc: any;
 }
+
+type Action = {
+  type: string;
+  payload: {
+    id: number;
+    event: ChangeEvent<HTMLInputElement>;
+    cardName: string;
+    columnId: number;
+    cardNum: number;
+    commentNum: number;
+    newComment: string;
+  };
+};
+
+interface State {
+  [key: string]: IdataStructure;
+}
+
+export const reduser = (
+  state: State,
+  action: Action,
+): { [key: string]: IdataStructure } => {
+  const copyState = { ...state };
+  switch (action.type) {
+    case "columnNameChange":
+      copyState[action.payload.id].listName = action.payload.event.target.value;
+      return {
+        ...copyState,
+      };
+    case "toggleVisibilityAddCardField":
+      for (const key in copyState) {
+        copyState[key].isCardAdding = +key === action.payload.id ? true : false;
+      }
+      return {
+        ...copyState,
+      };
+    case "pushNewCard":
+      if (action.payload.cardName.length > 0) {
+        copyState[action.payload.columnId].cards.push({
+          name: action.payload.cardName,
+          author: localStorage.userName,
+          text: "",
+          comment: [],
+        });
+      }
+      return {
+        ...copyState,
+      };
+    case "cardNameChange":
+      copyState[action.payload.columnId].cards[action.payload.cardNum].name =
+        action.payload.event.target.value;
+      return {
+        ...copyState,
+      };
+    case "cardDescriptionChange":
+      copyState[action.payload.columnId].cards[action.payload.cardNum].text =
+        action.payload.event.target.value;
+      return {
+        ...copyState,
+      };
+    case "addNewComment":
+      copyState[action.payload.columnId].cards[action.payload.cardNum].comment.push({
+        text: action.payload.newComment,
+        author: localStorage.userName,
+      });
+      return {
+        ...copyState,
+      };
+    case "commentEditSave":
+      copyState[action.payload.columnId].cards[action.payload.cardNum].comment[
+        action.payload.commentNum
+      ].text = action.payload.newComment;
+      return {
+        ...copyState,
+      };
+    case "commentDelite":
+      copyState[action.payload.columnId].cards[action.payload.cardNum].comment.splice(
+        action.payload.commentNum,
+        1,
+      );
+      return {
+        ...copyState,
+      };
+    case "deleteCard":
+      copyState[action.payload.columnId].cards.splice(action.payload.cardNum, 1);
+      return {
+        ...copyState,
+      };
+    default:
+      return state;
+  }
+};
 
 const DataContext = createContext<DataContextValue>({
   data: data,
-  setData: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  dispathc: () => {},
 });
 
 export default DataContext;

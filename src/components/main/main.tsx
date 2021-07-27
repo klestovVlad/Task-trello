@@ -15,7 +15,7 @@ const Main: FC = () => {
     localStorage.userName === undefined,
   );
 
-  const { data, setData } = useContext(dataContext);
+  const { data, dispathc } = useContext(dataContext);
 
   const showCardPopup = (Id: number, cNum: number) => {
     setIsPopupCardShow(true);
@@ -57,7 +57,7 @@ const Main: FC = () => {
           <Columns
             key={data[item].id}
             data={data[item]}
-            setData={setData}
+            dispathc={dispathc}
             showCardPopup={showCardPopup}
           />
         ))}
@@ -67,7 +67,7 @@ const Main: FC = () => {
         cardNum={cardNum}
         isPopupCardShow={isPopupCardShow}
         closeCardPopup={closeCardPopup}
-        setData={setData}
+        dispathc={dispathc}
       />
       <NewUserPopup isPopupShow={isPopupNewUserShow} newUserName={newUserName} />
     </>

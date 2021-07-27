@@ -1,30 +1,34 @@
-import { FC, useState } from "react";
+import { Dispatch, FC, ReducerAction, SetStateAction, useState } from "react";
 
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
 interface ColumnsFooterProps {
   columnId: number;
   isCardAdding: boolean;
-  toggleVisibilityAddCardField(id: number): void;
-  pushNewCard(columnId: number, cardName: string): void;
+  dispathc: Dispatch<SetStateAction<ReducerAction<any>>>;
 }
 
-const ColumnsFooter: FC<ColumnsFooterProps> = ({
-  columnId,
-  isCardAdding,
-  toggleVisibilityAddCardField,
-  pushNewCard,
-}) => {
+const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding, dispathc }) => {
   const [cardName, setCardName] = useState("");
 
   function addNewCard(columnId: number, cardName: string) {
-    pushNewCard(columnId, cardName);
+    dispathc({
+      type: "pushNewCard",
+      payload: { columnId: columnId, cardName: cardName },
+    });
     setCardName("");
   }
 
   if (!isCardAdding) {
     return (
-      <AddNewCard onClick={() => toggleVisibilityAddCardField(columnId)}>
+      <AddNewCard
+        onClick={() => {
+          dispathc({
+            type: "toggleVisibilityAddCardField",
+            payload: { id: columnId },
+          });
+        }}
+      >
         + Add new card
       </AddNewCard>
     );
@@ -45,7 +49,12 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({
       <AddCardButtn onClick={() => addNewCard(columnId, cardName)}>add card</AddCardButtn>
       <CancelCardButtn
         className="fas fa-times"
-        onClick={() => toggleVisibilityAddCardField(-1)}
+        onClick={() => {
+          dispathc({
+            type: "toggleVisibilityAddCardField",
+            payload: { id: -1 },
+          });
+        }}
       />
     </>
   );

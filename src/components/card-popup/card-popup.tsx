@@ -1,6 +1,6 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useContext, useState } from "react";
+import { Dispatch, FC, ReducerAction, SetStateAction, useContext, useState } from "react";
 
-import dataContext, { ICard, IdataStructure } from "../../context/data";
+import dataContext, { ICard } from "../../context/data";
 import { CommentRow } from "./comment-row/index";
 import {
   AutorLogo,
@@ -31,7 +31,7 @@ interface CardPopupProps {
   isPopupCardShow: boolean;
   closeCardPopup(): void;
 
-  setData: Dispatch<SetStateAction<IdataStructure[]>>;
+  dispathc: Dispatch<SetStateAction<ReducerAction<any>>>;
 }
 
 const CardPopup: FC<CardPopupProps> = ({
@@ -39,7 +39,7 @@ const CardPopup: FC<CardPopupProps> = ({
   cardNum,
   isPopupCardShow,
   closeCardPopup,
-  setData,
+  dispathc,
 }) => {
   let thisCard: ICard;
   const data = useContext(dataContext);
@@ -55,96 +55,20 @@ const CardPopup: FC<CardPopupProps> = ({
     };
   }
 
-  const [, setcardName] = useState<string>(thisCard?.name);
-  const [, setcardDesc] = useState<string>(thisCard?.text);
-  const [commentCode, setCommentCode] = useState("//");
   const [textAreaFocus, setTextAreaFocus] = useState(-2);
   const [newComment, setNewComment] = useState<string>("");
-
-  const cardNameChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    columnId: number,
-    cardNum: number,
-  ) => {
-    setData((state) => {
-      const copyState = { ...state };
-      copyState[columnId].cards[cardNum].name = event.target.value;
-      return copyState;
-    });
-  };
-
-  const changeHeaderHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setcardName(event.target.value);
-    cardNameChange(event, columnId, cardNum);
-  };
-
-  const cardDescriptionChange = (
-    event: ChangeEvent<HTMLTextAreaElement>,
-    columnId: number,
-    cardNum: number,
-  ) => {
-    setData((state) => {
-      const copyState = { ...state };
-      copyState[columnId].cards[cardNum].text = event.target.value;
-      return copyState;
-    });
-  };
-
-  const changeDescriptionHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setcardDesc(event.target.value);
-    cardDescriptionChange(event, columnId, cardNum);
-  };
 
   const focusOnTextarea = (num: number) => {
     setTimeout(() => setTextAreaFocus(num), 100);
   };
 
-  const addNewComment = (columnId: number, cardNum: number, newComment: string) => {
-    setData((state) => {
-      const copyState = { ...state };
-      copyState[columnId].cards[cardNum].comment.push({
-        text: newComment,
-        author: localStorage.userName,
-      });
-      return copyState;
-    });
-  };
-
-  const addComment = (columnId: number, cardNum: number, newComment: string): void => {
-    addNewComment(columnId, cardNum, newComment);
-    setNewComment("");
-  };
-
-  const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
-    setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);
-  };
-
-  const commentEditSave = (
-    columnId: number,
-    cardNum: number,
-    conmentNum: number,
-    newComment: string,
-  ) => {
-    setData((state) => {
-      const copyState = { ...state };
-      copyState[columnId].cards[cardNum].comment[conmentNum].text = newComment;
-      return copyState;
-    });
-  };
-
-  const commentDelite = (columnId: number, cardNum: number, conmentNum: number) => {
-    setData((state) => {
-      const copyState = { ...state };
-      copyState[columnId].cards[cardNum].comment.splice(conmentNum, 1);
-      return copyState;
-    });
-  };
-
   const deleteCard = (columnId: number, cardNum: number) => {
-    setData((state) => {
-      const copyState = { ...state };
-      copyState[columnId].cards.splice(cardNum, 1);
-      return copyState;
+    dispathc({
+      type: "deleteCard",
+      payload: {
+        columnId: columnId,
+        cardNum: cardNum,
+      },
     });
   };
 
@@ -162,7 +86,15 @@ const CardPopup: FC<CardPopupProps> = ({
             {" "}
           </i>
           &nbsp;
-          <CardHeader value={thisCard.name} onChange={changeHeaderHandler} />
+          <CardHeader
+            value={thisCard.name}
+            onChange={(event) => {
+              dispathc({
+                type: "cardNameChange",
+                payload: { event: event, columnId: columnId, cardNum: cardNum },
+              });
+            }}
+          />
           <br />
           <p>
             in column
@@ -176,7 +108,12 @@ const CardPopup: FC<CardPopupProps> = ({
           <br />
           <CardDescription
             value={thisCard.text}
-            onChange={changeDescriptionHandler}
+            onChange={(event) => {
+              dispathc({
+                type: "cardDescriptionChange",
+                payload: { event: event, columnId: columnId, cardNum: cardNum },
+              });
+            }}
             placeholder="Type your description..."
           />
           <i className="fa fa-comments" aria-hidden="true">
@@ -197,7 +134,14 @@ const CardPopup: FC<CardPopupProps> = ({
             <SaveCommentButton
               textAreaFocus={textAreaFocus === -1}
               onClick={() => {
-                addComment(columnId, cardNum, newComment);
+                dispathc({
+                  type: "addNewComment",
+                  payload: {
+                    columnId: columnId,
+                    cardNum: cardNum,
+                    newComment: newComment,
+                  },
+                });
               }}
               newComment={newComment}
             >
@@ -209,14 +153,11 @@ const CardPopup: FC<CardPopupProps> = ({
               key={index}
               columnId={columnId}
               textAreaFocus={textAreaFocus}
-              lineNum={index}
+              commentNum={index}
               focusOnTextarea={focusOnTextarea}
               thisCard={thisCard}
               cardNum={cardNum}
-              commentCode={commentCode}
-              commentEdit={commentEdit}
-              commentEditSave={commentEditSave}
-              commentDelite={commentDelite}
+              dispathc={dispathc}
             />
           ))}
           <CommentRowContainer>
