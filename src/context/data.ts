@@ -60,11 +60,6 @@ export const data: {
   },
 };
 
-interface DataContextValue {
-  data: { [key: string]: DataStructure };
-  dispatch: any;
-}
-
 type Action = {
   type: string;
   payload: {
@@ -75,6 +70,7 @@ type Action = {
     cardNum: number;
     commentNum: number;
     newComment: string;
+    userName: string;
   };
 };
 
@@ -104,7 +100,7 @@ export const reduser = (
       if (action.payload.cardName.length > 0) {
         copyState[action.payload.columnId].cards.push({
           name: action.payload.cardName,
-          author: localStorage.userName,
+          author: action.payload.userName,
           text: "",
           comment: [],
         });
@@ -156,6 +152,22 @@ export const reduser = (
       return state;
   }
 };
+
+interface DataContextValue {
+  data: { [key: string]: DataStructure };
+  dispatch: any;
+}
+
+interface UserNameContextValue {
+  userName: string;
+  setUserName: any;
+}
+
+export const UserNameContext = createContext<UserNameContextValue>({
+  userName: "",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setUserName: () => {},
+});
 
 const DataContext = createContext<DataContextValue>({
   data: data,

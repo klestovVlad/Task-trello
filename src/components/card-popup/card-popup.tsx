@@ -60,19 +60,55 @@ const CardPopup: FC<CardPopupProps> = ({
   };
 
   const deleteCard = (columnId: number, cardNum: number) => {
-    dispatch({
-      type: "deleteCard",
-      payload: {
-        columnId: columnId,
-        cardNum: cardNum,
-      },
-    });
+    function deleteThisCard() {
+      return {
+        type: "deleteCard",
+        payload: {
+          columnId: columnId,
+          cardNum: cardNum,
+        },
+      };
+    }
+    dispatch(deleteThisCard());
   };
 
   const deleteThisCard = (columnId: number, cardNum: number) => {
     closeCardPopup();
     setTimeout(() => deleteCard(columnId, cardNum), 100);
   };
+
+  function cardNameChange(text: string, columnId: number, cardNum: number) {
+    return {
+      type: "cardNameChange",
+      payload: {
+        text: text,
+        columnId: columnId,
+        cardNum: cardNum,
+      },
+    };
+  }
+
+  function cardDescriptionChange(text: string, columnId: number, cardNum: number) {
+    return {
+      type: "cardDescriptionChange",
+      payload: {
+        text: text,
+        columnId: columnId,
+        cardNum: cardNum,
+      },
+    };
+  }
+
+  function addNewComment(columnId: number, cardNum: number) {
+    return {
+      type: "addNewComment",
+      payload: {
+        columnId: columnId,
+        cardNum: cardNum,
+        newComment: newComment,
+      },
+    };
+  }
 
   if (isPopupCardShow) {
     return (
@@ -86,14 +122,7 @@ const CardPopup: FC<CardPopupProps> = ({
           <CardHeader
             value={thisCard.name}
             onChange={(event) => {
-              dispatch({
-                type: "cardNameChange",
-                payload: {
-                  text: event.target.value,
-                  columnId: columnId,
-                  cardNum: cardNum,
-                },
-              });
+              dispatch(cardNameChange(event.target.value, columnId, cardNum));
             }}
           />
           <br />
@@ -110,14 +139,7 @@ const CardPopup: FC<CardPopupProps> = ({
           <CardDescription
             value={thisCard.text}
             onChange={(event) => {
-              dispatch({
-                type: "cardDescriptionChange",
-                payload: {
-                  text: event.target.value,
-                  columnId: columnId,
-                  cardNum: cardNum,
-                },
-              });
+              dispatch(cardDescriptionChange(event.target.value, columnId, cardNum));
             }}
             placeholder="Type your description..."
           />
@@ -139,14 +161,7 @@ const CardPopup: FC<CardPopupProps> = ({
             <SaveCommentButton
               textAreaFocus={textAreaFocus === -1}
               onClick={() => {
-                dispatch({
-                  type: "addNewComment",
-                  payload: {
-                    columnId: columnId,
-                    cardNum: cardNum,
-                    newComment: newComment,
-                  },
-                });
+                dispatch(addNewComment(columnId, cardNum));
               }}
               newComment={newComment}
             >

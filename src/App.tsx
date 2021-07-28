@@ -1,11 +1,13 @@
 import { useEffect } from "react";
+import { useState } from "react";
 import { FC, useReducer } from "react";
 
 import Main from "./components/main/main";
-import DataContext, { data, reduser } from "./context/data";
+import DataContext, { data, reduser, UserNameContext } from "./context/data";
 
 const App: FC = () => {
   const [dataset, dispatch] = useReducer(reduser, data);
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const islocalDataExist = localStorage.data !== undefined;
@@ -25,6 +27,10 @@ const App: FC = () => {
     localStorage.data = JSON.stringify(data);
   }, [data]);
 
+  useEffect(() => {
+    localStorage.userName = userName;
+  }, [userName]);
+
   return (
     <DataContext.Provider
       value={{
@@ -32,7 +38,14 @@ const App: FC = () => {
         dispatch: dispatch,
       }}
     >
-      <Main />
+      <UserNameContext.Provider
+        value={{
+          userName: userName,
+          setUserName: setUserName,
+        }}
+      >
+        <Main />
+      </UserNameContext.Provider>
     </DataContext.Provider>
   );
 };

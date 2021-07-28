@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
 
-import dataContext from "../../../context/data";
+import dataContext, { UserNameContext } from "../../../context/data";
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
 interface ColumnsFooterProps {
@@ -11,12 +11,16 @@ interface ColumnsFooterProps {
 const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const [cardName, setCardName] = useState("");
   const { dispatch } = useContext(dataContext);
+  const { userName } = useContext(UserNameContext);
 
   function addNewCard(columnId: number, cardName: string) {
-    dispatch({
-      type: "pushNewCard",
-      payload: { columnId: columnId, cardName: cardName },
-    });
+    function pushNewCard(columnId: number, cardName: string, userName: string) {
+      return {
+        type: "pushNewCard",
+        payload: { columnId: columnId, cardName: cardName, userName: userName },
+      };
+    }
+    dispatch(pushNewCard(columnId, cardName, userName));
     setCardName("");
   }
 

@@ -1,18 +1,18 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 
+import { UserNameContext } from "../../context/data";
 import { ButtonApply, Input, Popup, Question, Shadow } from "./styles";
 
-interface NewUserPopupProps {
-  isPopupShow: boolean;
-  newUserName(userName: string): void;
-}
-
-const NewUserPopup: FC<NewUserPopupProps> = ({ isPopupShow, newUserName }) => {
-  const [userName, setuserName] = useState("");
+const NewUserPopup: FC = () => {
+  const { userName, setUserName } = useContext(UserNameContext);
+  const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
+    localStorage.userName === undefined,
+  );
   const nameAply = () => {
-    newUserName(userName);
+    setUserName(userName);
+    setIsPopupNewUserShow(false);
   };
-  if (isPopupShow) {
+  if (isPopupNewUserShow) {
     return (
       <Shadow>
         <Popup>
@@ -22,7 +22,7 @@ const NewUserPopup: FC<NewUserPopupProps> = ({ isPopupShow, newUserName }) => {
             value={userName}
             placeholder="Type your name..."
             onChange={(e) => {
-              setuserName(e.target.value);
+              setUserName(e.target.value);
             }}
             onKeyDown={(ev) => {
               if (ev.key === "Enter") {

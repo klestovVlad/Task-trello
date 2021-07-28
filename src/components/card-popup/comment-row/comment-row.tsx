@@ -53,6 +53,34 @@ const CommentRow: FC<CommentRowProps> = ({
       focusOnTextarea(-2);
     }, 100);
   };
+
+  function commentEditSave(
+    columnId: number,
+    cardNum: number,
+    commentNum: number,
+    newComment: string,
+  ) {
+    return {
+      type: "commentEditSave",
+      payload: {
+        columnId: columnId,
+        cardNum: cardNum,
+        commentNum: commentNum,
+        newComment: newComment,
+      },
+    };
+  }
+
+  function commentDelite(columnId: number, cardNum: number, commentNum: number) {
+    return {
+      type: "commentDelite",
+      payload: {
+        columnId: columnId,
+        cardNum: cardNum,
+        commentNum: commentNum,
+      },
+    };
+  }
   return (
     <CommentRowContainer>
       <AutorLogo>
@@ -77,15 +105,7 @@ const CommentRow: FC<CommentRowProps> = ({
           textAreaFocus={textAreaFocus == commentNum}
           newComment={newComment}
           onClick={() => {
-            dispatch({
-              type: "commentEditSave",
-              payload: {
-                columnId: columnId,
-                cardNum: cardNum,
-                commentNum: commentNum,
-                newComment: newComment,
-              },
-            });
+            dispatch(commentEditSave(columnId, cardNum, commentNum, newComment));
           }}
         >
           save
@@ -95,14 +115,7 @@ const CommentRow: FC<CommentRowProps> = ({
           &nbsp;
           <Сaption
             onClick={() => {
-              dispatch({
-                type: "commentDelite",
-                payload: {
-                  columnId: columnId,
-                  cardNum: cardNum,
-                  commentNum: commentNum,
-                },
-              });
+              dispatch(commentDelite(columnId, cardNum, commentNum));
             }}
           >
             Delete

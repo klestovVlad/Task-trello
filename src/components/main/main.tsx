@@ -11,9 +11,6 @@ const Main: FC = () => {
   const [columnId, setColumnId] = useState(0);
   const [cardNum, setCardNum] = useState(0);
   const [isPopupCardShow, setIsPopupCardShow] = useState(false);
-  const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
-    localStorage.userName === undefined,
-  );
 
   const { data } = useContext(dataContext);
 
@@ -25,13 +22,6 @@ const Main: FC = () => {
 
   const closeCardPopup = () => {
     setIsPopupCardShow(false);
-  };
-
-  const newUserName = (userName: string) => {
-    if (userName.length > 0) {
-      localStorage.userName = userName;
-      setIsPopupNewUserShow(false);
-    }
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,7 +53,7 @@ const Main: FC = () => {
         isPopupCardShow={isPopupCardShow}
         closeCardPopup={closeCardPopup}
       />
-      <NewUserPopup isPopupShow={isPopupNewUserShow} newUserName={newUserName} />
+      <NewUserPopup />
     </>
   );
 };
