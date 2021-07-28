@@ -1,13 +1,11 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { FC, useReducer } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 import Main from "./components/main/main";
-import DataContext, { data, reduser, UserNameContext } from "./context/data";
+import DataContext, { data, UserNameContext } from "./context/data";
 
 const App: FC = () => {
-  const [dataset, dispatch] = useReducer(reduser, data);
   const [userName, setUserName] = useState("");
+  const dataset = useContext(DataContext);
 
   useEffect(() => {
     const islocalDataExist = localStorage.data !== undefined;
@@ -24,20 +22,15 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.data = JSON.stringify(data);
-  }, [data]);
+    localStorage.data = JSON.stringify(dataset);
+  }, [dataset]);
 
   useEffect(() => {
     localStorage.userName = userName;
   }, [userName]);
 
   return (
-    <DataContext.Provider
-      value={{
-        data: dataset,
-        dispatch: dispatch,
-      }}
-    >
+    <DataContext.Provider value={dataset}>
       <UserNameContext.Provider
         value={{
           userName: userName,
