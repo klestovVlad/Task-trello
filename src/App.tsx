@@ -19,6 +19,10 @@ const App: FC = () => {
         data[key] = localData[key];
       }
     }
+
+    if (localStorage.userName !== undefined) {
+      setUserName(localStorage.userName);
+    }
   }, []);
 
   useEffect(() => {
