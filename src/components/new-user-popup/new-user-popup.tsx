@@ -8,6 +8,9 @@ const NewUserPopup: FC = () => {
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
     userName === undefined || userName.length < 1,
   );
+
+  console.log(userName === undefined || userName.length < 1);
+  console.log(isPopupNewUserShow);
   const nameAply = () => {
     setUserName(userName);
     setIsPopupNewUserShow(false);
