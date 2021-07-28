@@ -60,102 +60,8 @@ export const data: {
   },
 };
 
-type Action = {
-  type: string;
-  payload: {
-    id: number;
-    text: string;
-    cardName: string;
-    columnId: number;
-    cardNum: number;
-    commentNum: number;
-    newComment: string;
-    userName: string;
-  };
-};
-
-interface State {
-  [key: string]: DataStructure;
-}
-
-export const reduser = (
-  state: State,
-  action: Action,
-): { [key: string]: DataStructure } => {
-  const copyState = { ...state };
-  switch (action.type) {
-    case "columnNameChange":
-      copyState[action.payload.id].listName = action.payload.text;
-      return {
-        ...copyState,
-      };
-    case "toggleVisibilityAddCardField":
-      for (const key in copyState) {
-        copyState[key].isCardAdding = +key === action.payload.id ? true : false;
-      }
-      return {
-        ...copyState,
-      };
-    case "pushNewCard":
-      if (action.payload.cardName.length > 0) {
-        copyState[action.payload.columnId].cards.push({
-          name: action.payload.cardName,
-          author: action.payload.userName,
-          text: "",
-          comment: [],
-        });
-      }
-      return {
-        ...copyState,
-      };
-    case "cardNameChange":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].name =
-        action.payload.text;
-      return {
-        ...copyState,
-      };
-    case "cardDescriptionChange":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].text =
-        action.payload.text;
-      return {
-        ...copyState,
-      };
-    case "addNewComment":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].comment.push({
-        text: action.payload.newComment,
-        author: localStorage.userName,
-      });
-      return {
-        ...copyState,
-      };
-    case "commentEditSave":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].comment[
-        action.payload.commentNum
-      ].text = action.payload.newComment;
-      return {
-        ...copyState,
-      };
-    case "commentDelite":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].comment.splice(
-        action.payload.commentNum,
-        1,
-      );
-      return {
-        ...copyState,
-      };
-    case "deleteCard":
-      copyState[action.payload.columnId].cards.splice(action.payload.cardNum, 1);
-      return {
-        ...copyState,
-      };
-    default:
-      return state;
-  }
-};
-
 interface DataContextValue {
-  data: { [key: string]: DataStructure };
-  dispatch: any;
+  [key: string]: DataStructure;
 }
 
 interface UserNameContextValue {
@@ -169,10 +75,6 @@ export const UserNameContext = createContext<UserNameContextValue>({
   setUserName: () => {},
 });
 
-const DataContext = createContext<DataContextValue>({
-  data: data,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  dispatch: () => {},
-});
+const DataContext = createContext<DataContextValue>(data);
 
 export default DataContext;

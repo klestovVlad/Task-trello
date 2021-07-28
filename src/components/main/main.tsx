@@ -12,7 +12,7 @@ const Main: FC = () => {
   const [cardNum, setCardNum] = useState(0);
   const [isPopupCardShow, setIsPopupCardShow] = useState(false);
 
-  const { data } = useContext(dataContext);
+  const data = useContext(dataContext);
 
   const showCardPopup = (Id: number, cNum: number) => {
     setIsPopupCardShow(true);

@@ -1,6 +1,7 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useReducer, useState } from "react";
 
-import dataContext, { UserNameContext } from "../../../context/data";
+import { data, UserNameContext } from "../../../context/data";
+import { reduser } from "../../../context/reduser";
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
 interface ColumnsFooterProps {
@@ -10,8 +11,8 @@ interface ColumnsFooterProps {
 
 const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const [cardName, setCardName] = useState("");
-  const { dispatch } = useContext(dataContext);
   const { userName } = useContext(UserNameContext);
+  const [, dispatch] = useReducer(reduser, data);
 
   function addNewCard(columnId: number, cardName: string) {
     function pushNewCard(columnId: number, cardName: string, userName: string) {

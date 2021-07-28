@@ -6,7 +6,7 @@ import { ButtonApply, Input, Popup, Question, Shadow } from "./styles";
 const NewUserPopup: FC = () => {
   const { userName, setUserName } = useContext(UserNameContext);
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
-    localStorage.userName === undefined,
+    userName === undefined || userName.length < 1,
   );
   const nameAply = () => {
     setUserName(userName);

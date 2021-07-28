@@ -1,6 +1,13 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useReducer, useState } from "react";
 
+import {
+  addNewComment,
+  cardDescriptionChange,
+  cardNameChange,
+  deleteCard,
+} from "../../context/actions";
 import dataContext, { CardStructure } from "../../context/data";
+import { reduser } from "../../context/reduser";
 import { CommentRow } from "./comment-row/index";
 import {
   AutorLogo,
@@ -39,7 +46,7 @@ const CardPopup: FC<CardPopupProps> = ({
   closeCardPopup,
 }) => {
   let thisCard: CardStructure;
-  const { data, dispatch } = useContext(dataContext);
+  const data = useContext(dataContext);
 
   if (data[columnId].cards.length > 0) {
     thisCard = data[columnId].cards[cardNum];
@@ -54,61 +61,16 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const [textAreaFocus, setTextAreaFocus] = useState(-2);
   const [newComment, setNewComment] = useState<string>("");
+  const [, dispatch] = useReducer(reduser, data);
 
   const focusOnTextarea = (num: number) => {
     setTimeout(() => setTextAreaFocus(num), 100);
   };
 
-  const deleteCard = (columnId: number, cardNum: number) => {
-    function deleteThisCard() {
-      return {
-        type: "deleteCard",
-        payload: {
-          columnId: columnId,
-          cardNum: cardNum,
-        },
-      };
-    }
-    dispatch(deleteThisCard());
-  };
-
   const deleteThisCard = (columnId: number, cardNum: number) => {
     closeCardPopup();
-    setTimeout(() => deleteCard(columnId, cardNum), 100);
+    setTimeout(() => dispatch(deleteCard(columnId, cardNum)), 100);
   };
-
-  function cardNameChange(text: string, columnId: number, cardNum: number) {
-    return {
-      type: "cardNameChange",
-      payload: {
-        text: text,
-        columnId: columnId,
-        cardNum: cardNum,
-      },
-    };
-  }
-
-  function cardDescriptionChange(text: string, columnId: number, cardNum: number) {
-    return {
-      type: "cardDescriptionChange",
-      payload: {
-        text: text,
-        columnId: columnId,
-        cardNum: cardNum,
-      },
-    };
-  }
-
-  function addNewComment(columnId: number, cardNum: number) {
-    return {
-      type: "addNewComment",
-      payload: {
-        columnId: columnId,
-        cardNum: cardNum,
-        newComment: newComment,
-      },
-    };
-  }
 
   if (isPopupCardShow) {
     return (
@@ -161,7 +123,7 @@ const CardPopup: FC<CardPopupProps> = ({
             <SaveCommentButton
               textAreaFocus={textAreaFocus === -1}
               onClick={() => {
-                dispatch(addNewComment(columnId, cardNum));
+                dispatch(addNewComment(columnId, cardNum, newComment));
               }}
               newComment={newComment}
             >

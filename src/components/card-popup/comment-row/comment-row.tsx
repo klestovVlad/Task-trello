@@ -1,6 +1,8 @@
-import { FC, useContext, useRef, useState } from "react";
+import { FC, useReducer, useRef, useState } from "react";
 
-import dataContext, { CardStructure } from "../../../context/data";
+import { commentDelite, commentEditSave } from "../../../context/actions";
+import { CardStructure, data } from "../../../context/data";
+import { reduser } from "../../../context/reduser";
 import { returnTwoLetterFromName } from "../card-popup";
 import {
   AutorLogo,
@@ -30,7 +32,7 @@ const CommentRow: FC<CommentRowProps> = ({
   const [newComment, setNewComment] = useState(thisCard.comment[commentNum].text);
   const [commentCode, setCommentCode] = useState("//");
   const inputEl = useRef<HTMLTextAreaElement>(null);
-  const { dispatch } = useContext(dataContext);
+  const [, dispatch] = useReducer(reduser, data);
 
   const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
     setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);
@@ -54,33 +56,6 @@ const CommentRow: FC<CommentRowProps> = ({
     }, 100);
   };
 
-  function commentEditSave(
-    columnId: number,
-    cardNum: number,
-    commentNum: number,
-    newComment: string,
-  ) {
-    return {
-      type: "commentEditSave",
-      payload: {
-        columnId: columnId,
-        cardNum: cardNum,
-        commentNum: commentNum,
-        newComment: newComment,
-      },
-    };
-  }
-
-  function commentDelite(columnId: number, cardNum: number, commentNum: number) {
-    return {
-      type: "commentDelite",
-      payload: {
-        columnId: columnId,
-        cardNum: cardNum,
-        commentNum: commentNum,
-      },
-    };
-  }
   return (
     <CommentRowContainer>
       <AutorLogo>
