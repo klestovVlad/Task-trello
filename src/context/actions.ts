@@ -1,3 +1,15 @@
+interface LoadData {
+  type: string;
+  payload: Record<string, never>;
+}
+
+export function loadData(): LoadData {
+  return {
+    type: "loadData",
+    payload: {},
+  };
+}
+
 interface CardNameChange {
   type: string;
   payload: {

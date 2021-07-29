@@ -2,6 +2,10 @@ import { DataStructure } from "./data";
 
 // type Action =
 //   | {
+//       type: "loadData";
+//       payload: Record<string, never>;
+//     }
+//   | {
 //       type: "columnNameChange";
 //       payload: {
 //         id: number;
@@ -221,6 +225,10 @@ export const reducer = (
             }),
           ],
         },
+      };
+    case "loadData":
+      return {
+        ...JSON.parse(localStorage.data),
       };
     default:
       return state;

@@ -1,6 +1,7 @@
 import { FC, useEffect, useReducer, useState } from "react";
 
 import Main from "./components/main/main";
+import { loadData } from "./context/actions";
 import DataContext, { data, UserNameContext } from "./context/data";
 import { reducer } from "./context/reducer";
 
@@ -11,6 +12,9 @@ const App: FC = () => {
   useEffect(() => {
     if (localStorage.userName !== undefined) {
       setUserName(localStorage.userName);
+    }
+    if (localStorage.data !== undefined) {
+      dispatch(loadData());
     }
   }, []);
 
