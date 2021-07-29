@@ -11,7 +11,7 @@ export enum Actions {
   addNewComment = "ADD_NEW_COMENT",
   commentEditSave = "COMMENT_EDIT_SAVE",
   commentDelite = "COMMENT_DELITE",
-  deleteCard = "DELITE_CARD",
+  deleteCard = "DELETE_CARD",
 }
 // type Action =
 //   | {
@@ -122,21 +122,27 @@ export const reducer = (
         { ...state },
       );
     case Actions.pushNewCard:
-      return {
-        ...state,
-        [action.payload.columnId]: {
-          ...state[action.payload.columnId],
-          cards: [
-            ...state[action.payload.columnId].cards,
-            {
-              name: action.payload.cardName,
-              author: action.payload.userName,
-              text: "",
-              comment: [],
-            },
-          ],
-        },
-      };
+      if (action.payload.cardName.length > 0) {
+        return {
+          ...state,
+          [action.payload.columnId]: {
+            ...state[action.payload.columnId],
+            cards: [
+              ...state[action.payload.columnId].cards,
+              {
+                name: action.payload.cardName,
+                author: action.payload.userName,
+                text: "",
+                comment: [],
+              },
+            ],
+          },
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
     case Actions.cardNameChange:
       return {
         ...state,
@@ -175,10 +181,16 @@ export const reducer = (
           cards: [
             ...state[action.payload.columnId].cards.map((card, index) => {
               if (index === action.payload.cardNum) {
-                card.comment.push({
-                  text: action.payload.newComment,
-                  author: localStorage.userName,
-                });
+                return {
+                  ...card,
+                  comment: [
+                    ...card.comment,
+                    {
+                      text: action.payload.newComment,
+                      author: localStorage.userName,
+                    },
+                  ],
+                };
               }
               return card;
             }),

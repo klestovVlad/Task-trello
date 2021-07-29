@@ -1,12 +1,12 @@
-import { FC, useContext, useReducer, useState } from "react";
+import { FC, useContext, useState } from "react";
 
 import {
   addNewComment,
   cardDescriptionChange,
   cardNameChange,
   deleteCard,
-} from "../../context/actions";
-import dataContext, { CardStructure } from "../../context/data";
+} from "../../context/board/actions";
+import dataContext, { CardStructure } from "../../context/board/data";
 import { CommentRow } from "./comment-row/index";
 import {
   AutorLogo,

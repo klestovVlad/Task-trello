@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
 
-import { UserNameContext } from "../../context/data";
+import { UserNameContext } from "../../context/user/data";
 import { ButtonApply, Input, Popup, Question, Shadow } from "./styles";
 
 const NewUserPopup: FC = () => {

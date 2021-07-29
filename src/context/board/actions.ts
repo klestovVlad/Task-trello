@@ -8,7 +8,7 @@ interface LoadData {
   };
 }
 
-export function loadData(loadData: State): LoadData {
+export function downloadData(loadData: State): LoadData {
   return {
     type: Actions.loadData,
     payload: {

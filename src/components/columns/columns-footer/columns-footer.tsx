@@ -1,8 +1,9 @@
 import { FC, useContext, useState } from "react";
 
-import { toggleAddCardField } from "../../../context/actions";
-import { pushNewCard } from "../../../context/actions";
-import dataContext, { UserNameContext } from "../../../context/data";
+import { toggleAddCardField } from "../../../context/board/actions";
+import { pushNewCard } from "../../../context/board/actions";
+import dataContext from "../../../context/board/data";
+import { UserNameContext } from "../../../context/user/data";
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
 interface ColumnsFooterProps {

@@ -67,17 +67,6 @@ interface DataContextValue {
   dispatch: any;
 }
 
-interface UserNameContextValue {
-  userName: string;
-  setUserName: any;
-}
-
-export const UserNameContext = createContext<UserNameContextValue>({
-  userName: "",
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setUserName: () => {},
-});
-
 const DataContext = createContext<DataContextValue>({
   data: data,
   // eslint-disable-next-line @typescript-eslint/no-empty-function

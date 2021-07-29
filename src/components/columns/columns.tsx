@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 
-import { columnNameChange } from "../../context/actions";
-import dataContext, { DataStructure } from "../../context/data";
+import { columnNameChange } from "../../context/board/actions";
+import dataContext, { DataStructure } from "../../context/board/data";
 import { Cards } from "../cards/index";
 import { ColumnsFooter } from "./columns-footer/index";
 import { Column, ColumnName } from "./styles";

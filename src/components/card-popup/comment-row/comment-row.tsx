@@ -1,7 +1,7 @@
 import { FC, useContext, useRef, useState } from "react";
 
-import { commentDelite, commentEditSave } from "../../../context/actions";
-import dataContext, { CardStructure } from "../../../context/data";
+import { commentDelite, commentEditSave } from "../../../context/board/actions";
+import dataContext, { CardStructure } from "../../../context/board/data";
 import { returnTwoLetterFromName } from "../card-popup";
 import {
   AutorLogo,

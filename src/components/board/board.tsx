@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { FC, useContext, useState } from "react";
 
-import dataContext from "../../context/data";
+import dataContext from "../../context/board/data";
 import { CardPopup } from "../card-popup/index";
 import { Columns } from "../columns/index";
 import { NewUserPopup } from "../new-user-popup/index";
-import Board from "./styles";
+import CardBoard from "./styles";
 
-const Main: FC = () => {
+const Board: FC = () => {
   const [columnId, setColumnId] = useState(0);
   const [cardNum, setCardNum] = useState(0);
   const [isPopupCardShow, setIsPopupCardShow] = useState(false);
@@ -38,7 +38,7 @@ const Main: FC = () => {
 
   return (
     <>
-      <Board>
+      <CardBoard>
         {Object.keys(data).map((item) => (
           <Columns
             key={data[item].id}
@@ -46,7 +46,7 @@ const Main: FC = () => {
             showCardPopup={showCardPopup}
           />
         ))}
-      </Board>
+      </CardBoard>
       <CardPopup
         columnId={columnId}
         cardNum={cardNum}
@@ -58,4 +58,4 @@ const Main: FC = () => {
   );
 };
 
-export default Main;
+export default Board;
