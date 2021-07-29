@@ -1,8 +1,6 @@
-import { FC, useReducer } from "react";
+import { FC, useContext } from "react";
 
-import { data } from "../../context/data";
-import { DataStructure } from "../../context/data";
-import { reduser } from "../../context/reduser";
+import dataContext, { DataStructure } from "../../context/data";
 import { Cards } from "../cards/index";
 import { ColumnsFooter } from "./columns-footer/index";
 import { Column, ColumnName } from "./styles";
@@ -13,7 +11,7 @@ interface ColumnProps {
 }
 
 const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
-  const [, dispatch] = useReducer(reduser, data);
+  const { dispatch } = useContext(dataContext);
   return (
     <Column>
       <ColumnName

@@ -82,14 +82,12 @@ interface State {
   [key: string]: DataStructure;
 }
 
-export const reduser = (
+export const reducer = (
   state: State,
   action: Action,
 ): { [key: string]: DataStructure } => {
-  const copyState = { ...state };
   switch (action.type) {
     case "columnNameChange":
-      copyState[action.payload.id].listName = action.payload.text;
       return {
         ...state,
         [action.payload.id]: {
@@ -98,7 +96,7 @@ export const reduser = (
         },
       };
     case "toggleVisibilityAddCardField":
-      return Object.keys(copyState).reduce(
+      return Object.keys(state).reduce(
         (accum, current) => {
           return {
             ...accum,
@@ -127,8 +125,6 @@ export const reduser = (
         },
       };
     case "cardNameChange":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].name =
-        action.payload.text;
       return {
         ...state,
         [action.payload.columnId]: {
@@ -144,38 +140,87 @@ export const reduser = (
         },
       };
     case "cardDescriptionChange":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].text =
-        action.payload.text;
       return {
-        ...copyState,
+        ...state,
+        [action.payload.columnId]: {
+          ...state[action.payload.columnId],
+          cards: [
+            ...state[action.payload.columnId].cards.map((card, index) => {
+              if (index === action.payload.cardNum) {
+                card.text = action.payload.text;
+              }
+              return card;
+            }),
+          ],
+        },
       };
     case "addNewComment":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].comment.push({
-        text: action.payload.newComment,
-        author: localStorage.userName,
-      });
       return {
-        ...copyState,
+        ...state,
+        [action.payload.columnId]: {
+          ...state[action.payload.columnId],
+          cards: [
+            ...state[action.payload.columnId].cards.map((card, index) => {
+              if (index === action.payload.cardNum) {
+                card.comment.push({
+                  text: action.payload.newComment,
+                  author: localStorage.userName,
+                });
+              }
+              return card;
+            }),
+          ],
+        },
       };
     case "commentEditSave":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].comment[
-        action.payload.commentNum
-      ].text = action.payload.newComment;
       return {
-        ...copyState,
+        ...state,
+        [action.payload.columnId]: {
+          ...state[action.payload.columnId],
+          cards: [
+            ...state[action.payload.columnId].cards.map((card, index) => {
+              if (index === action.payload.cardNum) {
+                card.comment.map((comment, index) => {
+                  if (index === action.payload.commentNum) {
+                    comment.text = action.payload.newComment;
+                  }
+                  return comment;
+                });
+              }
+              return card;
+            }),
+          ],
+        },
       };
     case "commentDelite":
-      copyState[action.payload.columnId].cards[action.payload.cardNum].comment.splice(
-        action.payload.commentNum,
-        1,
-      );
       return {
-        ...copyState,
+        ...state,
+        [action.payload.columnId]: {
+          ...state[action.payload.columnId],
+          cards: [
+            ...state[action.payload.columnId].cards.map((card, index) => {
+              if (index === action.payload.cardNum) {
+                card.comment.splice(action.payload.commentNum, 1);
+              }
+              return card;
+            }),
+          ],
+        },
       };
     case "deleteCard":
-      copyState[action.payload.columnId].cards.splice(action.payload.cardNum, 1);
       return {
-        ...copyState,
+        ...state,
+        [action.payload.columnId]: {
+          ...state[action.payload.columnId],
+          cards: [
+            ...state[action.payload.columnId].cards.filter((el, index) => {
+              if (index === action.payload.cardNum) {
+                return false;
+              }
+              return true;
+            }),
+          ],
+        },
       };
     default:
       return state;

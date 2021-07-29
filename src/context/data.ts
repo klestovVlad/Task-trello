@@ -61,7 +61,10 @@ export const data: {
 };
 
 interface DataContextValue {
-  [key: string]: DataStructure;
+  data: {
+    [key: string]: DataStructure;
+  };
+  dispatch: any;
 }
 
 interface UserNameContextValue {
@@ -75,6 +78,10 @@ export const UserNameContext = createContext<UserNameContextValue>({
   setUserName: () => {},
 });
 
-const DataContext = createContext<DataContextValue>(data);
+const DataContext = createContext<DataContextValue>({
+  data: data,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  dispatch: () => {},
+});
 
 export default DataContext;

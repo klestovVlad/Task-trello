@@ -7,7 +7,6 @@ import {
   deleteCard,
 } from "../../context/actions";
 import dataContext, { CardStructure } from "../../context/data";
-import { reduser } from "../../context/reduser";
 import { CommentRow } from "./comment-row/index";
 import {
   AutorLogo,
@@ -46,7 +45,7 @@ const CardPopup: FC<CardPopupProps> = ({
   closeCardPopup,
 }) => {
   let thisCard: CardStructure;
-  const data = useContext(dataContext);
+  const { data, dispatch } = useContext(dataContext);
 
   if (data[columnId].cards.length > 0) {
     thisCard = data[columnId].cards[cardNum];
@@ -61,7 +60,6 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const [textAreaFocus, setTextAreaFocus] = useState(-2);
   const [newComment, setNewComment] = useState<string>("");
-  const [, dispatch] = useReducer(reduser, data);
 
   const focusOnTextarea = (num: number) => {
     setTimeout(() => setTextAreaFocus(num), 100);

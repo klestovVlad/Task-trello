@@ -1,40 +1,36 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useEffect, useReducer, useState } from "react";
 
 import Main from "./components/main/main";
 import DataContext, { data, UserNameContext } from "./context/data";
+import { reducer } from "./context/reducer";
 
 const App: FC = () => {
   const [userName, setUserName] = useState("");
-  const dataset = useContext(DataContext);
+  const [dataSet, dispatch] = useReducer(reducer, data);
 
   useEffect(() => {
-    const islocalDataExist = localStorage.data !== undefined;
-
-    if (islocalDataExist) {
-      const localData = JSON.parse(localStorage.data);
-      for (const key in data) {
-        delete data[key];
-      }
-      for (const key in localData) {
-        data[key] = localData[key];
-      }
-    }
-
     if (localStorage.userName !== undefined) {
       setUserName(localStorage.userName);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.data = JSON.stringify(dataset);
-  }, [dataset]);
+    localStorage.data = JSON.stringify(dataSet);
+  }, [dataSet]);
 
   useEffect(() => {
-    localStorage.userName = userName;
+    if (userName.length > 0) {
+      localStorage.userName = userName;
+    }
   }, [userName]);
 
   return (
-    <DataContext.Provider value={dataset}>
+    <DataContext.Provider
+      value={{
+        data: dataSet,
+        dispatch: dispatch,
+      }}
+    >
       <UserNameContext.Provider
         value={{
           userName: userName,

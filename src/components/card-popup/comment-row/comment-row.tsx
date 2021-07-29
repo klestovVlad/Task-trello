@@ -1,8 +1,7 @@
-import { FC, useReducer, useRef, useState } from "react";
+import { FC, useContext, useRef, useState } from "react";
 
 import { commentDelite, commentEditSave } from "../../../context/actions";
-import { CardStructure, data } from "../../../context/data";
-import { reduser } from "../../../context/reduser";
+import dataContext, { CardStructure } from "../../../context/data";
 import { returnTwoLetterFromName } from "../card-popup";
 import {
   AutorLogo,
@@ -32,7 +31,7 @@ const CommentRow: FC<CommentRowProps> = ({
   const [newComment, setNewComment] = useState(thisCard.comment[commentNum].text);
   const [commentCode, setCommentCode] = useState("//");
   const inputEl = useRef<HTMLTextAreaElement>(null);
-  const [, dispatch] = useReducer(reduser, data);
+  const { dispatch } = useContext(dataContext);
 
   const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
     setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);
