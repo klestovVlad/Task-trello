@@ -19,9 +19,11 @@ export interface DataStructure {
   cards: CardStructure[];
 }
 
-export const data: {
+export interface State {
   [key: string]: DataStructure;
-} = {
+}
+
+export const data: State = {
   0: {
     id: 0,
     listName: "TODO",
@@ -61,9 +63,7 @@ export const data: {
 };
 
 interface DataContextValue {
-  data: {
-    [key: string]: DataStructure;
-  };
+  data: State;
   dispatch: any;
 }
 

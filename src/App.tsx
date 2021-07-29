@@ -14,7 +14,7 @@ const App: FC = () => {
       setUserName(localStorage.userName);
     }
     if (localStorage.data !== undefined) {
-      dispatch(loadData());
+      dispatch(loadData(JSON.parse(localStorage.data)));
     }
   }, []);
 

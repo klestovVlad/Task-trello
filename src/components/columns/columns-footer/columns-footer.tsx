@@ -1,5 +1,7 @@
 import { FC, useContext, useState } from "react";
 
+import { toggleAddCardField } from "../../../context/actions";
+import { pushNewCard } from "../../../context/actions";
 import dataContext, { UserNameContext } from "../../../context/data";
 import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
 
@@ -14,12 +16,6 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const { dispatch } = useContext(dataContext);
 
   function addNewCard(columnId: number, cardName: string) {
-    function pushNewCard(columnId: number, cardName: string, userName: string) {
-      return {
-        type: "pushNewCard",
-        payload: { columnId: columnId, cardName: cardName, userName: userName },
-      };
-    }
     dispatch(pushNewCard(columnId, cardName, userName));
     setCardName("");
   }
@@ -28,10 +24,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
     return (
       <AddNewCard
         onClick={() => {
-          dispatch({
-            type: "toggleVisibilityAddCardField",
-            payload: { id: columnId },
-          });
+          dispatch(toggleAddCardField(columnId));
         }}
       >
         + Add new card
@@ -55,10 +48,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
       <CancelCardButtn
         className="fas fa-times"
         onClick={() => {
-          dispatch({
-            type: "toggleVisibilityAddCardField",
-            payload: { id: -1 },
-          });
+          dispatch(toggleAddCardField(-1));
         }}
       />
     </>

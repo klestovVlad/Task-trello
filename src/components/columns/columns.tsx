@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 
+import { columnNameChange } from "../../context/actions";
 import dataContext, { DataStructure } from "../../context/data";
 import { Cards } from "../cards/index";
 import { ColumnsFooter } from "./columns-footer/index";
@@ -17,10 +18,7 @@ const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
       <ColumnName
         value={dataColumn.listName}
         onChange={(event) => {
-          dispatch({
-            type: "columnNameChange",
-            payload: { text: event.target.value, id: dataColumn.id },
-          });
+          dispatch(columnNameChange(event.target.value, dataColumn.id));
         }}
       />
       {dataColumn.cards.map((item, index) => (

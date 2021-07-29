@@ -1,25 +1,38 @@
 import { DataStructure } from "./data";
+import { State } from "./data";
 
+export enum Actions {
+  loadData = "LOAD_DATA",
+  columnNameChange = "COLUMN_NAME_CHANGE",
+  toggleAddCardField = "TOGGLE_ADD_CARD_FIELD",
+  pushNewCard = "PUSH_NEW_CARD",
+  cardDescriptionChange = "CARD_DESCRIPTION_CHANGE",
+  cardNameChange = "CARD_NAME_CHANGE",
+  addNewComment = "ADD_NEW_COMENT",
+  commentEditSave = "COMMENT_EDIT_SAVE",
+  commentDelite = "COMMENT_DELITE",
+  deleteCard = "DELITE_CARD",
+}
 // type Action =
 //   | {
-//       type: "loadData";
+//       type: Actions.loadData;
 //       payload: Record<string, never>;
 //     }
 //   | {
-//       type: "columnNameChange";
+//       type: Actions.columnNameChange;
 //       payload: {
 //         id: number;
 //         text: string;
 //       };
 //     }
 //   | {
-//       type: "toggleVisibilityAddCardField";
+//       type: Actions.toggleVisibilityAddCardField;
 //       payload: {
 //         id: number;
 //       };
 //     }
 //   | {
-//       type: "pushNewCard";
+//       type: Actions.pushNewCard;
 //       payload: {
 //         cardName: string;
 //         columnId: number;
@@ -28,7 +41,7 @@ import { DataStructure } from "./data";
 //       };
 //     }
 //   | {
-//       type: "cardDescriptionChange";
+//       type: Actions.cardDescriptionChange;
 //       payload: {
 //         text: string;
 //         columnId: number;
@@ -36,7 +49,7 @@ import { DataStructure } from "./data";
 //       };
 //     }
 //   | {
-//       type: "cardNameChange";
+//       type: Actions.cardNameChange;
 //       payload: {
 //         text: string;
 //         columnId: number;
@@ -44,7 +57,7 @@ import { DataStructure } from "./data";
 //       };
 //     }
 //   | {
-//       type: "addNewComment";
+//       type: Actions.addNewComment;
 //       payload: {
 //         text: string;
 //         columnId: number;
@@ -53,7 +66,7 @@ import { DataStructure } from "./data";
 //       };
 //     }
 //   | {
-//       type: "commentEditSave";
+//       type: Actions.commentEditSave;
 //       payload: {
 //         columnId: number;
 //         cardNum: number;
@@ -62,7 +75,7 @@ import { DataStructure } from "./data";
 //       };
 //     }
 //   | {
-//       type: "commentDelite";
+//       type: Actions.commentDelite;
 //       payload: {
 //         columnId: number;
 //         cardNum: number;
@@ -70,7 +83,7 @@ import { DataStructure } from "./data";
 //       };
 //     }
 //   | {
-//       type: "deleteCard";
+//       type: Actions.deleteCard;
 //       payload: {
 //         columnId: number;
 //         cardNum: number;
@@ -82,16 +95,12 @@ type Action = {
   payload: any;
 };
 
-interface State {
-  [key: string]: DataStructure;
-}
-
 export const reducer = (
   state: State,
   action: Action,
 ): { [key: string]: DataStructure } => {
   switch (action.type) {
-    case "columnNameChange":
+    case Actions.columnNameChange:
       return {
         ...state,
         [action.payload.id]: {
@@ -99,7 +108,7 @@ export const reducer = (
           listName: action.payload.text,
         },
       };
-    case "toggleVisibilityAddCardField":
+    case Actions.toggleAddCardField:
       return Object.keys(state).reduce(
         (accum, current) => {
           return {
@@ -112,7 +121,7 @@ export const reducer = (
         },
         { ...state },
       );
-    case "pushNewCard":
+    case Actions.pushNewCard:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -128,7 +137,7 @@ export const reducer = (
           ],
         },
       };
-    case "cardNameChange":
+    case Actions.cardNameChange:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -143,7 +152,7 @@ export const reducer = (
           ],
         },
       };
-    case "cardDescriptionChange":
+    case Actions.cardDescriptionChange:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -158,7 +167,7 @@ export const reducer = (
           ],
         },
       };
-    case "addNewComment":
+    case Actions.addNewComment:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -176,7 +185,7 @@ export const reducer = (
           ],
         },
       };
-    case "commentEditSave":
+    case Actions.commentEditSave:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -196,7 +205,7 @@ export const reducer = (
           ],
         },
       };
-    case "commentDelite":
+    case Actions.commentDelite:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -211,7 +220,7 @@ export const reducer = (
           ],
         },
       };
-    case "deleteCard":
+    case Actions.deleteCard:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -226,9 +235,9 @@ export const reducer = (
           ],
         },
       };
-    case "loadData":
+    case Actions.loadData:
       return {
-        ...JSON.parse(localStorage.data),
+        ...action.payload.loadData,
       };
     default:
       return state;
