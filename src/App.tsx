@@ -1,21 +1,21 @@
 import { FC, useEffect, useReducer, useState } from "react";
 
 import Board from "./components/board/board";
-import { downloadData } from "./context/board/actions";
-import DataContext, { data } from "./context/board/data";
-import { reducer } from "./context/board/reducer";
+import actions from "./context/board/actions";
+import DataContext, { defaultState } from "./context/board/data";
+import rootReducer from "./context/board/reducer";
 import { UserNameContext } from "./context/user/data";
 
 const App: FC = () => {
   const [userName, setUserName] = useState("");
-  const [dataSet, dispatch] = useReducer(reducer, data);
+  const [dataSet, dispatch] = useReducer(rootReducer, defaultState);
 
   useEffect(() => {
     if (localStorage.userName !== undefined) {
       setUserName(localStorage.userName);
     }
     if (localStorage.data !== undefined) {
-      dispatch(downloadData(JSON.parse(localStorage.data)));
+      dispatch(actions.downloadData(JSON.parse(localStorage.data)));
     }
   }, []);
 

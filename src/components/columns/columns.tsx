@@ -1,10 +1,10 @@
 import { FC, useContext } from "react";
 
-import { columnNameChange } from "../../context/board/actions";
 import dataContext, { DataStructure } from "../../context/board/data";
 import { Cards } from "../cards/index";
+import { columnNameChange } from "./actions";
 import { ColumnsFooter } from "./columns-footer/index";
-import { Column, ColumnName } from "./styles";
+import styles from "./styles";
 
 interface ColumnProps {
   dataColumn: DataStructure;
@@ -14,8 +14,8 @@ interface ColumnProps {
 const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
   const { dispatch } = useContext(dataContext);
   return (
-    <Column>
-      <ColumnName
+    <styles.Column>
+      <styles.ColumnName
         value={dataColumn.listName}
         onChange={(event) => {
           dispatch(columnNameChange(event.target.value, dataColumn.id));
@@ -31,7 +31,7 @@ const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
         />
       ))}
       <ColumnsFooter columnId={dataColumn.id} isCardAdding={dataColumn.isCardAdding} />
-    </Column>
+    </styles.Column>
   );
 };
 

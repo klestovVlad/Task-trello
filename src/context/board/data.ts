@@ -23,7 +23,7 @@ export interface State {
   [key: string]: DataStructure;
 }
 
-export const data: State = {
+export const defaultState: State = {
   0: {
     id: 0,
     listName: "TODO",
@@ -68,7 +68,7 @@ interface DataContextValue {
 }
 
 const DataContext = createContext<DataContextValue>({
-  data: data,
+  data: defaultState,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   dispatch: () => {},
 });

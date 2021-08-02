@@ -1,26 +1,9 @@
 import { FC, useContext, useState } from "react";
 
-import {
-  addNewComment,
-  cardDescriptionChange,
-  cardNameChange,
-  deleteCard,
-} from "../../context/board/actions";
 import dataContext, { CardStructure } from "../../context/board/data";
+import actions from "./actions";
 import { CommentRow } from "./comment-row/index";
-import {
-  AutorLogo,
-  CardDescription,
-  CardHeader,
-  CloseIcon,
-  CommentRowContainer,
-  DeleteButton,
-  H3,
-  NewCommentInput,
-  PopUpCard,
-  SaveCommentButton,
-  ShadowCard,
-} from "./styles";
+import styles from "./styles";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function returnTwoLetterFromName(name: string) {
@@ -67,22 +50,22 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const deleteThisCard = (columnId: number, cardNum: number) => {
     closeCardPopup();
-    setTimeout(() => dispatch(deleteCard(columnId, cardNum)), 100);
+    setTimeout(() => dispatch(actions.deleteCard(columnId, cardNum)), 100);
   };
 
   if (isPopupCardShow) {
     return (
-      <ShadowCard>
-        <PopUpCard>
-          <CloseIcon className="fas fa-times" onClick={closeCardPopup} />
+      <styles.ShadowCard>
+        <styles.PopUpCard>
+          <styles.CloseIcon className="fas fa-times" onClick={closeCardPopup} />
           <i className="fa fa-list-alt" aria-hidden="true">
             {" "}
           </i>
           &nbsp;
-          <CardHeader
+          <styles.CardHeader
             value={thisCard.name}
             onChange={(event) => {
-              dispatch(cardNameChange(event.target.value, columnId, cardNum));
+              dispatch(actions.cardNameChange(event.target.value, columnId, cardNum));
             }}
           />
           <br />
@@ -94,12 +77,14 @@ const CardPopup: FC<CardPopupProps> = ({
             {" "}
           </i>
           &nbsp;
-          <H3>Description</H3>
+          <styles.H3>Description</styles.H3>
           <br />
-          <CardDescription
+          <styles.CardDescription
             value={thisCard.text}
             onChange={(event) => {
-              dispatch(cardDescriptionChange(event.target.value, columnId, cardNum));
+              dispatch(
+                actions.cardDescriptionChange(event.target.value, columnId, cardNum),
+              );
             }}
             placeholder="Type your description..."
           />
@@ -107,10 +92,12 @@ const CardPopup: FC<CardPopupProps> = ({
             {" "}
           </i>
           &nbsp;
-          <H3>Сomments</H3>
-          <CommentRowContainer>
-            <AutorLogo>{returnTwoLetterFromName(localStorage.userName)}</AutorLogo>
-            <NewCommentInput
+          <styles.H3>Сomments</styles.H3>
+          <styles.CommentRowContainer>
+            <styles.AutorLogo>
+              {returnTwoLetterFromName(localStorage.userName)}
+            </styles.AutorLogo>
+            <styles.NewCommentInput
               placeholder="Type your comment..."
               onFocus={() => focusOnTextarea(-1)}
               onBlur={() => focusOnTextarea(-2)}
@@ -118,16 +105,16 @@ const CardPopup: FC<CardPopupProps> = ({
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             />
-            <SaveCommentButton
+            <styles.SaveCommentButton
               textAreaFocus={textAreaFocus === -1}
               onClick={() => {
-                dispatch(addNewComment(columnId, cardNum, newComment));
+                dispatch(actions.addNewComment(columnId, cardNum, newComment));
               }}
               newComment={newComment}
             >
               save
-            </SaveCommentButton>
-          </CommentRowContainer>
+            </styles.SaveCommentButton>
+          </styles.CommentRowContainer>
           {thisCard.comment.map((item, index) => (
             <CommentRow
               key={index}
@@ -139,20 +126,22 @@ const CardPopup: FC<CardPopupProps> = ({
               cardNum={cardNum}
             />
           ))}
-          <CommentRowContainer>
-            <AutorLogo>{returnTwoLetterFromName(thisCard.author)}</AutorLogo>
+          <styles.CommentRowContainer>
+            <styles.AutorLogo>
+              {returnTwoLetterFromName(thisCard.author)}
+            </styles.AutorLogo>
             <h4>{thisCard.author}</h4>
             <span>&nbsp;add this card</span>
-          </CommentRowContainer>
+          </styles.CommentRowContainer>
           <div
             style={{ float: "right" }}
             onClick={() => deleteThisCard(columnId, cardNum)}
           >
             <i className="fas fa-trash-alt" style={{ color: "#d63031" }} />
-            <DeleteButton>Delete this card</DeleteButton>
+            <styles.DeleteButton>Delete this card</styles.DeleteButton>
           </div>
-        </PopUpCard>
-      </ShadowCard>
+        </styles.PopUpCard>
+      </styles.ShadowCard>
     );
   }
   return <></>;

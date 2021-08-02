@@ -1,15 +1,9 @@
 import { FC, useContext, useRef, useState } from "react";
 
-import { commentDelite, commentEditSave } from "../../../context/board/actions";
 import dataContext, { CardStructure } from "../../../context/board/data";
 import { returnTwoLetterFromName } from "../card-popup";
-import {
-  AutorLogo,
-  CommentRowContainer,
-  NewCommentInput,
-  SaveCommentButton,
-} from "../styles";
-import { CardCommentContainer, Сaption } from "./styles";
+import actions from "./action";
+import styles from "./styles";
 
 interface CommentRowProps {
   columnId: number;
@@ -56,13 +50,13 @@ const CommentRow: FC<CommentRowProps> = ({
   };
 
   return (
-    <CommentRowContainer>
-      <AutorLogo>
+    <styles.CommentRowContainer>
+      <styles.AutorLogo>
         {returnTwoLetterFromName(thisCard.comment[commentNum].author)}
-      </AutorLogo>
-      <CardCommentContainer>
+      </styles.AutorLogo>
+      <styles.CardCommentContainer>
         <h4>{thisCard.comment[commentNum].author}</h4>
-        <NewCommentInput
+        <styles.NewCommentInput
           onChange={(e) => {
             setNewComment(e.target.value);
             // props.comment.text = e.target.value;
@@ -74,29 +68,29 @@ const CommentRow: FC<CommentRowProps> = ({
           disabled={chekCommentCode()}
           value={newComment}
         />
-        <SaveCommentButton
+        <styles.SaveCommentButton
           style={{ bottom: "35px" }}
           textAreaFocus={textAreaFocus == commentNum}
           newComment={newComment}
           onClick={() => {
-            dispatch(commentEditSave(columnId, cardNum, commentNum, newComment));
+            dispatch(actions.commentEditSave(columnId, cardNum, commentNum, newComment));
           }}
         >
           save
-        </SaveCommentButton>
+        </styles.SaveCommentButton>
         <p>
-          <Сaption onClick={() => onButtonEditClick()}>Edit</Сaption>
+          <styles.Сaption onClick={() => onButtonEditClick()}>Edit</styles.Сaption>
           &nbsp;
-          <Сaption
+          <styles.Сaption
             onClick={() => {
-              dispatch(commentDelite(columnId, cardNum, commentNum));
+              dispatch(actions.commentDelite(columnId, cardNum, commentNum));
             }}
           >
             Delete
-          </Сaption>
+          </styles.Сaption>
         </p>
-      </CardCommentContainer>
-    </CommentRowContainer>
+      </styles.CardCommentContainer>
+    </styles.CommentRowContainer>
   );
 };
 

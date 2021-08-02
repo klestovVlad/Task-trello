@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ShadowCard = styled.div`
+const ShadowCard = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -12,7 +12,7 @@ export const ShadowCard = styled.div`
   display: block;
 `;
 
-export const PopUpCard = styled.div`
+const PopUpCard = styled.div`
   position: absolute;
   padding: 25px 40px;
   background-color: #F4F5F7;
@@ -28,14 +28,14 @@ export const PopUpCard = styled.div`
   overflow-x: auto;
 `;
 
-export const CloseIcon = styled.i`
+const CloseIcon = styled.i`
   position: absolute;
   top: 25px;
   right: 25px;
   cursor: pointer;
 `;
 
-export const CardHeader = styled.input`
+const CardHeader = styled.input`
   background: transparent;
   border-radius: 3px;
   box-shadow: none;
@@ -49,12 +49,12 @@ export const CardHeader = styled.input`
   resize: none;
 `;
 
-export const H3 = styled.h3`
+const H3 = styled.h3`
   display: inline-block;
   margin: 35px 0 0 0;
 `;
 
-export const CardDescription = styled.textarea`
+const CardDescription = styled.textarea`
   color: #172b4d;
   font-family: inherit;
   font-size: 16px;
@@ -66,13 +66,13 @@ export const CardDescription = styled.textarea`
   border: none;
 `;
 
-export const CommentRowContainer = styled.div`
+const CommentRowContainer = styled.div`
   position: relative;
   display: flex;
   margin: 35px 0 10px 0;
 `;
 
-export const AutorLogo = styled.div`
+const AutorLogo = styled.div`
   display: block;
   font-size: 12px;
   font-weight: 700;
@@ -91,7 +91,7 @@ interface NewCommentInputProps {
   textAreaFocus: boolean;
 }
 
-export const NewCommentInput = styled.textarea<NewCommentInputProps>`
+const NewCommentInput = styled.textarea<NewCommentInputProps>`
   background-color: white;
   border: 1px solid #d2d4dc;
   border-radius: 3px;
@@ -109,7 +109,7 @@ export const NewCommentInput = styled.textarea<NewCommentInputProps>`
   font-size: 14px;
 `;
 
-export const DeleteButton = styled.button`
+const DeleteButton = styled.button`
   border: none;
   background: none;
   color: #d63031;
@@ -121,7 +121,7 @@ interface SaveCommentButtonProps {
   newComment: string;
 }
 
-export const SaveCommentButton = styled.button<SaveCommentButtonProps>`
+const SaveCommentButton = styled.button<SaveCommentButtonProps>`
   display: ${(props) => (props.textAreaFocus ? "block" : "none")};
   position: absolute;
   bottom: 10px;
@@ -135,3 +135,17 @@ export const SaveCommentButton = styled.button<SaveCommentButtonProps>`
   border-radius: 3px;
   background: ${(props) => (props.newComment.length > 0 ? "#0079BF" : "#F5F6F8")};
 `;
+
+export default {
+  ShadowCard,
+  PopUpCard,
+  CloseIcon,
+  CardHeader,
+  H3,
+  CardDescription,
+  CommentRowContainer,
+  AutorLogo,
+  NewCommentInput,
+  DeleteButton,
+  SaveCommentButton,
+};

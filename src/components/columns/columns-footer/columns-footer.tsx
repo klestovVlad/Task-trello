@@ -1,10 +1,9 @@
 import { FC, useContext, useState } from "react";
 
-import { toggleAddCardField } from "../../../context/board/actions";
-import { pushNewCard } from "../../../context/board/actions";
 import dataContext from "../../../context/board/data";
 import { UserNameContext } from "../../../context/user/data";
-import { AddCardButtn, AddNewCard, CancelCardButtn, CardInput } from "../styles";
+import actions from "./actions";
+import styles from "./styles";
 
 interface ColumnsFooterProps {
   columnId: number;
@@ -17,24 +16,24 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const { dispatch } = useContext(dataContext);
 
   function addNewCard(columnId: number, cardName: string) {
-    dispatch(pushNewCard(columnId, cardName, userName));
+    dispatch(actions.pushNewCard(columnId, cardName, userName));
     setCardName("");
   }
 
   if (!isCardAdding) {
     return (
-      <AddNewCard
+      <styles.AddNewCard
         onClick={() => {
-          dispatch(toggleAddCardField(columnId));
+          dispatch(actions.toggleAddCardField(columnId));
         }}
       >
         + Add new card
-      </AddNewCard>
+      </styles.AddNewCard>
     );
   }
   return (
     <>
-      <CardInput
+      <styles.CardInput
         type="text"
         placeholder="Enter a title for this card"
         value={cardName}
@@ -45,11 +44,13 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
           }
         }}
       />
-      <AddCardButtn onClick={() => addNewCard(columnId, cardName)}>add card</AddCardButtn>
-      <CancelCardButtn
+      <styles.AddCardButtn onClick={() => addNewCard(columnId, cardName)}>
+        add card
+      </styles.AddCardButtn>
+      <styles.CancelCardButtn
         className="fas fa-times"
         onClick={() => {
-          dispatch(toggleAddCardField(-1));
+          dispatch(actions.toggleAddCardField(-1));
         }}
       />
     </>

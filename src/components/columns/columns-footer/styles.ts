@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Column = styled.div`
+const Column = styled.div`
   width: 300px;
   margin: 0 5px;
   height: 100%;
@@ -8,37 +8,37 @@ export const Column = styled.div`
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
-  background-color: #EBECF0;
+  background-color: #ebecf0;
   border-radius: 3px;
   padding: 10px;
-  color: #172B4D;
+  color: #172b4d;
 `;
 
-export const ColumnName = styled.input`
-  color: #172B4D;
-  font-size:16px;
+const ColumnName = styled.input`
+  color: #172b4d;
+  font-size: 16px;
   font-weight: 600;
-  width:100%;
+  width: 100%;
 `;
 
-export const AddNewCard = styled.div`
+const AddNewCard = styled.div`
   padding: 5px;
-  color: #5E6C84;
+  color: #5e6c84;
   cursor: pointer;
   &:hover {
-      background-color: #DADBE2;
+    background-color: #dadbe2;
   }
   display: block;
 `;
 
-export const CardInput = styled.input`
+const CardInput = styled.input`
   display: block;
-  color: #172B4D;
+  color: #172b4d;
   font-weight: 400;
   padding: 6px 8px;
-  background-color:white;
+  background-color: white;
   box-shadow: 0px 3px 3px grey;
-  margin:10px 0;
+  margin: 10px 0;
   border-radius: 3px;
   overflow-wrap: break-word;
   resize: none;
@@ -49,11 +49,11 @@ export const CardInput = styled.input`
   padding-bottom: 30px;
 `;
 
-export const AddCardButtn = styled.button`
-  background-color: #0079BF;
+const AddCardButtn = styled.button`
+  background-color: #0079bf;
   padding: 6px 8px;
   border: none;
-  border-radius:3px;
+  border-radius: 3px;
   font: inherit;
   color: inherit;
   cursor: pointer;
@@ -61,8 +61,17 @@ export const AddCardButtn = styled.button`
   color: white;
 `;
 
-export const CancelCardButtn = styled.i`
+const CancelCardButtn = styled.i`
   margin-left: 15px;
   cursor: pointer;
-  color: #5E6C84;
+  color: #5e6c84;
 `;
+
+export default {
+  Column,
+  ColumnName,
+  AddNewCard,
+  CardInput,
+  AddCardButtn,
+  CancelCardButtn,
+};
