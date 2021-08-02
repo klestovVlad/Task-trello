@@ -16,8 +16,10 @@ const downloadDataReducer = (
   state: State,
   action: Action,
 ): { [key: string]: DataStructure } => {
+  console.log(state);
   switch (action.type) {
     case types.loadData:
+      console.log(action);
       return {
         ...action.payload.loadData,
       };

@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import dataContext from "../../../context/board/data";
 import { UserNameContext } from "../../../context/user/data";
 import actions from "./actions";
 import styles from "./styles";
@@ -13,7 +13,7 @@ interface ColumnsFooterProps {
 const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const [cardName, setCardName] = useState("");
   const { userName } = useContext(UserNameContext);
-  const { dispatch } = useContext(dataContext);
+  const dispatch = useDispatch();
 
   function addNewCard(columnId: number, cardName: string) {
     dispatch(actions.pushNewCard(columnId, cardName, userName));

@@ -1,14 +1,18 @@
-import { FC, useEffect, useReducer, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { Provider, useDispatch } from "react-redux";
+import { createStore } from "redux";
 
 import Board from "./components/board/board";
 import actions from "./context/board/actions";
-import DataContext, { defaultState } from "./context/board/data";
+import { defaultState } from "./context/board/data";
 import rootReducer from "./context/board/reducer";
 import { UserNameContext } from "./context/user/data";
 
 const App: FC = () => {
   const [userName, setUserName] = useState("");
-  const [dataSet, dispatch] = useReducer(rootReducer, defaultState);
+  console.log(defaultState);
+  const store = createStore(rootReducer, defaultState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.userName !== undefined) {
@@ -20,8 +24,8 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.data = JSON.stringify(dataSet);
-  }, [dataSet]);
+    localStorage.data = JSON.stringify(defaultState);
+  }, [defaultState]);
 
   useEffect(() => {
     if (userName.length > 0) {
@@ -30,12 +34,7 @@ const App: FC = () => {
   }, [userName]);
 
   return (
-    <DataContext.Provider
-      value={{
-        data: dataSet,
-        dispatch: dispatch,
-      }}
-    >
+    <Provider store={store}>
       <UserNameContext.Provider
         value={{
           userName: userName,
@@ -44,7 +43,7 @@ const App: FC = () => {
       >
         <Board />
       </UserNameContext.Provider>
-    </DataContext.Provider>
+    </Provider>
   );
 };
 

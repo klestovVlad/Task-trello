@@ -1,6 +1,7 @@
 import { FC, useContext, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import dataContext, { CardStructure } from "../../../context/board/data";
+import { CardStructure } from "../../../context/board/data";
 import { returnTwoLetterFromName } from "../card-popup";
 import actions from "./action";
 import styles from "./styles";
@@ -25,7 +26,7 @@ const CommentRow: FC<CommentRowProps> = ({
   const [newComment, setNewComment] = useState(thisCard.comment[commentNum].text);
   const [commentCode, setCommentCode] = useState("//");
   const inputEl = useRef<HTMLTextAreaElement>(null);
-  const { dispatch } = useContext(dataContext);
+  const dispatch = useDispatch();
 
   const commentEdit = (columnId: number, cardNum: number, conmentNum: number) => {
     setCommentCode(`${columnId}/${cardNum}/${conmentNum}`);

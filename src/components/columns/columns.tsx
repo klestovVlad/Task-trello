@@ -1,6 +1,7 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
+import { useDispatch } from "react-redux";
 
-import dataContext, { DataStructure } from "../../context/board/data";
+import { DataStructure } from "../../context/board/data";
 import { Cards } from "../cards/index";
 import { columnNameChange } from "./actions";
 import { ColumnsFooter } from "./columns-footer/index";
@@ -12,7 +13,7 @@ interface ColumnProps {
 }
 
 const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
-  const { dispatch } = useContext(dataContext);
+  const dispatch = useDispatch();
   return (
     <styles.Column>
       <styles.ColumnName
