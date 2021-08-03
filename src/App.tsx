@@ -1,17 +1,13 @@
 import { FC, useEffect, useState } from "react";
-import { Provider, useDispatch } from "react-redux";
-import { createStore } from "redux";
+import { useDispatch } from "react-redux";
 
 import Board from "./components/board/board";
 import actions from "./context/board/actions";
 import { defaultState } from "./context/board/data";
-import rootReducer from "./context/board/reducer";
 import { UserNameContext } from "./context/user/data";
 
 const App: FC = () => {
   const [userName, setUserName] = useState("");
-  console.log(defaultState);
-  const store = createStore(rootReducer, defaultState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,16 +30,14 @@ const App: FC = () => {
   }, [userName]);
 
   return (
-    <Provider store={store}>
-      <UserNameContext.Provider
-        value={{
-          userName: userName,
-          setUserName: setUserName,
-        }}
-      >
-        <Board />
-      </UserNameContext.Provider>
-    </Provider>
+    <UserNameContext.Provider
+      value={{
+        userName: userName,
+        setUserName: setUserName,
+      }}
+    >
+      <Board />
+    </UserNameContext.Provider>
   );
 };
 

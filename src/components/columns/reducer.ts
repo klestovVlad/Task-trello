@@ -1,4 +1,4 @@
-import { DataStructure, State } from "../../context/board/data";
+import { DataStructure, defaultState, State } from "../../context/board/data";
 import types from "./types";
 
 type Action = {
@@ -6,7 +6,10 @@ type Action = {
   payload: any;
 };
 
-const reducer = (state: State, action: Action): { [key: string]: DataStructure } => {
+const reducer = (
+  state: State = defaultState,
+  action: Action,
+): { [key: string]: DataStructure } => {
   switch (action.type) {
     case types.columnNameChange:
       return {

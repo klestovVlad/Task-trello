@@ -4,7 +4,7 @@ import { CommentRowReducer } from "../../components/card-popup/comment-row/index
 import { CardPopupReducer } from "../../components/card-popup/index";
 import { ColumnsFooterReducer } from "../../components/columns/columns-footer/index";
 import { ColumnsReducer } from "../../components/columns/index";
-import { DataStructure, State } from "./data";
+import { DataStructure, defaultState, State } from "./data";
 import types from "./types";
 
 type Action = {
@@ -13,13 +13,11 @@ type Action = {
 };
 
 const downloadDataReducer = (
-  state: State,
+  state: State = defaultState,
   action: Action,
 ): { [key: string]: DataStructure } => {
-  console.log(state);
   switch (action.type) {
     case types.loadData:
-      console.log(action);
       return {
         ...action.payload.loadData,
       };

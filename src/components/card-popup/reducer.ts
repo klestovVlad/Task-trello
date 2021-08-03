@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { DataStructure, State } from "../../context/board/data";
+import { DataStructure, defaultState, State } from "../../context/board/data";
 import types from "./types";
 
 type Action = {
@@ -9,7 +9,7 @@ type Action = {
 };
 
 const cardNameChangeReducer = (
-  state: State,
+  state: State = defaultState,
   action: Action,
 ): { [key: string]: DataStructure } => {
   switch (action.type) {
@@ -34,7 +34,7 @@ const cardNameChangeReducer = (
 };
 
 const cardDescriptionChangeReducer = (
-  state: State,
+  state: State = defaultState,
   action: Action,
 ): { [key: string]: DataStructure } => {
   switch (action.type) {
@@ -59,7 +59,7 @@ const cardDescriptionChangeReducer = (
 };
 
 const addNewCommentReducer = (
-  state: State,
+  state: State = defaultState,
   action: Action,
 ): { [key: string]: DataStructure } => {
   switch (action.type) {
@@ -93,7 +93,7 @@ const addNewCommentReducer = (
 };
 
 const deleteCardReducer = (
-  state: State,
+  state: State = defaultState,
   action: Action,
 ): { [key: string]: DataStructure } => {
   switch (action.type) {
