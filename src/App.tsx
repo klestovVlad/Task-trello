@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import Board from "./components/board/board";
 import actions from "./context/board/actions";
@@ -9,6 +9,8 @@ import { UserNameContext } from "./context/user/data";
 const App: FC = () => {
   const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  console.log(state);
 
   useEffect(() => {
     if (localStorage.userName !== undefined) {
