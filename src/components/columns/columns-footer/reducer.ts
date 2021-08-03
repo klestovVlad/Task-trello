@@ -1,5 +1,5 @@
 import { DataStructure, defaultState, State } from "../../../state/board/data";
-import types from "./types";
+import types from "../../../state/board/types";
 
 type Action = {
   type: string;

@@ -1,9 +1,9 @@
 import { FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
+import actions from "../../../state/board/actions";
 import { CardStructure } from "../../../state/board/data";
 import { returnTwoLetterFromName } from "../card-popup";
-import actions from "./action";
 import styles from "./styles";
 
 interface CommentRowProps {

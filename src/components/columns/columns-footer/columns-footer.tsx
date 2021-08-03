@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import actions from "../../../state/board/actions";
 import { RootState } from "../../../state/root-reducer";
-import actions from "./actions";
 import styles from "./styles";
 
 interface ColumnsFooterProps {

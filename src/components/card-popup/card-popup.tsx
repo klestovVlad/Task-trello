@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import actions from "../../state/board/actions";
 import { CardStructure } from "../../state/board/data";
 import { RootState } from "../../state/root-reducer";
-import actions from "./actions";
 import { CommentRow } from "./comment-row/index";
 import styles from "./styles";
 
