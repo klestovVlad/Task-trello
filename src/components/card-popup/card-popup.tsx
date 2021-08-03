@@ -1,6 +1,8 @@
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import dataContext, { CardStructure } from "../../context/board/data";
+import { CardStructure } from "../../state/board/data";
+import { RootState } from "../../state/root-reducer";
 import actions from "./actions";
 import { CommentRow } from "./comment-row/index";
 import styles from "./styles";
@@ -28,7 +30,9 @@ const CardPopup: FC<CardPopupProps> = ({
   closeCardPopup,
 }) => {
   let thisCard: CardStructure;
-  const { data, dispatch } = useContext(dataContext);
+  const data = useSelector((state: RootState) => state.data);
+  const userName = useSelector((state: RootState) => state.userName.userName);
+  const dispatch = useDispatch();
 
   if (data[columnId].cards.length > 0) {
     thisCard = data[columnId].cards[cardNum];
@@ -94,9 +98,7 @@ const CardPopup: FC<CardPopupProps> = ({
           &nbsp;
           <styles.H3>Сomments</styles.H3>
           <styles.CommentRowContainer>
-            <styles.AutorLogo>
-              {returnTwoLetterFromName(localStorage.userName)}
-            </styles.AutorLogo>
+            <styles.AutorLogo>{returnTwoLetterFromName(userName)}</styles.AutorLogo>
             <styles.NewCommentInput
               placeholder="Type your comment..."
               onFocus={() => focusOnTextarea(-1)}

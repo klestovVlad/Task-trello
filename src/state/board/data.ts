@@ -1,5 +1,3 @@
-import { createContext } from "react";
-
 interface CommentStructure {
   text: string;
   author: string;
@@ -61,16 +59,3 @@ export const defaultState: State = {
     cards: [],
   },
 };
-
-interface DataContextValue {
-  data: State;
-  dispatch: any;
-}
-
-const DataContext = createContext<DataContextValue>({
-  data: defaultState,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  dispatch: () => {},
-});
-
-export default DataContext;

@@ -1,4 +1,4 @@
-import { State } from "../../context/board/data";
+import { State } from "./data";
 import types from "./types";
 
 interface LoadData {

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
+import { useSelector } from "react-redux";
 
-import dataContext from "../../context/board/data";
+import { RootState } from "../../state/root-reducer";
 import { CardPopup } from "../card-popup/index";
 import { Columns } from "../columns/index";
 import { NewUserPopup } from "../new-user-popup/index";
@@ -12,7 +13,7 @@ const Board: FC = () => {
   const [cardNum, setCardNum] = useState(0);
   const [isPopupCardShow, setIsPopupCardShow] = useState(false);
 
-  const { data } = useContext(dataContext);
+  const data = useSelector((state: RootState) => state.data);
 
   const showCardPopup = (Id: number, cNum: number) => {
     setIsPopupCardShow(true);

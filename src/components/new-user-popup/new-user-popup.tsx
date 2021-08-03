@@ -1,16 +1,20 @@
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { UserNameContext } from "../../context/user/data";
+import { RootState } from "../../state/root-reducer";
+import action from "../../state/user/actions";
 import { ButtonApply, Input, Popup, Question, Shadow } from "./styles";
 
 const NewUserPopup: FC = () => {
-  const { userName, setUserName } = useContext(UserNameContext);
+  const dispatch = useDispatch();
+  //const userName = useSelector((state: RootState) => state.userName.userName);
+  const [userName, setUserName] = useState("");
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
     localStorage.userName === undefined,
   );
 
   const nameAply = () => {
-    setUserName(userName);
+    dispatch(action.applyName());
     setIsPopupNewUserShow(false);
   };
   if (isPopupNewUserShow) {
@@ -24,6 +28,7 @@ const NewUserPopup: FC = () => {
             placeholder="Type your name..."
             onChange={(e) => {
               setUserName(e.target.value);
+              dispatch(action.typeNewUserName(userName));
             }}
             onKeyDown={(ev) => {
               if (ev.key === "Enter") {
@@ -42,3 +47,5 @@ const NewUserPopup: FC = () => {
 };
 
 export default NewUserPopup;
+
+//userName.length > 0

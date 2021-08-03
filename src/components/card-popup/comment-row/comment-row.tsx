@@ -1,7 +1,7 @@
-import { FC, useContext, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { CardStructure } from "../../../context/board/data";
+import { CardStructure } from "../../../state/board/data";
 import { returnTwoLetterFromName } from "../card-popup";
 import actions from "./action";
 import styles from "./styles";

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 
-import { DataStructure } from "../../context/board/data";
+import { DataStructure } from "../../state/board/data";
 import { Cards } from "../cards/index";
 import { columnNameChange } from "./actions";
 import { ColumnsFooter } from "./columns-footer/index";

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { CardStructure } from "../../context/board/data";
+import { CardStructure } from "../../state/board/data";
 import Card from "./styles";
 
 interface CardsProps {

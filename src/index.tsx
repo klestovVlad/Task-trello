@@ -7,8 +7,8 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import App from "./App";
-import rootReducer from "./context/board/reducer";
 import reportWebVitals from "./reportWebVitals";
+import rootReducer from "./state/root-reducer";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 ReactDOM.render(

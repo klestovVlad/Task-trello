@@ -1,4 +1,4 @@
-import { DataStructure, defaultState, State } from "../../../context/board/data";
+import { DataStructure, defaultState, State } from "../../../state/board/data";
 import types from "./types";
 
 type Action = {

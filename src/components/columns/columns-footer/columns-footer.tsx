@@ -1,7 +1,7 @@
-import { FC, useContext, useState } from "react";
-import { useDispatch } from "react-redux";
+import { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { UserNameContext } from "../../../context/user/data";
+import { RootState } from "../../../state/root-reducer";
 import actions from "./actions";
 import styles from "./styles";
 
@@ -12,7 +12,7 @@ interface ColumnsFooterProps {
 
 const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const [cardName, setCardName] = useState("");
-  const { userName } = useContext(UserNameContext);
+  const userName = useSelector((state: RootState) => state.userName.userName);
   const dispatch = useDispatch();
 
   function addNewCard(columnId: number, cardName: string) {

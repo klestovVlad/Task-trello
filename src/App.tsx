@@ -1,20 +1,19 @@
-import { FC, useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Board from "./components/board/board";
-import actions from "./context/board/actions";
-import { defaultState } from "./context/board/data";
-import { UserNameContext } from "./context/user/data";
+import actions from "./state/board/actions";
+import { RootState } from "./state/root-reducer";
+import userNameActions from "./state/user/actions";
 
 const App: FC = () => {
-  const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(state);
+  const state = useSelector((state: RootState) => state.data);
+  const userName = useSelector((state: RootState) => state.userName.userName);
 
   useEffect(() => {
     if (localStorage.userName !== undefined) {
-      setUserName(localStorage.userName);
+      dispatch(userNameActions.downloadUserName(localStorage.userName));
     }
     if (localStorage.data !== undefined) {
       dispatch(actions.downloadData(JSON.parse(localStorage.data)));
@@ -22,8 +21,8 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.data = JSON.stringify(defaultState);
-  }, [defaultState]);
+    localStorage.data = JSON.stringify(state);
+  }, [state]);
 
   useEffect(() => {
     if (userName.length > 0) {
@@ -31,16 +30,7 @@ const App: FC = () => {
     }
   }, [userName]);
 
-  return (
-    <UserNameContext.Provider
-      value={{
-        userName: userName,
-        setUserName: setUserName,
-      }}
-    >
-      <Board />
-    </UserNameContext.Provider>
-  );
+  return <Board />;
 };
 
 export default App;
