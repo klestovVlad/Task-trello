@@ -34,5 +34,3 @@ const App: FC = () => {
 };
 
 export default App;
-
-//123
