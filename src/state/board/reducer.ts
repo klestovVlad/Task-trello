@@ -1,3 +1,4 @@
+import { BoardAction } from "./action-types";
 import { boardState } from "./state";
 import { Board } from "./state";
 import types from "./types";
@@ -6,7 +7,7 @@ type Action = {
   type: string;
   payload: any;
 };
-const reducer = (state: Board = boardState, action: Action): Board => {
+const reducer = (state: Board = boardState, action: BoardAction): Board => {
   switch (action.type) {
     case types.COLUMN_NAME_CHANGE:
       return {
@@ -125,7 +126,7 @@ const reducer = (state: Board = boardState, action: Action): Board => {
           ],
         },
       };
-    case types.COMMENT_DELITE:
+    case types.COMMENT_Delete:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -228,7 +229,7 @@ export default reducer;
 //       };
 //     }
 //   | {
-//       type: Actions.commentDelite;
+//       type: Actions.commentDelete;
 //       payload: {
 //         columnId: number;
 //         cardNum: number;

@@ -84,7 +84,7 @@ const CommentRow: FC<CommentRowProps> = ({
           &nbsp;
           <styles.Сaption
             onClick={() => {
-              dispatch(actions.commentDelite(columnId, cardNum, commentNum));
+              dispatch(actions.commentDelete(columnId, cardNum, commentNum));
             }}
           >
             Delete

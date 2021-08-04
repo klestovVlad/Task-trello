@@ -39,7 +39,7 @@ export interface DeleteCard {
   };
 }
 
-export interface CommentDelite {
+export interface CommentDelete {
   type: string;
   payload: {
     columnId: number;
@@ -74,14 +74,12 @@ export interface PushNewCard {
   };
 }
 
-// export interface BoardAction {
-//   inteface:
-//     | LoadData
-//     | CardNameChange
-//     | CardDescriptionChange
-//     | AddNewComment
-//     | DeleteCard
-//     | CommentDelite
-//     | ColumnNameChange
-//     | PushNewCard;
-// }
+export type BoardAction =
+  | LoadData
+  | CardNameChange
+  | CardDescriptionChange
+  | AddNewComment
+  | DeleteCard
+  | CommentDelete
+  | ColumnNameChange
+  | PushNewCard;

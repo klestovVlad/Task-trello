@@ -3,7 +3,7 @@ import {
   CardDescriptionChange,
   CardNameChange,
   ColumnNameChange,
-  CommentDelite,
+  CommentDelete,
   CommentEditSave,
   DeleteCard,
   LoadData,
@@ -72,13 +72,13 @@ const deleteCard = (columnId: number, cardNum: number): DeleteCard => {
   };
 };
 
-const commentDelite = (
+const commentDelete = (
   columnId: number,
   cardNum: number,
   commentNum: number,
-): CommentDelite => {
+): CommentDelete => {
   return {
-    type: types.COMMENT_DELITE,
+    type: types.COMMENT_Delete,
     payload: {
       columnId: columnId,
       cardNum: cardNum,
@@ -147,7 +147,7 @@ export default {
   cardDescriptionChange,
   addNewComment,
   deleteCard,
-  commentDelite,
+  commentDelete,
   commentEditSave,
   columnNameChange,
   toggleAddCardField,
