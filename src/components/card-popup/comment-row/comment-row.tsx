@@ -49,8 +49,6 @@ const CommentRow: FC<CommentRowProps> = ({
       focusOnTextarea(-2);
     }, 100);
   };
-  console.log("Card: ", thisCard);
-  console.log("commentNum: ", commentNum);
   return (
     <styles.CommentRowContainer>
       <styles.AutorLogo>

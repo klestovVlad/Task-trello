@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { combineReducers } from "redux";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -23,6 +22,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware()));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const persistor = persistStore(store);
 
