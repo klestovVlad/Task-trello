@@ -73,3 +73,15 @@ export interface PushNewCard {
     userName: string;
   };
 }
+
+// export interface BoardAction {
+//   inteface:
+//     | LoadData
+//     | CardNameChange
+//     | CardDescriptionChange
+//     | AddNewComment
+//     | DeleteCard
+//     | CommentDelite
+//     | ColumnNameChange
+//     | PushNewCard;
+// }
