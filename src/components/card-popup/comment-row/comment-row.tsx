@@ -2,7 +2,7 @@ import { FC, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import actions from "../../../state/board/actions";
-import { CardStructure } from "../../../state/board/data";
+import { Card } from "../../../state/board/state";
 import { returnTwoLetterFromName } from "../card-popup";
 import styles from "./styles";
 
@@ -11,7 +11,7 @@ interface CommentRowProps {
   cardNum: number;
   textAreaFocus: number;
   commentNum: number;
-  thisCard: CardStructure;
+  thisCard: Card;
   focusOnTextarea(num: number): void;
 }
 

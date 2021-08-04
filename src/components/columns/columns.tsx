@@ -2,13 +2,13 @@ import { FC } from "react";
 import { useDispatch } from "react-redux";
 
 import action from "../../state/board/actions";
-import { DataStructure } from "../../state/board/data";
+import { BoardItem } from "../../state/board/state";
 import { Cards } from "../cards/index";
 import { ColumnsFooter } from "./columns-footer/index";
 import styles from "./styles";
 
 interface ColumnProps {
-  dataColumn: DataStructure;
+  dataColumn: BoardItem;
   showCardPopup(columnId: number, cardNum: number): void;
 }
 

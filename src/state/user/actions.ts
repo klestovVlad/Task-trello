@@ -1,13 +1,7 @@
+import { ApplyName, DownloadUserName, TypeNewUserName } from "./actions-types";
 import types from "./types";
 
-interface typeNewUserName {
-  type: string;
-  payload: {
-    newUserName: string;
-  };
-}
-
-const typeNewUserName = (newUserName: string): typeNewUserName => {
+const typeNewUserName = (newUserName: string): TypeNewUserName => {
   return {
     type: types.typeNewName,
     payload: {
@@ -16,26 +10,14 @@ const typeNewUserName = (newUserName: string): typeNewUserName => {
   };
 };
 
-interface applyName {
-  type: string;
-  payload: Record<string, never>;
-}
-
-const applyName = (): applyName => {
+const applyName = (): ApplyName => {
   return {
     type: types.applyName,
     payload: {},
   };
 };
 
-interface downloadUserName {
-  type: string;
-  payload: {
-    userName: string;
-  };
-}
-
-const downloadUserName = (userName: string): downloadUserName => {
+const downloadUserName = (userName: string): DownloadUserName => {
   return {
     type: types.downloadName,
     payload: {

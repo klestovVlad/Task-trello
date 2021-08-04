@@ -1,4 +1,4 @@
-import { UserName, userName } from "./data";
+import { UserName, userName } from "./state";
 import types from "./types";
 
 type Action = {

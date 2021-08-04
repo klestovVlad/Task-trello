@@ -1,5 +1,6 @@
 export interface UserName {
-  [key: string]: string;
+  userName: string;
+  newUserName: string;
 }
 
 export const userName: UserName = {

@@ -1,13 +1,11 @@
 import { FC, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { RootState } from "../../state/root-reducer";
 import action from "../../state/user/actions";
 import { ButtonApply, Input, Popup, Question, Shadow } from "./styles";
 
 const NewUserPopup: FC = () => {
   const dispatch = useDispatch();
-  //const userName = useSelector((state: RootState) => state.userName.userName);
   const [userName, setUserName] = useState("");
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
     localStorage.userName === undefined,

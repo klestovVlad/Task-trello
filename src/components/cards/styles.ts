@@ -17,4 +17,6 @@ const Card = styled.div`
   }
 `;
 
-export default Card;
+export default {
+  Card,
+};

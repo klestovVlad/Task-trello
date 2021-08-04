@@ -1,14 +1,14 @@
-import { defaultState } from "./data";
-import { State } from "./data";
+import { boardState } from "./state";
+import { Board } from "./state";
 import types from "./types";
 
 type Action = {
   type: string;
   payload: any;
 };
-const reducer = (state: State = defaultState, action: Action): State => {
+const reducer = (state: Board = boardState, action: Action): Board => {
   switch (action.type) {
-    case types.columnNameChange:
+    case types.COLUMN_NAME_CHANGE:
       return {
         ...state,
         [action.payload.id]: {
@@ -16,7 +16,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           listName: action.payload.text,
         },
       };
-    case types.toggleAddCardField:
+    case types.TOGGLE_ADD_CARD_FIELD:
       return Object.keys(state).reduce(
         (accum, current) => {
           return {
@@ -29,7 +29,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
         },
         { ...state },
       );
-    case types.pushNewCard:
+    case types.PUSH_NEW_CARD:
       if (action.payload.cardName.length > 0) {
         return {
           ...state,
@@ -51,7 +51,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ...state,
         };
       }
-    case types.cardNameChange:
+    case types.CARD_NAME_CHANGE:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -66,7 +66,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ],
         },
       };
-    case types.cardDescriptionChange:
+    case types.CARD_DESCRIPTION_CHANGE:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -81,7 +81,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ],
         },
       };
-    case types.addNewComment:
+    case types.ADD_NEW_COMENT:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -105,7 +105,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ],
         },
       };
-    case types.commentEditSave:
+    case types.COMMENT_EDIT_SAVE:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -125,7 +125,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ],
         },
       };
-    case types.commentDelite:
+    case types.COMMENT_DELITE:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -140,7 +140,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ],
         },
       };
-    case types.deleteCard:
+    case types.DELETE_CARD:
       return {
         ...state,
         [action.payload.columnId]: {
@@ -155,7 +155,7 @@ const reducer = (state: State = defaultState, action: Action): State => {
           ],
         },
       };
-    case types.loadData:
+    case types.LOAD_DATA:
       return {
         ...action.payload.loadData,
       };

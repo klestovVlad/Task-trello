@@ -1,48 +1,34 @@
-import { State } from "./data";
+import {
+  AddNewComment,
+  CardDescriptionChange,
+  CardNameChange,
+  ColumnNameChange,
+  CommentDelite,
+  CommentEditSave,
+  DeleteCard,
+  LoadData,
+  PushNewCard,
+} from "./action-types";
+import { Board } from "./state";
 import types from "./types";
 
-interface LoadData {
-  type: string;
-  payload: {
-    loadData: State;
-  };
-}
-
-const downloadData = (loadData: State): LoadData => {
+const downloadData = (loadData: Board): LoadData => {
   return {
-    type: types.loadData,
+    type: types.LOAD_DATA,
     payload: {
       loadData: loadData,
     },
   };
 };
 
-interface CardNameChange {
-  type: string;
-  payload: {
-    text: string;
-    columnId: number;
-    cardNum: number;
-  };
-}
-
 function cardNameChange(text: string, columnId: number, cardNum: number): CardNameChange {
   return {
-    type: types.cardNameChange,
+    type: types.CARD_NAME_CHANGE,
     payload: {
       text: text,
       columnId: columnId,
       cardNum: cardNum,
     },
-  };
-}
-
-interface CardDescriptionChange {
-  type: string;
-  payload: {
-    text: string;
-    columnId: number;
-    cardNum: number;
   };
 }
 
@@ -52,21 +38,12 @@ function cardDescriptionChange(
   cardNum: number,
 ): CardDescriptionChange {
   return {
-    type: types.cardDescriptionChange,
+    type: types.CARD_DESCRIPTION_CHANGE,
     payload: {
       text: text,
       columnId: columnId,
       cardNum: cardNum,
     },
-  };
-}
-
-interface AddNewComment {
-  type: string;
-  payload: {
-    columnId: number;
-    cardNum: number;
-    newComment: string;
   };
 }
 
@@ -76,7 +53,7 @@ const addNewComment = (
   newComment: string,
 ): AddNewComment => {
   return {
-    type: types.addNewComment,
+    type: types.ADD_NEW_COMENT,
     payload: {
       columnId: columnId,
       cardNum: cardNum,
@@ -85,32 +62,15 @@ const addNewComment = (
   };
 };
 
-interface DeleteCard {
-  type: string;
-  payload: {
-    columnId: number;
-    cardNum: number;
-  };
-}
-
 const deleteCard = (columnId: number, cardNum: number): DeleteCard => {
   return {
-    type: types.deleteCard,
+    type: types.DELETE_CARD,
     payload: {
       columnId: columnId,
       cardNum: cardNum,
     },
   };
 };
-
-interface CommentDelite {
-  type: string;
-  payload: {
-    columnId: number;
-    cardNum: number;
-    commentNum: number;
-  };
-}
 
 const commentDelite = (
   columnId: number,
@@ -118,7 +78,7 @@ const commentDelite = (
   commentNum: number,
 ): CommentDelite => {
   return {
-    type: types.commentDelite,
+    type: types.COMMENT_DELITE,
     payload: {
       columnId: columnId,
       cardNum: cardNum,
@@ -126,16 +86,6 @@ const commentDelite = (
     },
   };
 };
-
-interface CommentEditSave {
-  type: string;
-  payload: {
-    columnId: number;
-    cardNum: number;
-    commentNum: number;
-    newComment: string;
-  };
-}
 
 const commentEditSave = (
   columnId: number,
@@ -144,7 +94,7 @@ const commentEditSave = (
   newComment: string,
 ): CommentEditSave => {
   return {
-    type: types.commentEditSave,
+    type: types.COMMENT_EDIT_SAVE,
     payload: {
       columnId: columnId,
       cardNum: cardNum,
@@ -154,17 +104,9 @@ const commentEditSave = (
   };
 };
 
-interface ColumnNameChange {
-  type: string;
-  payload: {
-    text: string;
-    id: number;
-  };
-}
-
 const columnNameChange = (text: string, columnId: number): ColumnNameChange => {
   return {
-    type: types.columnNameChange,
+    type: types.COLUMN_NAME_CHANGE,
     payload: {
       text: text,
       id: columnId,
@@ -181,21 +123,12 @@ interface ToggleAddCardField {
 
 const toggleAddCardField = (columnId: number): ToggleAddCardField => {
   return {
-    type: types.toggleAddCardField,
+    type: types.TOGGLE_ADD_CARD_FIELD,
     payload: {
       id: columnId,
     },
   };
 };
-
-interface PushNewCard {
-  type: string;
-  payload: {
-    columnId: number;
-    cardName: string;
-    userName: string;
-  };
-}
 
 const pushNewCard = (
   columnId: number,
@@ -203,7 +136,7 @@ const pushNewCard = (
   userName: string,
 ): PushNewCard => {
   return {
-    type: types.pushNewCard,
+    type: types.PUSH_NEW_CARD,
     payload: { columnId: columnId, cardName: cardName, userName: userName },
   };
 };

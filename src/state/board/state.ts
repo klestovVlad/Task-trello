@@ -1,27 +1,27 @@
-interface CommentStructure {
+interface Comment {
   text: string;
   author: string;
 }
 
-export interface CardStructure {
+export interface Card {
   name: string;
   author: string;
   text: string;
-  comment: CommentStructure[];
+  comment: Comment[];
 }
 
-export interface DataStructure {
+export interface BoardItem {
   id: number;
   listName: string;
   isCardAdding: boolean;
-  cards: CardStructure[];
+  cards: Card[];
 }
 
-export interface State {
-  [key: string]: DataStructure;
+export interface Board {
+  [key: string]: BoardItem;
 }
 
-export const defaultState: State = {
+export const boardState: Board = {
   0: {
     id: 0,
     listName: "TODO",

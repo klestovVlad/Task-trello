@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../state/board/actions";
-import { CardStructure } from "../../state/board/data";
+import { Card } from "../../state/board/state";
 import { RootState } from "../../state/root-reducer";
 import { CommentRow } from "./comment-row/index";
 import styles from "./styles";
@@ -29,7 +29,7 @@ const CardPopup: FC<CardPopupProps> = ({
   isPopupCardShow,
   closeCardPopup,
 }) => {
-  let thisCard: CardStructure;
+  let thisCard: Card;
   const data = useSelector((state: RootState) => state.data);
   const userName = useSelector((state: RootState) => state.userName.userName);
   const dispatch = useDispatch();

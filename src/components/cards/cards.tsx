@@ -1,23 +1,23 @@
 import { FC } from "react";
 
-import { CardStructure } from "../../state/board/data";
-import Card from "./styles";
+import { Card } from "../../state/board/state";
+import styles from "./styles";
 
 interface CardsProps {
   cardNum: number;
   columnId: number;
-  cardsData: CardStructure[];
+  cardsData: Card[];
   showCardPopup(columnId: number, cardNum: number): void;
 }
 
 const Cards: FC<CardsProps> = ({ cardNum, columnId, cardsData, showCardPopup }) => {
-  const currentCard: CardStructure = cardsData[cardNum];
+  const currentCard: Card = cardsData[cardNum];
   return (
     <>
-      <Card onClick={() => showCardPopup(columnId, cardNum)}>
+      <styles.Card onClick={() => showCardPopup(columnId, cardNum)}>
         <p>{currentCard.name}</p>
         <p className="far fa-comment"> {currentCard.comment.length}</p>
-      </Card>
+      </styles.Card>
     </>
   );
 };
