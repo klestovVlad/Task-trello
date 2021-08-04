@@ -3,10 +3,6 @@ import { boardState } from "./state";
 import { Board } from "./state";
 import types from "./types";
 
-type Action = {
-  type: string;
-  payload: any;
-};
 const reducer = (state: Board = boardState, action: BoardAction): Board => {
   switch (action.type) {
     case types.COLUMN_NAME_CHANGE:
@@ -166,80 +162,3 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
 };
 
 export default reducer;
-
-// type Action =
-//   | {
-//       type: Actions.loadData;
-//       payload: Record<string, never>;
-//     }
-//   | {
-//       type: Actions.columnNameChange;
-//       payload: {
-//         id: number;
-//         text: string;
-//       };
-//     }
-//   | {
-//       type: Actions.toggleVisibilityAddCardField;
-//       payload: {
-//         id: number;
-//       };
-//     }
-//   | {
-//       type: Actions.pushNewCard;
-//       payload: {
-//         cardName: string;
-//         columnId: number;
-//         cardNum: number;
-//         userName: string;
-//       };
-//     }
-//   | {
-//       type: Actions.cardDescriptionChange;
-//       payload: {
-//         text: string;
-//         columnId: number;
-//         cardNum: number;
-//       };
-//     }
-//   | {
-//       type: Actions.cardNameChange;
-//       payload: {
-//         text: string;
-//         columnId: number;
-//         cardNum: number;
-//       };
-//     }
-//   | {
-//       type: Actions.addNewComment;
-//       payload: {
-//         text: string;
-//         columnId: number;
-//         cardNum: number;
-//         newComment: string;
-//       };
-//     }
-//   | {
-//       type: Actions.commentEditSave;
-//       payload: {
-//         columnId: number;
-//         cardNum: number;
-//         commentNum: number;
-//         newComment: string;
-//       };
-//     }
-//   | {
-//       type: Actions.commentDelete;
-//       payload: {
-//         columnId: number;
-//         cardNum: number;
-//         commentNum: number;
-//       };
-//     }
-//   | {
-//       type: Actions.deleteCard;
-//       payload: {
-//         columnId: number;
-//         cardNum: number;
-//       };
-//     };

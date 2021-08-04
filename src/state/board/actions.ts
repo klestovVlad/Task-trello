@@ -8,6 +8,7 @@ import {
   DeleteCard,
   LoadData,
   PushNewCard,
+  ToggleAddCardField,
 } from "./action-types";
 import { Board } from "./state";
 import types from "./types";
@@ -113,13 +114,6 @@ const columnNameChange = (text: string, columnId: number): ColumnNameChange => {
     },
   };
 };
-
-interface ToggleAddCardField {
-  type: string;
-  payload: {
-    id: number;
-  };
-}
 
 const toggleAddCardField = (columnId: number): ToggleAddCardField => {
   return {

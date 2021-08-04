@@ -1,14 +1,21 @@
 import { Board } from "./state";
+import types from "./types";
 
 export interface LoadData {
-  type: string;
+  type: types.LOAD_DATA;
   payload: {
     loadData: Board;
   };
 }
 
+export interface ToggleAddCardField {
+  type: types.TOGGLE_ADD_CARD_FIELD;
+  payload: {
+    id: number;
+  };
+}
 export interface CardNameChange {
-  type: string;
+  type: types.CARD_NAME_CHANGE;
   payload: {
     text: string;
     columnId: number;
@@ -16,7 +23,7 @@ export interface CardNameChange {
   };
 }
 export interface CardDescriptionChange {
-  type: string;
+  type: types.CARD_DESCRIPTION_CHANGE;
   payload: {
     text: string;
     columnId: number;
@@ -24,7 +31,7 @@ export interface CardDescriptionChange {
   };
 }
 export interface AddNewComment {
-  type: string;
+  type: types.ADD_NEW_COMENT;
   payload: {
     columnId: number;
     cardNum: number;
@@ -32,7 +39,7 @@ export interface AddNewComment {
   };
 }
 export interface DeleteCard {
-  type: string;
+  type: types.DELETE_CARD;
   payload: {
     columnId: number;
     cardNum: number;
@@ -40,7 +47,7 @@ export interface DeleteCard {
 }
 
 export interface CommentDelete {
-  type: string;
+  type: types.COMMENT_Delete;
   payload: {
     columnId: number;
     cardNum: number;
@@ -49,7 +56,7 @@ export interface CommentDelete {
 }
 
 export interface CommentEditSave {
-  type: string;
+  type: types.COMMENT_EDIT_SAVE;
   payload: {
     columnId: number;
     cardNum: number;
@@ -59,14 +66,14 @@ export interface CommentEditSave {
 }
 
 export interface ColumnNameChange {
-  type: string;
+  type: types.COLUMN_NAME_CHANGE;
   payload: {
     text: string;
     id: number;
   };
 }
 export interface PushNewCard {
-  type: string;
+  type: types.PUSH_NEW_CARD;
   payload: {
     columnId: number;
     cardName: string;
@@ -77,7 +84,9 @@ export interface PushNewCard {
 export type BoardAction =
   | LoadData
   | CardNameChange
+  | ToggleAddCardField
   | CardDescriptionChange
+  | CommentEditSave
   | AddNewComment
   | DeleteCard
   | CommentDelete

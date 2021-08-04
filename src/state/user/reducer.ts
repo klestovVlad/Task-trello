@@ -1,23 +1,20 @@
+import { UserNameAction } from "./actions-types";
 import { UserName, userName } from "./state";
 import types from "./types";
 
-type Action = {
-  type: string;
-  payload: any;
-};
-const reducer = (state: UserName = userName, action: Action): UserName => {
+const reducer = (state: UserName = userName, action: UserNameAction): UserName => {
   switch (action.type) {
-    case types.typeNewName:
+    case types.TYPE_NEW_NAME:
       return {
         ...state,
         newUserName: action.payload.newUserName,
       };
-    case types.applyName:
+    case types.APPLY_NAME:
       return {
         ...state,
         userName: state.newUserName,
       };
-    case types.downloadName:
+    case types.DOWNLOAD_NAME:
       return {
         userName: action.payload.userName,
         newUserName: "",

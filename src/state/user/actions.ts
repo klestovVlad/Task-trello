@@ -3,7 +3,7 @@ import types from "./types";
 
 const typeNewUserName = (newUserName: string): TypeNewUserName => {
   return {
-    type: types.typeNewName,
+    type: types.TYPE_NEW_NAME,
     payload: {
       newUserName: newUserName,
     },
@@ -12,14 +12,14 @@ const typeNewUserName = (newUserName: string): TypeNewUserName => {
 
 const applyName = (): ApplyName => {
   return {
-    type: types.applyName,
+    type: types.APPLY_NAME,
     payload: {},
   };
 };
 
 const downloadUserName = (userName: string): DownloadUserName => {
   return {
-    type: types.downloadName,
+    type: types.DOWNLOAD_NAME,
     payload: {
       userName: userName,
     },
