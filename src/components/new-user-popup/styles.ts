@@ -59,3 +59,9 @@ export const ButtonApply = styled.button<ButtonApplyProps>`
   border: none;
   display: block;
 `;
+
+export const Inputwrapper = styled.div`
+  span {
+    color: red;
+  }
+`;
