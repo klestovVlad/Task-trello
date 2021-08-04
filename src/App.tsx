@@ -11,24 +11,24 @@ const App: FC = () => {
   const state = useSelector((state: RootState) => state.data);
   const userName = useSelector((state: RootState) => state.userName.userName);
 
-  useEffect(() => {
-    if (localStorage.userName !== undefined) {
-      dispatch(userNameActions.downloadUserName(localStorage.userName));
-    }
-    if (localStorage.data !== undefined) {
-      dispatch(actions.downloadData(JSON.parse(localStorage.data)));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.userName !== undefined) {
+  //     dispatch(userNameActions.downloadUserName(localStorage.userName));
+  //   }
+  //   if (localStorage.data !== undefined) {
+  //     dispatch(actions.downloadData(JSON.parse(localStorage.data)));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.data = JSON.stringify(state);
-  }, [state]);
+  // useEffect(() => {
+  //   localStorage.data = JSON.stringify(state);
+  // }, [state]);
 
-  useEffect(() => {
-    if (userName.length > 0) {
-      localStorage.userName = userName;
-    }
-  }, [userName]);
+  // useEffect(() => {
+  //   if (userName.length > 0) {
+  //     localStorage.userName = userName;
+  //   }
+  // }, [userName]);
 
   return <Board />;
 };
