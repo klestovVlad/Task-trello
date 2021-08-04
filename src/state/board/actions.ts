@@ -56,6 +56,7 @@ const addNewComment = (
   columnId: number,
   cardNum: number,
   newComment: string,
+  userName: string,
 ): AddNewComment => {
   return {
     type: types.ADD_NEW_COMENT,
@@ -63,6 +64,7 @@ const addNewComment = (
       columnId: columnId,
       cardNum: cardNum,
       newComment: newComment,
+      userName: userName,
     },
   };
 };

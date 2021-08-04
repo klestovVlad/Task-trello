@@ -1,25 +1,32 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
+import { applyMiddleware, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import boardRecuctor from "./board/reducer";
 import userNameReductor from "./user/reducer";
 
-const boardPersistConfig = {
-  key: "board",
-  storage: storage,
-};
-
-const UserPersistConfig = {
-  key: "user",
-  storage: storage,
-};
-
 const rootReducer = combineReducers({
-  data: persistReducer(boardPersistConfig, boardRecuctor),
-  userName: persistReducer(UserPersistConfig, userNameReductor),
+  data: boardRecuctor,
+  userName: userNameReductor,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export default rootReducer;
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware()));
+// @ts-ignore
+const persistor = persistStore(store);
+
+export default {
+  store,
+  persistor,
+};

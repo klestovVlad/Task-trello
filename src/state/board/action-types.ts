@@ -36,6 +36,7 @@ export interface AddNewComment {
     columnId: number;
     cardNum: number;
     newComment: string;
+    userName: string;
   };
 }
 export interface DeleteCard {

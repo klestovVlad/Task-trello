@@ -3,19 +3,20 @@ import "./index.css";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import rootReducer from "./state/root-reducer";
+import state from "./state/root-reducer";
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
+// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 ReactDOM.render(
-  <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
+  <Provider store={state.store}>
+    <PersistGate loading={null} persistor={state.persistor}>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </PersistGate>
   </Provider>,
   document.getElementById("root"),
 );

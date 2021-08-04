@@ -92,7 +92,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
                     ...card.comment,
                     {
                       text: action.payload.newComment,
-                      author: localStorage.userName,
+                      author: action.payload.userName,
                     },
                   ],
                 };

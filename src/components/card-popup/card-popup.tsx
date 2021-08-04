@@ -9,6 +9,7 @@ import styles from "./styles";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function returnTwoLetterFromName(name: string) {
+  console.log(name);
   return name
     .split(" ")
     .map((i) => i[0])
@@ -110,7 +111,7 @@ const CardPopup: FC<CardPopupProps> = ({
             <styles.SaveCommentButton
               textAreaFocus={textAreaFocus === -1}
               onClick={() => {
-                dispatch(actions.addNewComment(columnId, cardNum, newComment));
+                dispatch(actions.addNewComment(columnId, cardNum, newComment, userName));
               }}
               newComment={newComment}
             >
