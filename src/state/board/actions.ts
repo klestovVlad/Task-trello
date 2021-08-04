@@ -22,7 +22,11 @@ const downloadData = (loadData: Board): LoadData => {
   };
 };
 
-function cardNameChange(text: string, columnId: number, cardNum: number): CardNameChange {
+const cardNameChange = (
+  text: string,
+  columnId: number,
+  cardNum: number,
+): CardNameChange => {
   return {
     type: types.CARD_NAME_CHANGE,
     payload: {
@@ -31,13 +35,13 @@ function cardNameChange(text: string, columnId: number, cardNum: number): CardNa
       cardNum: cardNum,
     },
   };
-}
+};
 
-function cardDescriptionChange(
+const cardDescriptionChange = (
   text: string,
   columnId: number,
   cardNum: number,
-): CardDescriptionChange {
+): CardDescriptionChange => {
   return {
     type: types.CARD_DESCRIPTION_CHANGE,
     payload: {
@@ -46,7 +50,7 @@ function cardDescriptionChange(
       cardNum: cardNum,
     },
   };
-}
+};
 
 const addNewComment = (
   columnId: number,
