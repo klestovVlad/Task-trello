@@ -11,24 +11,25 @@ function returnTwoLetterFromName(name: string) {
     .slice(0, 2)
     .join("");
 }
+interface Comment {
+  userText: string;
+  author: string;
+}
 
-const CardCommnetsField: FC<Values> = (values) => {
+const CardCommnetsField: FC<Comment> = (values) => {
+  console.log(values);
   return (
-    <>
-      {values.comment.map((item) => (
-        <Field name="Comment">
-          {({ input }) => (
-            <styles.CommentRowContainer>
-              <styles.AutorLogo>{returnTwoLetterFromName(item.author)}</styles.AutorLogo>
-              <styles.CardCommentContainer>
-                <h4>{item.author}</h4>
-                <styles.NewCommentInput {...input} textAreaFocus={false} />
-              </styles.CardCommentContainer>
-            </styles.CommentRowContainer>
-          )}
-        </Field>
-      ))}
-    </>
+    <Field name="userText">
+      {({ input }) => (
+        <styles.CommentRowContainer>
+          <styles.AutorLogo>{returnTwoLetterFromName(values.author)}</styles.AutorLogo>
+          <styles.CardCommentContainer>
+            <h4>{values.author}</h4>
+            <styles.NewCommentInput {...input} textAreaFocus={false} />
+          </styles.CardCommentContainer>
+        </styles.CommentRowContainer>
+      )}
+    </Field>
   );
 };
 

@@ -47,6 +47,8 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const initValue = {
     ...thisCard,
+    columnId: columnId,
+    cardNum: cardNum,
     columnName: data[columnId].columnName,
     newComment: "",
     currentUser: userName,

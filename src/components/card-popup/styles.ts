@@ -69,7 +69,7 @@ const CardDescription = styled.textarea`
 const CommentRowContainer = styled.div`
   position: relative;
   display: flex;
-  margin: 35px 0 10px 0;
+  margin: 15px 0 10px 0;
 `;
 
 const AutorLogo = styled.div`

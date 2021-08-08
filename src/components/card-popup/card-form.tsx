@@ -15,10 +15,12 @@ export interface Values {
   comment: Comment[];
   newComment: string;
   currentUser: string;
+  columnId: number;
+  cardNum: number;
 }
 
 interface Comment {
-  text: string;
+  userText: string;
   author: string;
 }
 
@@ -26,14 +28,13 @@ export const CardForm: FC<Values> = (initValue) => {
   const onSubmit = async (values: Values) => {
     console.log(values);
   };
-
   return (
     <Form
       onSubmit={onSubmit}
       initialValues={initValue}
       render={({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit}>
-          <CardNameField />
+          <CardNameField {...values} />
           <p>
             in column&nbsp;
             {values.columnName}
@@ -41,12 +42,12 @@ export const CardForm: FC<Values> = (initValue) => {
           <i className="fa fa-list" aria-hidden="true" />
           &nbsp;
           <styles.H3>Description</styles.H3>
-          <CardDescriptionField />
+          <CardDescriptionField {...values} />
           <i className="fa fa-comments" aria-hidden="true" />
           &nbsp;
           <styles.H3>Сomments</styles.H3>
           <CardNewCommnetField {...values} />
-          <CardCommnetsField {...values} />
+          <CardCommnetsField {...values.comment[0]} />
           <pre>{JSON.stringify(values)}</pre>
         </form>
       )}

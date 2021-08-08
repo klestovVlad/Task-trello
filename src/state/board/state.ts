@@ -1,5 +1,5 @@
 interface Comment {
-  text: string;
+  userText: string;
   author: string;
 }
 
@@ -33,7 +33,7 @@ export const boardState: Board = {
         description: "card have added for demonstration",
         comment: [
           {
-            text: "my comment",
+            userText: "my comment",
             author: "Klestov Vladislav",
           },
         ],

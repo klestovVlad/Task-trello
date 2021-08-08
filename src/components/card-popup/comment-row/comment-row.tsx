@@ -23,7 +23,7 @@ const CommentRow: FC<CommentRowProps> = ({
   thisCard,
   focusOnTextarea,
 }) => {
-  const [newComment, setNewComment] = useState(thisCard.comment[commentNum].text);
+  const [newComment, setNewComment] = useState(thisCard.comment[commentNum].userText);
   const [commentCode, setCommentCode] = useState("//");
   const inputEl = useRef<HTMLTextAreaElement>(null);
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const CommentRow: FC<CommentRowProps> = ({
 
   const onBlurComment = () => {
     setTimeout(() => {
-      setNewComment(thisCard.comment[commentNum]?.text);
+      setNewComment(thisCard.comment[commentNum]?.userText);
       commentEdit(-1, -1, -1);
       focusOnTextarea(-2);
     }, 100);

@@ -91,7 +91,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
                   comment: [
                     ...card.comment,
                     {
-                      text: action.payload.newComment,
+                      comment: action.payload.newComment,
                       author: action.payload.userName,
                     },
                   ],
@@ -112,7 +112,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
               if (index === action.payload.cardNum) {
                 card.comment.map((comment, index) => {
                   if (index === action.payload.commentNum) {
-                    comment.text = action.payload.newComment;
+                    comment.userText = action.payload.newComment;
                   }
                   return comment;
                 });
