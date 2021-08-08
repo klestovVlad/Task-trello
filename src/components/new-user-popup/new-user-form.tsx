@@ -20,6 +20,7 @@ const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow }) => {
   return (
     <Form
       onSubmit={onSubmit}
+      initialValues={{ userName: "test" }}
       render={({ handleSubmit, submitting, values }) => (
         <form onSubmit={handleSubmit}>
           <Field name="userName" validate={required}>

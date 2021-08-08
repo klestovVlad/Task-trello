@@ -17,7 +17,7 @@ const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
   return (
     <styles.Column>
       <styles.ColumnName
-        value={dataColumn.listName}
+        value={dataColumn.columnName}
         onChange={(event) => {
           dispatch(action.columnNameChange(event.target.value, dataColumn.id));
         }}

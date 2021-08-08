@@ -11,7 +11,6 @@ const NewUserPopup: FC = () => {
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
     userName === undefined || userName === "",
   );
-  console.log(typeof setIsPopupNewUserShow);
   if (isPopupNewUserShow) {
     return (
       <Shadow>

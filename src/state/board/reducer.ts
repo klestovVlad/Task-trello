@@ -10,7 +10,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
         ...state,
         [action.payload.id]: {
           ...state[action.payload.id],
-          listName: action.payload.text,
+          columnName: action.payload.text,
         },
       };
     case types.TOGGLE_ADD_CARD_FIELD:
@@ -37,7 +37,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
               {
                 name: action.payload.cardName,
                 author: action.payload.userName,
-                text: "",
+                description: "",
                 comment: [],
               },
             ],
@@ -71,7 +71,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
           cards: [
             ...state[action.payload.columnId].cards.map((card, index) => {
               if (index === action.payload.cardNum) {
-                card.text = action.payload.text;
+                card.description = action.payload.text;
               }
               return card;
             }),

@@ -51,7 +51,7 @@ const CardHeader = styled.input`
 
 const H3 = styled.h3`
   display: inline-block;
-  margin: 35px 0 0 0;
+  margin: 15px 0 0 0;
 `;
 
 const CardDescription = styled.textarea`
@@ -118,7 +118,7 @@ const DeleteButton = styled.button`
 
 interface SaveCommentButtonProps {
   textAreaFocus: boolean;
-  newComment: string;
+  newComment: string | undefined;
 }
 
 const SaveCommentButton = styled.button<SaveCommentButtonProps>`
@@ -129,11 +129,16 @@ const SaveCommentButton = styled.button<SaveCommentButtonProps>`
   padding: 8px 30px;
   font-family: inherit;
   transition: all 0.1s;
-  cursor: ${(props) => (props.newComment.length > 0 ? "pointer" : "not-allowed")};
+  cursor: ${(props) =>
+    props.newComment == undefined || props.newComment.length > 0
+      ? "pointer"
+      : "not-allowed"};
   border: none;
-  color: ${(props) => (props.newComment.length > 0 ? "white" : "grey")};
+  color: ${(props) =>
+    props.newComment == undefined || props.newComment.length > 0 ? "white" : "grey"};
   border-radius: 3px;
-  background: ${(props) => (props.newComment.length > 0 ? "#0079BF" : "#F5F6F8")};
+  background: ${(props) =>
+    props.newComment == undefined || props.newComment.length > 0 ? "#0079BF" : "#F5F6F8"};
 `;
 
 export default {
