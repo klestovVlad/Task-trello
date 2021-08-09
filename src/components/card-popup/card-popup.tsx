@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import actions from "../../state/board/actions";
-import { Card } from "../../state/board/state";
-import { RootState } from "../../state/root-reducer";
+import { boardAction } from "../../store/board/index";
+import { Card } from "../../store/board/state";
+import { RootState } from "../../store/root-reducer";
 import { CardForm } from "./card-form";
 import styles from "./styles";
 
@@ -44,7 +44,7 @@ const CardPopup: FC<CardPopupProps> = ({
     };
   }
 
-  const initValue = {
+  const initialValues = {
     ...thisCard,
     columnId: columnId,
     cardNum: cardNum,
@@ -55,7 +55,7 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const deleteThisCard = (columnId: number, cardNum: number) => {
     closeCardPopup();
-    setTimeout(() => dispatch(actions.deleteCard(columnId, cardNum)), 100);
+    setTimeout(() => dispatch(boardAction.deleteCard(columnId, cardNum)), 100);
   };
 
   if (isPopupCardShow) {
@@ -63,7 +63,22 @@ const CardPopup: FC<CardPopupProps> = ({
       <styles.ShadowCard>
         <styles.PopUpCard>
           <styles.CloseIcon className="fas fa-times" onClick={closeCardPopup} />
-          <CardForm {...initValue} deleteThisCard={deleteThisCard} />
+          <CardForm initialValues={initialValues} />
+          <br />
+          <styles.CommentRowContainer>
+            <styles.AutorLogo>
+              {returnTwoLetterFromName(thisCard.author)}
+            </styles.AutorLogo>
+            <h4>{thisCard.author}</h4>
+            <span>&nbsp;have added this card</span>
+          </styles.CommentRowContainer>
+          <div
+            style={{ float: "right" }}
+            onClick={() => deleteThisCard(columnId, cardNum)}
+          >
+            <i className="fas fa-trash-alt" style={{ color: "#d63031" }} />
+            <styles.DeleteButton>Delete this card</styles.DeleteButton>
+          </div>
         </styles.PopUpCard>
       </styles.ShadowCard>
     );

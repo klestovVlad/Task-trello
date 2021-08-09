@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Field } from "react-final-form";
 import { useDispatch } from "react-redux";
 
-import actions from "../../../state/board/actions";
+import { boardAction } from "../../../store/board/index";
 import { Values } from "../card-form";
 import styles from "../styles";
 
@@ -27,6 +27,11 @@ const CardNewCommnetField: FC<Values> = ({
   const focusOnTextarea = (focus: boolean) => {
     setTimeout(() => setTextAreaFocus(focus), 100);
   };
+  const addNewComment = () => {
+    if (newComment.length > 0) {
+      dispatch(boardAction.addNewComment(columnId, cardNum, newComment, author));
+    }
+  };
   return (
     <Field name="newComment">
       {({ input }) => (
@@ -42,9 +47,7 @@ const CardNewCommnetField: FC<Values> = ({
           <styles.SaveCommentButton
             textAreaFocus={textAreaFocus}
             newComment={newComment}
-            onClick={() => {
-              dispatch(actions.addNewComment(columnId, cardNum, newComment, author));
-            }}
+            onClick={addNewComment}
           >
             save
           </styles.SaveCommentButton>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { FC, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { RootState } from "../../state/root-reducer";
+import { RootState } from "../../store/root-reducer";
 import { CardPopup } from "../card-popup/index";
 import { Columns } from "../columns/index";
 import { NewUserPopup } from "../new-user-popup/index";

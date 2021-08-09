@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Field, FieldRenderProps } from "react-final-form";
 import { useDispatch } from "react-redux";
 
-import actions from "../../../state/board/actions";
+import { boardAction } from "../../../store/board/index";
 import styles from "../styles";
 
 type Props = FieldRenderProps<number, HTMLElement>;
@@ -16,7 +16,7 @@ const CardDescriptionField: FC<Props> = ({ columnId, cardNum }) => {
           <styles.CardDescription
             {...input}
             onBlur={() =>
-              dispatch(actions.cardDescriptionChange(input.value, columnId, cardNum))
+              dispatch(boardAction.cardDescriptionChange(input.value, columnId, cardNum))
             }
             placeholder="Type your description..."
           />

@@ -7,7 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import state from "./state/root-reducer";
+import state from "./store/root-reducer";
 
 // const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 ReactDOM.render(

@@ -2,10 +2,10 @@ import { combineReducers } from "redux";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import storage from "redux-persist/lib/storage";
 
-import boardRecuctor from "./board/reducer";
-import userNameReductor from "./user/reducer";
+import boardRecuctor from "./board/index";
+import userNameReductor from "./user/index";
 
 const rootReducer = combineReducers({
   data: boardRecuctor,

@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import actions from "../../../state/board/actions";
-import { RootState } from "../../../state/root-reducer";
+import { boardAction } from "../../../store/board/index";
+import { RootState } from "../../../store/root-reducer";
 import styles from "./styles";
 
 interface ColumnsFooterProps {
@@ -16,7 +16,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const dispatch = useDispatch();
 
   function addNewCard(columnId: number, cardName: string) {
-    dispatch(actions.pushNewCard(columnId, cardName, userName));
+    dispatch(boardAction.pushNewCard(columnId, cardName, userName));
     setCardName("");
   }
 
@@ -24,7 +24,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
     return (
       <styles.AddNewCard
         onClick={() => {
-          dispatch(actions.toggleAddCardField(columnId));
+          dispatch(boardAction.toggleAddCardField(columnId));
         }}
       >
         + Add new card
@@ -50,7 +50,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
       <styles.CancelCardButtn
         className="fas fa-times"
         onClick={() => {
-          dispatch(actions.toggleAddCardField(-1));
+          dispatch(boardAction.toggleAddCardField(-1));
         }}
       />
     </>

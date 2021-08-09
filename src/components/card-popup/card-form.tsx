@@ -18,7 +18,6 @@ export interface Values {
   currentUser: string;
   columnId: number;
   cardNum: number;
-  deleteThisCard(columnId: number, cardNum: number): void;
 }
 
 interface Comment {
@@ -26,15 +25,18 @@ interface Comment {
   author: string;
 }
 
-export const CardForm: FC<Values> = (initValue) => {
-  console.log(initValue);
+interface CardFormProps {
+  initialValues: Values;
+}
+
+export const CardForm: FC<CardFormProps> = ({ initialValues }) => {
   const onSubmit = async (values: Values) => {
     console.log(values);
   };
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={initValue}
+      initialValues={initialValues}
       mutators={{
         ...arrayMutators,
       }}
@@ -69,13 +71,6 @@ export const CardForm: FC<Values> = (initValue) => {
             columnId={values.columnId}
             cardNum={values.cardNum}
           />
-          <div
-            style={{ float: "right" }}
-            onClick={() => values.deleteThisCard(values.columnId, values.cardNum)}
-          >
-            <i className="fas fa-trash-alt" style={{ color: "#d63031" }} />
-            <styles.DeleteButton>Delete this card</styles.DeleteButton>
-          </div>
         </form>
       )}
     />

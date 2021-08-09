@@ -141,6 +141,18 @@ const SaveCommentButton = styled.button<SaveCommentButtonProps>`
     props.newComment == undefined || props.newComment.length > 0 ? "#0079BF" : "#F5F6F8"};
 `;
 
+export const CardCommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+export const Сaption = styled.span`
+  margin: 0;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
 export default {
   ShadowCard,
   PopUpCard,
@@ -153,4 +165,6 @@ export default {
   NewCommentInput,
   DeleteButton,
   SaveCommentButton,
+  CardCommentContainer,
+  Сaption,
 };

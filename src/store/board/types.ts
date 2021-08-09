@@ -1,4 +1,4 @@
-export enum types {
+export enum BoardTypes {
   LOAD_DATA = "BOARD/LOAD_DATA",
   COLUMN_NAME_CHANGE = "BOARD/COLUMN_NAME_CHANGE",
   TOGGLE_ADD_CARD_FIELD = "BOARD/TOGGLE_ADD_CARD_FIELD",
@@ -11,4 +11,4 @@ export enum types {
   DELETE_CARD = "BOARD/DELETE_CARD",
 }
 
-export default types;
+export default BoardTypes;

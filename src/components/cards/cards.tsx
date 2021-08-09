@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Card } from "../../state/board/state";
+import { Card } from "../../store/board/state";
 import styles from "./styles";
 
 interface CardsProps {

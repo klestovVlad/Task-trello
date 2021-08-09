@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 
-import action from "../../state/board/actions";
-import { BoardItem } from "../../state/board/state";
+import { boardAction } from "../../store/board/index";
+import { BoardItem } from "../../store/board/state";
 import { Cards } from "../cards/index";
 import { ColumnsFooter } from "./columns-footer/index";
 import styles from "./styles";
@@ -19,7 +19,7 @@ const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
       <styles.ColumnName
         value={dataColumn.columnName}
         onChange={(event) => {
-          dispatch(action.columnNameChange(event.target.value, dataColumn.id));
+          dispatch(boardAction.columnNameChange(event.target.value, dataColumn.id));
         }}
       />
       {dataColumn.cards.map((item, index) => (

@@ -2,17 +2,19 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Field, Form } from "react-final-form";
 import { useDispatch } from "react-redux";
 
-import action from "../../state/user/actions";
+import { UserAction } from "../../store/user/index";
+import { UserName } from "../../store/user/state";
 import { ButtonApply, Input, Inputwrapper } from "./styles";
 
 interface NewUserFormProps {
+  initialValues: UserName;
   setIsPopupNewUserShow: Dispatch<SetStateAction<boolean>>;
 }
 
-const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow }) => {
+const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow, initialValues }) => {
   const dispatch = useDispatch();
   const onSubmit = async (values: { userName: string }) => {
-    dispatch(action.applyName(values));
+    dispatch(UserAction.applyName(values));
     setIsPopupNewUserShow(false);
   };
   const required = (value: undefined | string) => (value ? undefined : "Required");
@@ -20,7 +22,7 @@ const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow }) => {
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={{ userName: "test" }}
+      initialValues={initialValues}
       render={({ handleSubmit, submitting, values }) => (
         <form onSubmit={handleSubmit}>
           <Field name="userName" validate={required}>
