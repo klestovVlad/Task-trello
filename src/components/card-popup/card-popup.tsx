@@ -1,11 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../state/board/actions";
 import { Card } from "../../state/board/state";
 import { RootState } from "../../state/root-reducer";
 import { CardForm } from "./card-form";
-import { CommentRow } from "./comment-row/index";
 import styles from "./styles";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -54,13 +53,6 @@ const CardPopup: FC<CardPopupProps> = ({
     currentUser: userName,
   };
 
-  const [textAreaFocus, setTextAreaFocus] = useState(-2);
-  const [newComment, setNewComment] = useState<string>("");
-
-  const focusOnTextarea = (num: number) => {
-    setTimeout(() => setTextAreaFocus(num), 100);
-  };
-
   const deleteThisCard = (columnId: number, cardNum: number) => {
     closeCardPopup();
     setTimeout(() => dispatch(actions.deleteCard(columnId, cardNum)), 100);
@@ -71,7 +63,7 @@ const CardPopup: FC<CardPopupProps> = ({
       <styles.ShadowCard>
         <styles.PopUpCard>
           <styles.CloseIcon className="fas fa-times" onClick={closeCardPopup} />
-          <CardForm {...initValue} />
+          <CardForm {...initValue} deleteThisCard={deleteThisCard} />
         </styles.PopUpCard>
       </styles.ShadowCard>
     );

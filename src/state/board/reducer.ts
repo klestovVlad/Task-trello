@@ -91,7 +91,7 @@ const reducer = (state: Board = boardState, action: BoardAction): Board => {
                   comment: [
                     ...card.comment,
                     {
-                      comment: action.payload.newComment,
+                      userText: action.payload.newComment,
                       author: action.payload.userName,
                     },
                   ],

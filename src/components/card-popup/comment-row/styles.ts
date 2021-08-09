@@ -63,7 +63,7 @@ interface SaveCommentButtonProps {
 const SaveCommentButton = styled.button<SaveCommentButtonProps>`
   display: ${(props) => (props.textAreaFocus ? "block" : "none")};
   position: absolute;
-  bottom: 10px;
+  bottom: 35px;
   left: 47px;
   padding: 8px 30px;
   font-family: inherit;

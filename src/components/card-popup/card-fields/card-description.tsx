@@ -1,16 +1,13 @@
 import { FC } from "react";
-import { Field } from "react-final-form";
+import { Field, FieldRenderProps } from "react-final-form";
 import { useDispatch } from "react-redux";
 
 import actions from "../../../state/board/actions";
 import styles from "../styles";
 
-interface CardDescriptionFieldProps {
-  columnId: number;
-  cardNum: number;
-}
+type Props = FieldRenderProps<number, HTMLElement>;
 
-const CardDescriptionField: FC<CardDescriptionFieldProps> = ({ columnId, cardNum }) => {
+const CardDescriptionField: FC<Props> = ({ columnId, cardNum }) => {
   const dispatch = useDispatch();
   return (
     <Field name="description">
