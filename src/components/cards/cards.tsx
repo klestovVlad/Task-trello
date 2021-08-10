@@ -12,14 +12,12 @@ interface CardsProps {
 
 const Cards: FC<CardsProps> = ({ cardNum, columnId, cardsData, showCardPopup }) => {
   const currentCard: Card = cardsData[cardNum];
-  return (
-    <>
-      <styles.Card onClick={() => showCardPopup(columnId, cardNum)}>
-        <p>{currentCard.name}</p>
-        <p className="far fa-comment"> {currentCard.comment.length}</p>
-      </styles.Card>
-    </>
-  );
+  return currentCard !== null ? (
+    <styles.Card onClick={() => showCardPopup(columnId, cardNum)}>
+      <p>{currentCard.name}</p>
+      <p className="far fa-comment"> {currentCard.comment.length}</p>
+    </styles.Card>
+  ) : null;
 };
 
 export default Cards;

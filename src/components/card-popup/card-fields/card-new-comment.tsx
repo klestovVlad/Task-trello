@@ -18,7 +18,7 @@ const CardNewCommnetField: FC<Values> = ({
   const dispatch = useDispatch();
   const [textAreaFocus, setTextAreaFocus] = useState(false);
   const focusOnTextarea = (focus: boolean) => {
-    setTimeout(() => setTextAreaFocus(focus), 100);
+    setTimeout(() => setTextAreaFocus(focus), 200);
   };
   const addNewComment = () => {
     if (newComment.length > 0) {
