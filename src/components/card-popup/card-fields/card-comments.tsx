@@ -4,15 +4,8 @@ import { useDispatch } from "react-redux";
 
 import { boardAction } from "../../../store/board/index";
 import { Comment } from "../../../store/board/state";
+import { returnTwoLetterFromName } from "../functions";
 import styles from "../styles";
-
-function returnTwoLetterFromName(name: string) {
-  return name
-    .split(" ")
-    .map((i) => i[0])
-    .slice(0, 2)
-    .join("");
-}
 
 interface CardCommnetsFieldProps extends FieldRenderProps<Comment[]> {
   columnId: number;

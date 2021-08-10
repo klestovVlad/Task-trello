@@ -6,16 +6,9 @@ import { selectStoreData } from "../../store/board/index";
 import { Card } from "../../store/board/state";
 import { selectUserName } from "../../store/user/index";
 import { CardForm } from "./card-form";
+import { returnTwoLetterFromName } from "./functions";
 import styles from "./styles";
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function returnTwoLetterFromName(name: string) {
-  return name
-    .split(" ")
-    .map((i) => i[0])
-    .slice(0, 2)
-    .join("");
-}
 interface CardPopupProps {
   columnId: number;
   cardNum: number;
@@ -59,32 +52,24 @@ const CardPopup: FC<CardPopupProps> = ({
     setTimeout(() => dispatch(boardAction.deleteCard({ columnId, cardNum })), 100);
   };
 
-  if (isPopupCardShow) {
-    return (
-      <styles.ShadowCard>
-        <styles.PopUpCard>
-          <styles.CloseIcon className="fas fa-times" onClick={closeCardPopup} />
-          <CardForm initialValues={initialValues} />
-          <br />
-          <styles.CommentRowContainer>
-            <styles.AutorLogo>
-              {returnTwoLetterFromName(thisCard.author)}
-            </styles.AutorLogo>
-            <h4>{thisCard.author}</h4>
-            <span>&nbsp;have added this card</span>
-          </styles.CommentRowContainer>
-          <div
-            style={{ float: "right" }}
-            onClick={() => deleteThisCard(columnId, cardNum)}
-          >
-            <i className="fas fa-trash-alt" style={{ color: "#d63031" }} />
-            <styles.DeleteButton>Delete this card</styles.DeleteButton>
-          </div>
-        </styles.PopUpCard>
-      </styles.ShadowCard>
-    );
-  }
-  return <></>;
+  return isPopupCardShow ? (
+    <styles.ShadowCard>
+      <styles.PopUpCard>
+        <styles.CloseIcon className="fas fa-times" onClick={closeCardPopup} />
+        <CardForm initialValues={initialValues} />
+        <br />
+        <styles.CommentRowContainer>
+          <styles.AutorLogo>{returnTwoLetterFromName(thisCard.author)}</styles.AutorLogo>
+          <h4>{thisCard.author}</h4>
+          <span>&nbsp;have added this card</span>
+        </styles.CommentRowContainer>
+        <styles.DeleteButtonRow onClick={() => deleteThisCard(columnId, cardNum)}>
+          <i className="fas fa-trash-alt" />
+          <styles.DeleteButton>Delete this card</styles.DeleteButton>
+        </styles.DeleteButtonRow>
+      </styles.PopUpCard>
+    </styles.ShadowCard>
+  ) : null;
 };
 
 export default CardPopup;

@@ -16,20 +16,17 @@ const NewUserPopup: FC = () => {
     userName: userName,
   };
 
-  if (isPopupNewUserShow) {
-    return (
-      <Shadow>
-        <Popup>
-          <Question>what is your name?</Question>
-          <NewUserForm
-            initialValues={initialValues}
-            setIsPopupNewUserShow={setIsPopupNewUserShow}
-          />
-        </Popup>
-      </Shadow>
-    );
-  }
-  return <></>;
+  return isPopupNewUserShow ? (
+    <Shadow>
+      <Popup>
+        <Question>what is your name?</Question>
+        <NewUserForm
+          initialValues={initialValues}
+          setIsPopupNewUserShow={setIsPopupNewUserShow}
+        />
+      </Popup>
+    </Shadow>
+  ) : null;
 };
 
 export default NewUserPopup;

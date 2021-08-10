@@ -152,6 +152,13 @@ export const Сaption = styled.span`
   cursor: pointer;
 `;
 
+export const DeleteButtonRow = styled.div`
+  float: right;
+  i {
+    color: #d63031;
+  }
+`;
+
 export default {
   ShadowCard,
   PopUpCard,
@@ -166,4 +173,5 @@ export default {
   SaveCommentButton,
   CardCommentContainer,
   Сaption,
+  DeleteButtonRow,
 };

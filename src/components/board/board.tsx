@@ -25,8 +25,7 @@ const Board: FC = () => {
     setIsPopupCardShow(false);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleKeywordKeyPress = (event: any): void => {
+  const handleKeywordKeyPress = (event: KeyboardEvent): void => {
     if (event.key == "Escape") {
       closeCardPopup();
     }

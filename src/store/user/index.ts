@@ -1,6 +1,6 @@
-import reducer from "./reducer";
+import reducer from "./slice";
 
-export { default as UserAction } from "./actions";
+export { UserAction } from "./slice";
 export { default as UserTypes } from "./types";
 export { selectUserName } from "./selectors";
 

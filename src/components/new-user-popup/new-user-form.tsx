@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { UserAction } from "../../store/user/index";
 import { UserName } from "../../store/user/state";
-import { composeValidators } from "../../units/validation";
+import { composeValidators, required } from "../../utils/validation";
 import { ButtonApply, Input, Inputwrapper } from "./styles";
 
 interface NewUserFormProps {
@@ -18,7 +18,6 @@ const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow, initialValue
     dispatch(UserAction.applyName(values));
     setIsPopupNewUserShow(false);
   };
-  const required = (value: undefined | string) => (value ? undefined : "Required");
 
   return (
     <Form
