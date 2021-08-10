@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { boardAction } from "../../../store/board/index";
-import { RootState } from "../../../store/root-reducer";
+import { selectUserName } from "../../../store/user/index";
 import styles from "./styles";
 
 interface ColumnsFooterProps {
@@ -12,11 +12,11 @@ interface ColumnsFooterProps {
 
 const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
   const [cardName, setCardName] = useState("");
-  const userName = useSelector((state: RootState) => state.userName.userName);
+  const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
 
   function addNewCard(columnId: number, cardName: string) {
-    dispatch(boardAction.pushNewCard(columnId, cardName, userName));
+    dispatch(boardAction.pushNewCard({ columnId, cardName, userName }));
     setCardName("");
   }
 
@@ -24,7 +24,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
     return (
       <styles.AddNewCard
         onClick={() => {
-          dispatch(boardAction.toggleAddCardField(columnId));
+          dispatch(boardAction.toggleAddCardField({ id: columnId }));
         }}
       >
         + Add new card
@@ -50,7 +50,7 @@ const ColumnsFooter: FC<ColumnsFooterProps> = ({ columnId, isCardAdding }) => {
       <styles.CancelCardButtn
         className="fas fa-times"
         onClick={() => {
-          dispatch(boardAction.toggleAddCardField(-1));
+          dispatch(boardAction.toggleAddCardField({ id: -1 }));
         }}
       />
     </>

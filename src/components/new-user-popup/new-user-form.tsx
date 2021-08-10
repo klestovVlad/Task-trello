@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { UserAction } from "../../store/user/index";
 import { UserName } from "../../store/user/state";
+import { composeValidators } from "../../units/validation";
 import { ButtonApply, Input, Inputwrapper } from "./styles";
 
 interface NewUserFormProps {
@@ -25,7 +26,7 @@ const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow, initialValue
       initialValues={initialValues}
       render={({ handleSubmit, submitting, values }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="userName" validate={required}>
+          <Field name="userName" validate={composeValidators(required)}>
             {({ input, meta }) => (
               <Inputwrapper>
                 <Input {...input} type="text" placeholder="Type your name..." />

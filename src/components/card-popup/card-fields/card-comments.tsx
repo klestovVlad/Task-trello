@@ -52,7 +52,12 @@ const CardCommnetsField: FC<CardCommnetsFieldProps> = ({ input, columnId, cardNu
               newComment={item.userText}
               onClick={() => {
                 dispatch(
-                  boardAction.commentEditSave(columnId, cardNum, index, item.userText),
+                  boardAction.saveCommentEdit({
+                    columnId,
+                    cardNum,
+                    commentNum: index,
+                    newComment: item.userText,
+                  }),
                 );
               }}
             >
@@ -62,7 +67,9 @@ const CardCommnetsField: FC<CardCommnetsFieldProps> = ({ input, columnId, cardNu
               &nbsp;
               <styles.Сaption
                 onClick={() => {
-                  dispatch(boardAction.commentDelete(columnId, cardNum, index));
+                  dispatch(
+                    boardAction.deleteComment({ columnId, cardNum, commentNum: index }),
+                  );
                 }}
               >
                 Delete

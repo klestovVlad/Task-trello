@@ -16,7 +16,13 @@ const CardDescriptionField: FC<Props> = ({ columnId, cardNum }) => {
           <styles.CardDescription
             {...input}
             onBlur={() =>
-              dispatch(boardAction.cardDescriptionChange(input.value, columnId, cardNum))
+              dispatch(
+                boardAction.changeCardDescription({
+                  text: input.value,
+                  columnId,
+                  cardNum,
+                }),
+              )
             }
             placeholder="Type your description..."
           />

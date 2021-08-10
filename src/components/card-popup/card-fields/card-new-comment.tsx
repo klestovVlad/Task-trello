@@ -29,7 +29,9 @@ const CardNewCommnetField: FC<Values> = ({
   };
   const addNewComment = () => {
     if (newComment.length > 0) {
-      dispatch(boardAction.addNewComment(columnId, cardNum, newComment, author));
+      dispatch(
+        boardAction.addNewComment({ columnId, cardNum, newComment, userName: author }),
+      );
     }
   };
   return (

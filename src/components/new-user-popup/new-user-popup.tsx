@@ -1,12 +1,12 @@
 import { FC, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { RootState } from "../../store/root-reducer";
+import { selectUserName } from "../../store/user/index";
 import NewUserForm from "./new-user-form";
 import { Popup, Question, Shadow } from "./styles";
 
 const NewUserPopup: FC = () => {
-  const userName = useSelector((state: RootState) => state.userName.userName);
+  const userName = useSelector(selectUserName);
 
   const [isPopupNewUserShow, setIsPopupNewUserShow] = useState(
     userName === undefined || userName === "",

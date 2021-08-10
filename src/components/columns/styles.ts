@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Column = styled.div`
   width: 300px;
-  margin: 0 5px;
+  margin: 0 5px 5px 5px;
   height: 100%;
   box-sizing: border-box;
   display: inline-block;
@@ -12,6 +12,9 @@ const Column = styled.div`
   border-radius: 3px;
   padding: 10px;
   color: #172b4d;
+  @media (max-width: 630px) {
+    flex-grow: 1;
+  }
 `;
 
 const ColumnName = styled.input`

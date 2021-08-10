@@ -1,4 +1,3 @@
-import arrayMutators from "final-form-arrays";
 import { FC } from "react";
 import { Field, Form } from "react-final-form";
 
@@ -37,9 +36,6 @@ export const CardForm: FC<CardFormProps> = ({ initialValues }) => {
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}
-      mutators={{
-        ...arrayMutators,
-      }}
       render={({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit}>
           <Field

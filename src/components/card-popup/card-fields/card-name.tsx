@@ -18,7 +18,9 @@ const CardNameField: FC<Props> = ({ columnId, cardNum }) => {
           <styles.CardHeader
             {...input}
             onBlur={() =>
-              dispatch(boardAction.cardNameChange(input.value, columnId, cardNum))
+              dispatch(
+                boardAction.changeCardName({ text: input.value, columnId, cardNum }),
+              )
             }
             type="text"
             placeholder="card name"

@@ -1,6 +1,7 @@
-import reducer from "./reducer";
+import reducer from "./slice";
 
-export { default as boardAction } from "./actions";
+export { boardAction } from "./slice";
 export { default as boardTypes } from "./types";
+export { selectStoreData } from "./selectors";
 
 export default reducer;

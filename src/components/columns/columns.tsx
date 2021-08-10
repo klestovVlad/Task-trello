@@ -19,7 +19,9 @@ const Columns: FC<ColumnProps> = ({ dataColumn, showCardPopup }) => {
       <styles.ColumnName
         value={dataColumn.columnName}
         onChange={(event) => {
-          dispatch(boardAction.columnNameChange(event.target.value, dataColumn.id));
+          dispatch(
+            boardAction.changeColumnName({ text: event.target.value, id: dataColumn.id }),
+          );
         }}
       />
       {dataColumn.cards.map((item, index) => (

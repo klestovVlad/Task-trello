@@ -7,6 +7,9 @@ const CardBoard = styled.div`
   display: flex;
   flex-direction: row;
   color: white;
+  @media (max-width: 629px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export default CardBoard;

@@ -2,8 +2,9 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { boardAction } from "../../store/board/index";
+import { selectStoreData } from "../../store/board/index";
 import { Card } from "../../store/board/state";
-import { RootState } from "../../store/root-reducer";
+import { selectUserName } from "../../store/user/index";
 import { CardForm } from "./card-form";
 import styles from "./styles";
 
@@ -29,8 +30,8 @@ const CardPopup: FC<CardPopupProps> = ({
   closeCardPopup,
 }) => {
   let thisCard: Card;
-  const data = useSelector((state: RootState) => state.data);
-  const userName = useSelector((state: RootState) => state.userName.userName);
+  const data = useSelector(selectStoreData);
+  const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
 
   if (data[columnId].cards.length > 0) {
@@ -55,7 +56,7 @@ const CardPopup: FC<CardPopupProps> = ({
 
   const deleteThisCard = (columnId: number, cardNum: number) => {
     closeCardPopup();
-    setTimeout(() => dispatch(boardAction.deleteCard(columnId, cardNum)), 100);
+    setTimeout(() => dispatch(boardAction.deleteCard({ columnId, cardNum })), 100);
   };
 
   if (isPopupCardShow) {

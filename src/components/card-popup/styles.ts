@@ -15,15 +15,14 @@ const ShadowCard = styled.div`
 const PopUpCard = styled.div`
   position: absolute;
   padding: 25px 40px;
-  background-color: #F4F5F7;
+  background-color: #f4f5f7;
   border-radius: 10px;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: #172b4d;
-  width:700px;
-  max-width: 100%
-  height: 800px;
+  width: 700px;
+  max-width: 100%;
   max-height: 100%;
   overflow-x: auto;
 `;
