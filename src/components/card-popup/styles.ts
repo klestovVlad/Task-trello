@@ -140,6 +140,10 @@ const SaveCommentButton = styled.button<SaveCommentButtonProps>`
     props.newComment == undefined || props.newComment.length > 0 ? "#0079BF" : "#F5F6F8"};
 `;
 
+const SaveCommentEditButton = styled(SaveCommentButton)`
+  bottom: 35px;
+`;
+
 export const CardCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -174,4 +178,5 @@ export default {
   CardCommentContainer,
   Сaption,
   DeleteButtonRow,
+  SaveCommentEditButton,
 };

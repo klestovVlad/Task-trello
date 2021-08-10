@@ -39,8 +39,7 @@ const CardCommnetsField: FC<CardCommnetsFieldProps> = ({ input, columnId, cardNu
                 )
               }
             ></styles.NewCommentInput>
-            <styles.SaveCommentButton
-              style={{ bottom: "35px" }}
+            <styles.SaveCommentEditButton
               textAreaFocus={textAreaFocus === index}
               newComment={item.userText}
               onClick={() => {
@@ -55,7 +54,7 @@ const CardCommnetsField: FC<CardCommnetsFieldProps> = ({ input, columnId, cardNu
               }}
             >
               save
-            </styles.SaveCommentButton>
+            </styles.SaveCommentEditButton>
             <p>
               &nbsp;
               <styles.Сaption
