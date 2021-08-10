@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ApplyName } from "./actions-types";
+import { SaveName } from "./actions-types";
 import { userName } from "./state";
 
 const userSlice = createSlice({
   name: "userSlice",
   initialState: userName,
   reducers: {
-    applyName(state, action: PayloadAction<ApplyName>) {
-      action.payload;
+    saveName(state, action: PayloadAction<SaveName>) {
+      state.userName = action.payload.userName;
     },
   },
 });

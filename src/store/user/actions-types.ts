@@ -1,3 +1,3 @@
-export interface ApplyName {
+export interface SaveName {
   userName: string;
 }

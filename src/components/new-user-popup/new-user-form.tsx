@@ -15,7 +15,7 @@ interface NewUserFormProps {
 const NewUserForm: FC<NewUserFormProps> = ({ setIsPopupNewUserShow, initialValues }) => {
   const dispatch = useDispatch();
   const onSubmit = async (values: { userName: string }) => {
-    dispatch(UserAction.applyName(values));
+    dispatch(UserAction.saveName(values));
     setIsPopupNewUserShow(false);
   };
 
